@@ -1,0 +1,314 @@
+'use client'
+
+type Props = {
+    children?: ReactNode
+}
+
+import {
+  IconButton,
+  Button,
+  Avatar,
+  Box,
+  CloseButton,
+  Flex,
+  HStack,
+  VStack,
+  Icon,
+  useColorModeValue,
+  Text,
+  Drawer,
+  DrawerContent,
+  useDisclosure,
+  BoxProps,
+  FlexProps,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  useBreakpointValue,
+} from '@chakra-ui/react'
+
+import { NavLink as RouterLink} from 'react-router-dom'
+
+import {
+  FiSettings,
+  FiChevronDown,
+} from 'react-icons/fi'
+
+import { BsSafe2 } from "react-icons/bs";
+import { MdPassword } from "react-icons/md";
+import { FaFileAlt } from "react-icons/fa";
+import { FaCreditCard } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa";
+
+import { IconType } from 'react-icons'
+import { ReactNode, useEffect } from 'react'
+
+import { useAuthStore } from '../../states/AuthStore'
+import useTablesStore from '../../states/TablesStore'
+import useFoldersStore from '../../states/FoldersStore'
+
+import SessionForm from './SessionForm'
+import FolderForm from './FolderForm'
+import NoteForm from './NoteForm'
+
+import FolderSelect from './FolderSelect'
+import Kerberos from '../../icons/Kerberos'
+
+interface LinkItemProps {
+  name: string
+  icon: IconType
+}
+
+interface NavItemProps extends FlexProps {
+  icon: IconType
+  children: React.ReactNode
+}
+
+interface MobileProps extends FlexProps {
+  onOpen: () => void
+}
+
+interface SidebarProps extends BoxProps {
+  onClose: () => void
+  isDrawer?: boolean
+}
+
+const SidebarContent = ({ onClose, isDrawer, ...rest }: SidebarProps) => {
+  const {setShowPasswords, setShowNotes, setShowCards, showAll, activeTab, setActiveTab} = useTablesStore()
+
+  const LinkItems: Array<LinkItemProps & {onClick: () => void}> = [
+    { name: 'Todos', icon: BsSafe2, onClick: () => {showAll(); setActiveTab("Todos"); onClose();}},
+    { name: 'Sesiones', icon: MdPassword, onClick: () => {setShowPasswords(); setActiveTab("Sesiones"); onClose();}},
+    { name: 'Notas', icon: FaFileAlt, onClick: () => {setShowNotes(); setActiveTab("Notas"); onClose();}},
+    { name: 'Tarjetas', icon: FaCreditCard, onClick: () => {setShowCards(); setActiveTab("Tarjetas"); onClose();}},
+    { name: 'Configuración', icon: FiSettings, onClick: () => {console.log("Settings"), setActiveTab("Configuración"); onClose();}},
+  ]
+
+  return (
+      <Box
+        transition="0.3s ease"
+        color="white"
+        bg="purple.700"
+        borderRight="1px"
+        borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+        w={isDrawer ? '100%' : { base: 0, md: 60 }}
+        pos={isDrawer ? 'relative' : 'fixed'}
+        h="full"
+        {...rest}
+      >
+      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+        <RouterLink to={"/dashboard"}>
+          <HStack align="center" spacing={4}>
+            <Text fontSize="3xl" fontWeight="bold">
+              Kerberos
+            </Text>
+            
+            <Box boxSize="60px" mr={2}>
+              <Kerberos width="100%" height="100%"/>
+            </Box>
+          </HStack>
+        </RouterLink>
+        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+      </Flex>
+      {LinkItems.map((button) => (
+        <NavItem 
+          key={button.name}
+          icon={button.icon}
+          onClick={button.onClick}
+          bg={button.name === activeTab ? "teal.500" : "purple.700"}
+          _hover={button.name === activeTab ? {bg: "teal.500"} : {bg: "purple.600"}}
+        >
+          {button.name}
+        </NavItem>
+      ))}
+    </Box>
+  )
+}
+
+const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+  return (
+    <Box
+      as="a"
+      href="#"
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
+    >
+      <Flex
+        align="center"
+        p="4"
+        mx="4"
+        borderRadius="lg"
+        role="group"
+        cursor="pointer"
+        _active={{
+          bg: 'teal.500'
+        }}
+        {...rest}
+      >
+        {icon && (
+          <Icon
+            mr="4"
+            fontSize="16"
+            _groupHover={{
+              color: 'white',
+            }}
+            as={icon}
+          />
+        )}
+        {children}
+      </Flex>
+    </Box>
+  )
+}
+
+const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const newButtonLabel = useBreakpointValue({ base: <FaPlus/>, md: "+ Nuevo" });
+  const { folders, refreshFolders } = useFoldersStore();
+
+  useEffect(() => {
+    refreshFolders();
+  }, []);
+
+  const {logout} = useAuthStore()
+  const SessionModal = useDisclosure();
+  const FolderModal = useDisclosure();
+  const CardModal = useDisclosure();
+  const NoteModal = useDisclosure();
+
+  return (
+    <Flex
+      pos="sticky"
+      top="0"
+      zIndex="1000"
+      ml={{ base: 0, md: 60 }}
+      px={{ base: 4, md: 4 }}
+      height="20"
+      alignItems="center"
+      color="gray.900"
+      bg="gray.50"
+      borderBottomWidth="1px"
+      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+      justifyContent={{ base: 'space-between', md: 'flex-end' }}
+      {...rest}
+    >
+      <SessionForm isOpen={SessionModal.isOpen} onClose={SessionModal.onClose}/>
+      <FolderForm isOpen={FolderModal.isOpen} onClose={FolderModal.onClose}/>
+      <NoteForm isOpen={NoteModal.isOpen} onClose={NoteModal.onClose}/>
+
+      <IconButton
+        display={{ base: 'flex', md: 'none' }}
+        color="purple.700"
+        onClick={onOpen}
+        variant="outline"
+        aria-label="open menu"
+        icon={<Kerberos width="90%" height="90%"/>}
+        size="lg"
+        m={2}
+      />
+
+      <FolderSelect options={folders}/>
+
+      <HStack spacing={{ base: '0', md: '6' }}>
+
+        <Menu>
+          <MenuButton
+            as={Button}
+            size={{ base: "md", md: "lg" }}
+            m={5}
+            _hover={{ bg: "purple.600" }}
+            _active={{ bg: "purple.700" }}
+          >
+            {newButtonLabel}
+          </MenuButton>
+
+          <MenuList
+              bg={useColorModeValue('white', 'gray.900')}
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
+          >
+            <MenuItem onClick={SessionModal.onOpen}>Sesión</MenuItem>
+            <MenuItem>Tarjeta</MenuItem>
+            <MenuItem onClick={NoteModal.onOpen}>Nota</MenuItem>
+            <MenuDivider/>
+            <MenuItem onClick={FolderModal.onOpen}>Carpeta</MenuItem>
+          </MenuList>
+        </Menu>
+        <Flex alignItems={'center'}>
+          <Menu>
+            <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
+              <HStack>
+                <Avatar
+                  size={'md'}
+                  mr={2}
+                  src={
+                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                  }
+                />
+                <VStack
+                  display={{ base: 'none', md: 'flex' }}
+                  alignItems="flex-start"
+                  spacing="1px"
+                  ml="2">
+                  <Text fontSize="lg">Mi perfil</Text>
+                </VStack>
+                <Box display={{ base: 'none', md: 'flex' }}>
+                  <FiChevronDown />
+                </Box>
+              </HStack>
+            </MenuButton>
+            <MenuList
+              bg={useColorModeValue('white', 'gray.900')}
+              borderColor={useColorModeValue('gray.200', 'gray.700')}>
+              <MenuItem>Perfil</MenuItem>
+              <MenuItem>Configuración</MenuItem>
+              <MenuDivider />
+              <MenuItem onClick={() => logout()}>Cerrar Sesión</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      </HStack>
+    </Flex>
+  )
+}
+
+const SideBar = ({children}: Props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const showSidebarStatic = useBreakpointValue({ base: false, md: true });
+
+  return (
+    <Box 
+      minH="100vh"
+      color = "gray.900"
+      bg="gray50"
+    >
+
+      {showSidebarStatic ? (
+        // Mostrar sidebar fijo en pantallas md+
+        <SidebarContent onClose={onClose} />
+      ) : (
+        // Mostrar drawer en pantallas pequeñas
+        <Drawer
+          isOpen={isOpen}
+          placement="left"
+          onClose={onClose}
+          returnFocusOnClose={false}
+          onOverlayClick={onClose}
+          size="xs"
+        >
+          <DrawerContent>
+            <SidebarContent onClose={onClose} isDrawer/>
+          </DrawerContent>
+        </Drawer>
+      )}
+
+      {/* mobilenav */}
+      <MobileNav onOpen={onOpen}/>
+      <Box ml={{ base: 0, md: 60 }} p="4">
+        {children}
+      </Box>
+    </Box>
+  )
+}
+
+export default SideBar
