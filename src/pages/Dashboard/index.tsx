@@ -1,6 +1,6 @@
 import PasswordsTable from "./Passwords/PasswordsTable";
 import NotesTable from "./Notes/NotesTable";
-import CardsTable from "./CardsTable";
+import CardsTable from "./Cards/CardsTable";
 import Feature from "../componets/Feature";
 
 import useFoldersStore from "../../states/FoldersStore";
@@ -12,6 +12,8 @@ import { Text } from "@chakra-ui/react";
 
 import { useEffect } from "react";
 
+import { CardItem } from "../../types";
+
 type Props = {}
 
 function Dashboard({}: Props) {
@@ -19,6 +21,8 @@ function Dashboard({}: Props) {
   const {notes, refreshNotes} = useNotesStore()
   const {currentFolder ,refreshFolders} = useFoldersStore()
   const {showPasswords, showNotes, showCards} = useTablesStore()
+
+  const cards: CardItem[] = [{alias:"prueba", ask_password:true, brand:"MasterCard", folder:{id:1, name:"Personal"}, id:1, last4:"1234", type:"Credito"}]
   
   // Llamar cuando currentFolder esté definido
   useEffect(() => {
@@ -46,19 +50,20 @@ function Dashboard({}: Props) {
         </>
       }
       
+      {showCards &&
+        <>
+          <Feature title="Tarjetas">
+            <CardsTable UserCards={cards}/>
+          </Feature>      
+          <br />
+        </>
+      }
+
       {showNotes &&
         <>
           <Feature title="Notas">
             <NotesTable UserNotes={notes}/>
           </Feature>
-          <br />
-        </>
-      }
-      {showCards &&
-        <>
-          <Feature title="Tarjetas">
-            <CardsTable UserCards={passwords}/>
-          </Feature>      
           <br />
         </>
       }

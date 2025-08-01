@@ -5,7 +5,7 @@ import useFoldersStore from './FoldersStore';
 import useTablesStore from './TablesStore';
 import usePasswordsStore from './PasswordsStore';
 import useNotesStore from './NotesStore';
-import useCurrentPswDetail from './CurrentPswDetail';
+import useCardStore from './CardsStore';
 
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       useTablesStore.getState().reset?.();
       usePasswordsStore.getState().reset?.();
       useNotesStore.getState().reset?.();
-      useCurrentPswDetail.getState().reset?.()
+      useCardStore.getState().reset?.();
     }
   },
 

@@ -2,7 +2,6 @@ import {createBrowserRouter} from "react-router-dom"
 import Layout from "./Layout"
 import ErrorDetail from "./ErrorDetail"
 import HomePage from "./HomePage"
-import Games from "./Games"
 import SignUp from "./SingUp"
 import LogIn from "./LogIn"
 import Dashboard from "./Dashboard"
@@ -35,10 +34,6 @@ const router = createBrowserRouter([
       {
         element: <PrivateRoutes />,
         children: [
-          {
-            path: "games",
-            element: <Games />,
-          },
           {
             path: "dashboard",
             element: <Dashboard />,
