@@ -59,6 +59,7 @@ function CardForm({isOpen, onClose}: Props) {
     useEffect(() => {
       if (!isOpen) {
         reset(); // Limpiar los campos del formulario
+        setDisplayValue("")
       }
     }, [isOpen]);
 
@@ -68,7 +69,7 @@ function CardForm({isOpen, onClose}: Props) {
         const digitsOnly = raw.replace(/\D/g, "").slice(0, 16);
         const formatted = digitsOnly.replace(/(.{4})/g, "$1 ").trim();
         setDisplayValue(formatted);
-        setValue("number", digitsOnly); // este es el campo registrado en useForm
+        setValue("number", digitsOnly);
     };
 
     const onSubmit = (data: cardForm) => {
@@ -140,6 +141,9 @@ function CardForm({isOpen, onClose}: Props) {
                         <FormLabel>Número</FormLabel>
                           <Input
                             //{...register("number")}
+                            {...register("number", {
+                                required: false,
+                            })}
                             name="number"
                             variant="flushed"
                             color="white"
