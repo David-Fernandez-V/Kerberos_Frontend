@@ -137,21 +137,23 @@ function PasswordDetail({isOpen, onClose, password, passwordDetail}: Props) {
                 </InputGroup>
               </FormControl>
             </Feature><br />
-            <Feature title='Autocompletar'>
+
+            <Feature title='Opciones extras'>
               <FormControl id="webpage">
                 <FormLabel>Página web (URL)</FormLabel>
                 <Input type="text" value={password?.web_page ? password.web_page : ""} isReadOnly/>
               </FormControl>
-            </Feature><br />
-            <Feature title='Opciones extras'>
-              <FormControl id="folder">
+
+              <FormControl id="folder" mt={6}>
                 <FormLabel>Carpeta</FormLabel>
                 <Input type="text" value={password?.folder ? password.folder.name : "Sin carpeta"} isReadOnly/>
               </FormControl>
+
               <FormControl id="notes" mt={6}>
                 <FormLabel>Notas</FormLabel>
                 <Textarea value={passwordDetail?.notes ? passwordDetail.notes : ""} isReadOnly/>
               </FormControl>
+
               <FormControl id="masterPassword">
                 <Checkbox mt={6} isChecked={password?.ask_password || false} isReadOnly>
                   <Text as="b">Pedir contraseña maestra</Text>

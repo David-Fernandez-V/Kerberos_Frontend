@@ -224,7 +224,7 @@ function CardForm({isOpen, onClose}: Props) {
                         <HStack>
                         <FormControl id="type">
                           <FormLabel>Tipo de tarjeta</FormLabel>
-                          <Select {...register("type")} placeholder="--Opciones--">
+                          <Select {...register("type")} placeholder="Opciones">
                             <option value="Credito">Credito</option>
                             <option value="Débito">Débito</option>
                           </Select>
@@ -233,10 +233,15 @@ function CardForm({isOpen, onClose}: Props) {
 
                         <FormControl id="brand">
                           <FormLabel>Tipo de tarjeta</FormLabel>
-                          <Select {...register("brand")} placeholder="--Opciones--">
+                          <Select {...register("brand")} placeholder="Opciones">
                             <option value="Visa">Visa</option>
                             <option value="Mastercard">Mastercard</option>
-                            <option value="American Express"></option>
+                            <option value="American Express">American Express</option>
+                            <option value="Discover">Discover</option>
+                            <option value="Diners Club">Diners Club</option>
+                            <option value="JCB">JCB</option>
+                            <option value="Union Pay">Union Pay</option>
+                            <option value="Mir">Mir</option>
                             <option value="">Otra</option>
                           </Select>
                           {errors?.brand?.message && (<Text color={"red.600"}>{errors?.brand?.message}</Text>)}
