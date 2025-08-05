@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import useCurrentCardDetail from "../../../states/CurrentCardDetail";
 import useCardDetail from "./useCardDetail";
+import CardDetailSecurity from "./CardDetailSecurity";
 
 type Props = {
   UserCards: CardItem[];
@@ -36,6 +37,7 @@ const CardsTable = ({ UserCards }: Props) => {
         {
           onSuccess: (data) => {
             setCurrentDetail(data)
+            console.log(data)
           },
           onError: (error) => {
             console.error("Error al obtener tarjeta:", error);
@@ -49,8 +51,9 @@ const CardsTable = ({ UserCards }: Props) => {
   
   return (
     <Box>
-      {/* 
+       
       <CardDetailSecurity isOpen={MPwdModal.isOpen} onClose={MPwdModal.onClose} cardId={selectedCard?.id}/>
+      {/*
       <CardDetail card={selectedCard} cardDetail={currentDetail} isOpen={CardModal.isOpen} onClose={CardModal.onClose}/>
       */}
       <TableContainer>

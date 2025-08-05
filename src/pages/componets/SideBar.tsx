@@ -52,6 +52,7 @@ import useFoldersStore from '../../states/FoldersStore'
 import SessionForm from './SessionForm'
 import FolderForm from './FolderForm'
 import NoteForm from './NoteForm'
+import CardForm from './CardForm'
 
 import FolderSelect from './FolderSelect'
 import Kerberos from '../../icons/Kerberos'
@@ -81,8 +82,8 @@ const SidebarContent = ({ onClose, isDrawer, ...rest }: SidebarProps) => {
   const LinkItems: Array<LinkItemProps & {onClick: () => void}> = [
     { name: 'Todos', icon: BsSafe2, onClick: () => {showAll(); setActiveTab("Todos"); onClose();}},
     { name: 'Sesiones', icon: MdPassword, onClick: () => {setShowPasswords(); setActiveTab("Sesiones"); onClose();}},
-    { name: 'Notas', icon: FaFileAlt, onClick: () => {setShowNotes(); setActiveTab("Notas"); onClose();}},
     { name: 'Tarjetas', icon: FaCreditCard, onClick: () => {setShowCards(); setActiveTab("Tarjetas"); onClose();}},
+    { name: 'Notas', icon: FaFileAlt, onClick: () => {setShowNotes(); setActiveTab("Notas"); onClose();}},    
     { name: 'Configuración', icon: FiSettings, onClick: () => {console.log("Settings"), setActiveTab("Configuración"); onClose();}},
   ]
 
@@ -196,6 +197,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       <SessionForm isOpen={SessionModal.isOpen} onClose={SessionModal.onClose}/>
       <FolderForm isOpen={FolderModal.isOpen} onClose={FolderModal.onClose}/>
       <NoteForm isOpen={NoteModal.isOpen} onClose={NoteModal.onClose}/>
+      <CardForm isOpen={CardModal.isOpen} onClose={CardModal.onClose}/>
 
       <IconButton
         display={{ base: 'flex', md: 'none' }}
@@ -228,7 +230,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               borderColor={useColorModeValue('gray.200', 'gray.700')}
           >
             <MenuItem onClick={SessionModal.onOpen}>Sesión</MenuItem>
-            <MenuItem>Tarjeta</MenuItem>
+            <MenuItem onClick={CardModal.onOpen}>Tarjeta</MenuItem>
             <MenuItem onClick={NoteModal.onOpen}>Nota</MenuItem>
             <MenuDivider/>
             <MenuItem onClick={FolderModal.onOpen}>Carpeta</MenuItem>
