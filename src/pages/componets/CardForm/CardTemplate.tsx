@@ -11,7 +11,7 @@ function CardTemplate({children}: Props) {
   return (
     <Box
       //bgGradient="linear(to-r, purple.500, blue.600)"
-      bgGradient="linear(to-r, gray.800, gray.500)"
+      bgGradient="linear(to-r, gray.900, gray.700)"
       color="white"
       p={6}
       rounded="2xl"
@@ -21,6 +21,7 @@ function CardTemplate({children}: Props) {
       mt={8}
       position="relative"
       fontFamily="monospace"
+      
     >
       <Icon
         as={FaCreditCard}

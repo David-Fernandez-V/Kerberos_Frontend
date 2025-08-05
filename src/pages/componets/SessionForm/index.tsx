@@ -133,9 +133,8 @@ function SessionForm({isOpen, onClose}: Props) {
         <Divider />
         <ModalBody>
           <form id="passwordForm" onSubmit={handleSubmit(onSubmit)}>
-            <Feature title='Detalles'>
+            <Feature title='Nombre del elemento'>
               <FormControl id="name">
-                <FormLabel>Nombre del elemento</FormLabel>
                 <Input type="text" {...register("service_name")}/>
                 {errors?.service_name?.message && (<Text color={"red.600"}>{errors?.service_name?.message}</Text>)}
               </FormControl>
@@ -213,15 +212,13 @@ function SessionForm({isOpen, onClose}: Props) {
                 </Box>
               </FormControl>
             </Feature><br />
-            <Feature title='Autocompletar'>
+            <Feature title='Opciones extras'>
               <FormControl id="webpage">
                 <FormLabel>Página web (URL)</FormLabel>
-                <Input type="text" {...register("web_page")}/>
+                <Input type="text" {...register("web_page")} placeholder='https://sitio-web.com'/>
                 {errors?.web_page?.message && (<Text color={"red.600"}>{errors?.web_page?.message}</Text>)}
               </FormControl>
-            </Feature><br />
-            <Feature title='Opciones extras'>
-              <FormControl id="folder">
+              <FormControl id="folder" mt={6}>
                 <FormLabel>Carpeta</FormLabel>
                 <Select {...register("folder_id")}>
                   <option value="null">Sin carpeta</option>

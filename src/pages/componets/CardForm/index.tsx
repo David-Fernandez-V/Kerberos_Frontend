@@ -42,7 +42,7 @@ type Props = {
 }
 
 function CardForm({isOpen, onClose}: Props) {
-    const color = useColorModeValue("black", "white");
+    const color = useColorModeValue("black", "gray");
 
     const [displayValue, setDisplayValue] = useState("");
 
@@ -110,9 +110,8 @@ function CardForm({isOpen, onClose}: Props) {
                 <Divider/>
                 <ModalBody>
                   <form id="cardForm" onSubmit={handleSubmit(onSubmit)}>
-                      <Feature title="Detalles">
+                      <Feature title="Alias">
                         <FormControl id="alias">
-                          <FormLabel>Alias</FormLabel>
                           <Input type="text" {...register("alias")}/>
                           {errors?.alias?.message && (<Text color={"red.600"}>{errors?.alias?.message}</Text>)}
                         </FormControl>
@@ -124,31 +123,26 @@ function CardForm({isOpen, onClose}: Props) {
                         <CardTemplate>
                             
                         
-                        <FormControl id="cardgolder_name">
+                        <FormControl mb={3} id="cardgolder_name">
                           <FormLabel>Nombre del titular</FormLabel>
                           <Input 
                             {...register("cardholder_name")}
-                            //placeholder="Nombre"
+                            placeholder="Tu nombre"
                             variant="flushed"
-                            color="white"
                             borderBottomColor="whiteAlpha.600"
-                            _placeholder={{ color: "whiteAlpha.600" }}
                           />
                           {errors?.cardholder_name?.message && (<Text color={"red.600"}>{errors?.cardholder_name?.message}</Text>)}
                         </FormControl>
 
-                        <FormControl id="number">
+                        <FormControl mb={3} id="number">
                         <FormLabel>Número</FormLabel>
                           <Input
-                            //{...register("number")}
                             {...register("number", {
                                 required: false,
                             })}
                             name="number"
                             variant="flushed"
-                            color="white"
                             borderBottomColor="whiteAlpha.600"
-                            _placeholder={{ color: "whiteAlpha.600" }}
                             value={displayValue}
                             onChange={handleChange}
                             placeholder="1234 5678 9012 3456"
@@ -165,11 +159,10 @@ function CardForm({isOpen, onClose}: Props) {
                             <Select
                                 {...register("expiration_month")}
                                 variant="flushed"
-                                color="white"
                                 borderBottomColor="whiteAlpha.600"
                             >
                                 <option value="" style={{color}}>
-                                    Selecciona mes
+                                    MM
                                 </option>
                                 {months.map((month) => (
                                     <option key={month.value} value={month.value} style={{ color }}>
@@ -186,16 +179,39 @@ function CardForm({isOpen, onClose}: Props) {
                                 min={1900}
                                 max={2099}
                                 variant="flushed"
+                                onInput={(e) => {
+                                  const input = e.target as HTMLInputElement;
+                                  input.value = input.value.replace(/\D/g, "").slice(0, 4);
+                                }}
                             >
                                 <NumberInputField
                                     {...register("expiration_year")}
-                                    color="white"
                                     borderBottomColor="whiteAlpha.600"
                                     placeholder="YYYY"
                                     inputMode="numeric"
                                 />
                             </NumberInput>
                             {errors?.expiration_year?.message && (<Text color={"red.600"}>{errors?.expiration_year?.message}</Text>)}
+                          </FormControl>
+
+                          <FormControl id="csv">
+                            <FormLabel>CSV (Opcional)</FormLabel>
+                            <Input 
+                              {...register("csv")}
+                              type="number"
+                              minLength={3}
+                              maxLength={3}
+                              placeholder="123(4)"
+                              variant="flushed"
+                              borderBottomColor="whiteAlpha.600"
+                              inputMode="numeric"
+                              pattern="[0-9]*"
+                              onInput={(e) => {
+                                const input = e.target as HTMLInputElement;
+                                input.value = input.value.replace(/\D/g, "").slice(0, 4);
+                              }}
+                            />
+                            {errors?.csv?.message && (<Text color={"red.600"}>{errors?.csv?.message}</Text>)}
                           </FormControl>
                         </HStack>
 
@@ -205,7 +221,29 @@ function CardForm({isOpen, onClose}: Props) {
                       {/*Opciones extra */}
 
                       <Feature title='Opciones extras'>
-                        <FormControl id="folder">
+                        <HStack>
+                        <FormControl id="type">
+                          <FormLabel>Tipo de tarjeta</FormLabel>
+                          <Select {...register("type")} placeholder="--Opciones--">
+                            <option value="Credito">Credito</option>
+                            <option value="Débito">Débito</option>
+                          </Select>
+                          {errors?.type?.message && (<Text color={"red.600"}>{errors?.type?.message}</Text>)}
+                        </FormControl>
+
+                        <FormControl id="brand">
+                          <FormLabel>Tipo de tarjeta</FormLabel>
+                          <Select {...register("brand")} placeholder="--Opciones--">
+                            <option value="Visa">Visa</option>
+                            <option value="Mastercard">Mastercard</option>
+                            <option value="American Express"></option>
+                            <option value="">Otra</option>
+                          </Select>
+                          {errors?.brand?.message && (<Text color={"red.600"}>{errors?.brand?.message}</Text>)}
+                        </FormControl>
+                        </HStack>
+
+                        <FormControl id="folder" mt={6}>
                           <FormLabel>Carpeta</FormLabel>
                           <Select {...register("folder_id")}>
                             <option value="null">Sin carpeta</option>
@@ -214,6 +252,7 @@ function CardForm({isOpen, onClose}: Props) {
                             )}
                           </Select>
                         </FormControl>
+
                         <FormControl id="notes" mt={6}>
                             <FormLabel>Notas</FormLabel>
                           <Textarea 
@@ -222,11 +261,13 @@ function CardForm({isOpen, onClose}: Props) {
                           />
                           {errors?.notes?.message && (<Text color={"red.600"}>{errors?.notes?.message}</Text>)}
                         </FormControl>
+
                         <FormControl id="masterPassword">
                           <Checkbox mt={6} {...register("ask_master_password")}>
                             <Text as="b">Pedir contraseña maestra</Text>
                           </Checkbox>
                         </FormControl>
+
                       </Feature>
                   </form>
                 </ModalBody>
