@@ -23,10 +23,8 @@ import { mpwdSchema, mpwdForm } from "../../../schemas/mpwdSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 
-//import usePasswordDetail from "./usePasswordDetail";
 import useNoteDetail from "./useNoteDetail";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-//import useCurrentPswDetail from "../../../states/CurrentPswDetail";
 import useCurrentNoteDetail from "../../../states/CurrentNoteDetail";
 
 type Props = {

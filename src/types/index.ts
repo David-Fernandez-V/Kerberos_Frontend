@@ -1,6 +1,21 @@
 export const strengthLabels: string[] = ["Muy Debil", "Debil", "Estandar", "Fuerte", "Muy Fuerte"]
 export const strengthColors = ["red.700", "orange.600", "yellow.500", "green.500", "teal.700"];
 
+export const months = [
+    { value: "01", label: "Enero" },
+    { value: "02", label: "Febrero" },
+    { value: "03", label: "Marzo" },
+    { value: "04", label: "Abril" },
+    { value: "05", label: "Mayo" },
+    { value: "06", label: "Junio" },
+    { value: "07", label: "Julio" },
+    { value: "08", label: "Agosto" },
+    { value: "09", label: "Septiembre" },
+    { value: "10", label: "Octubre" },
+    { value: "11", label: "Noviembre" },
+    { value: "12", label: "Diciembre" },
+];
+
 export type FolderItem = {
   id: number
   name: string

@@ -99,6 +99,24 @@ const theme = extendTheme({
             },
           },
         },
+        flushed: {
+          field: {
+            borderColor: "purple.700",
+            borderBottomWidth: "2px",
+            borderRadius: 0,
+            _hover: {
+              borderColor: "purple.600",
+            },
+            _focus: {
+              borderColor: "purple.600",
+              boxShadow: "0 1px 0 0 purple.600",
+            },
+            _focusVisible: {
+              borderColor: "purple.600",
+              boxShadow: "0 1px 0 0 purple.600",
+            },
+          },
+        },
       },
     },
     Textarea: {
@@ -150,6 +168,41 @@ const theme = extendTheme({
       },
     },
     Input: {
+      variants: {
+        outline: {
+          field: {
+            borderWidth: "2px",
+            borderRadius: "20",
+            borderColor: "purple.800",
+            _hover: { borderColor: "purple.600" },
+            _focus: { borderColor: "purple.600", boxShadow: "0 0 0 1px #805AD5" },
+            _focusVisible: {
+              borderColor: "purple.600",
+              boxShadow: "0 0 0 1px #805AD5",
+            },
+          },
+        },
+        flushed: {
+          field: {
+            borderColor: "purple.700",
+            borderBottomWidth: "2px", // por defecto 1px, aquí aumentamos
+            borderRadius: 0,
+            _hover: {
+              borderColor: "purple.600",
+            },
+            _focus: {
+              borderColor: "purple.600",
+              boxShadow: "0 1px 0 0 purple.600",
+            },
+            _focusVisible: {
+              borderColor: "purple.600",
+              boxShadow: "0 1px 0 0 purple.600",
+            },
+          },
+        }
+      },
+    },
+    NumberInput: {
       variants: {
         outline: {
           field: {
