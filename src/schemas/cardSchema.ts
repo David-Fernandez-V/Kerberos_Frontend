@@ -10,6 +10,7 @@ export const cardSchema = z.object({
   number: z
     .string()
     .min(1, requiredField)
+    .transform(val => val.replace(/\s/g, ""))
     .refine((val) => /^\d{16}$/.test(val), {
       message: "Debe contener exactamente 16 dígitos numéricos",
     }),
@@ -31,7 +32,7 @@ export const cardSchema = z.object({
     .string()
     .min(1, requiredField)
     .refine((val) => /^\d{4}$/.test(val), {
-      message: "Debe tener 4 dígitos (AAAA)",
+      message: "4 dígitos (AAAA)",
     }),
     // .refine((val) => parseInt(val) >= new Date().getFullYear(), {
     //   message: "El año debe ser mayor o igual al actual",
@@ -43,7 +44,7 @@ export const cardSchema = z.object({
     .string()
     .optional()
     .refine((val) => !val || /^\d{3,4}$/.test(val), {
-      message: "CVV inválido (3 o 4 dígitos)",
+      message: "3 o 4 dígitos",
     }),
 
   brand: z.string().optional(),
