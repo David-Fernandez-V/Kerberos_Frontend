@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import useCurrentCardDetail from "../../../states/CurrentCardDetail";
 import useCardDetail from "./useCardDetail";
 import CardDetailSecurity from "./CardDetailSecurity";
+import CardDetail from "./CardDetail";
 
 type Props = {
   UserCards: CardItem[];
@@ -53,9 +54,8 @@ const CardsTable = ({ UserCards }: Props) => {
     <Box>
        
       <CardDetailSecurity isOpen={MPwdModal.isOpen} onClose={MPwdModal.onClose} cardId={selectedCard?.id}/>
-      {/*
       <CardDetail card={selectedCard} cardDetail={currentDetail} isOpen={CardModal.isOpen} onClose={CardModal.onClose}/>
-      */}
+
       <TableContainer>
         <Table variant="unstyled">
           <Thead>
