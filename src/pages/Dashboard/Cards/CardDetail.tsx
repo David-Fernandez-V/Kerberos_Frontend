@@ -143,11 +143,13 @@ function CardDetail({isOpen, onClose, card, cardDetail}: Props) {
                                     variant="flushed"
                                     borderBottomColor="whiteAlpha.600"
                                 />
-                                <InputRightElement width="4.5rem">
-                                    <IconButton aria-label="Cambiar visibilidad" mr={2} variant='ghost' color="gray.50" _hover={{color: "gray.700", bg: "gray.50"}} h="1.75rem" onClick={() => setShowCsv(!showCsv)}>
-                                        {showCsv ? <FaEyeSlash/> : <FaEye/>}
-                                    </IconButton >
-                                </InputRightElement>
+                                {cardDetail?.csv && 
+                                    <InputRightElement width="4.5rem">
+                                        <IconButton aria-label="Cambiar visibilidad" mr={2} variant='ghost' color="gray.50" _hover={{color: "gray.700", bg: "gray.50"}} h="1.75rem" onClick={() => setShowCsv(!showCsv)}>
+                                            {showCsv ? <FaEyeSlash/> : <FaEye/>}
+                                        </IconButton >
+                                    </InputRightElement>
+                                }
                                 </InputGroup>
                             </FormControl>
                         </HStack>
