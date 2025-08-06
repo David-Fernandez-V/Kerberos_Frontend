@@ -22,8 +22,6 @@ type Props = {
   UserPasswords: PasswordItem[];
 };
 
-type Option = "password" | "username"
-
 const PasswordsTable = ({ UserPasswords }: Props) => {
   const [selectedPassword, setSelectedPassword] = useState<PasswordItem | null>(null)
   const [copyOption, setCopyOption] = useState<"password" | "username">("username") 
@@ -56,7 +54,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
     }
   }
 
-  function copyContent(pwd: PasswordItem, opt: Option){
+  function copyContent(pwd: PasswordItem, opt: "password" | "username"){
     setSelectedPassword(pwd)
 
     if(!pwd.ask_password){
@@ -73,8 +71,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
         }
       )
     } else {
-      if(opt == "password") setCopyOption("password")
-      else setCopyOption("username")
+      setCopyOption(opt)
       CopyModal.onOpen()
     }
   }
@@ -164,10 +161,10 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
                             Iniciar
                           </MenuItem>
                         }
-                        <MenuDivider/>
                         <MenuItem _hover={{bg: "gray.200"}} icon={<CgDetailsMore/>} onClick={() => selectPassword(p)}>
                           Detalle
                         </MenuItem>
+                        <MenuDivider/>
                         <MenuItem color="red.600" _hover={{bg: "gray.200"}} icon={<RiDeleteBin6Line/>} onClick={() => console.log("Eliminar")}>
                           Eliminar
                         </MenuItem>

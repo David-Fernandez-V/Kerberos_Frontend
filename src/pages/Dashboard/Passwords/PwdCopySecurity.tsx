@@ -26,13 +26,11 @@ import usePasswordDetail from "./usePasswordDetail";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useCopy } from "../../../useCopy";
 
-type Option = "password" | "username"
-
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   pwdId: number | undefined
-  option: Option
+  option: "password" | "username"
 }
 
 function PwdCopySecurity({isOpen, onClose, pwdId, option}: Props) {
@@ -66,7 +64,7 @@ function PwdCopySecurity({isOpen, onClose, pwdId, option}: Props) {
                         onClose();
                     },
                     onError: (error) => {
-                        console.error("Error al obtener detalles:", error);
+                        console.error("Error al obtener datos:", error);
                         setErrorMessage("Contraseña incorrecta");
                     },
                 }

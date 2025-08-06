@@ -1,4 +1,4 @@
-import { Box, Text, Table, TableContainer, Tbody, Td, Th, Thead, Tr, IconButton, HStack, Menu, MenuButton, MenuList, MenuItem, useDisclosure } from "@chakra-ui/react";
+import { Box, Text, Table, TableContainer, Tbody, Td, Th, Thead, Tr, IconButton, HStack, Menu, MenuButton, MenuList, MenuItem, useDisclosure, MenuDivider } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { NoteItem } from "../../../types";
 import { MdEditNote } from "react-icons/md";
@@ -102,6 +102,7 @@ const NotesTable = ({ UserNotes }: Props) => {
                         <MenuItem _hover={{bg: "gray.200"}} icon={<ImCopy />} onClick={() => console.log("Clonar")}>
                           Clonar
                         </MenuItem>
+                        <MenuDivider/>
                         <MenuItem color="red.600" _hover={{bg: "gray.200"}} icon={<RiDeleteBin6Line/>} onClick={() => console.log("Eliminar")}>
                           Eliminar
                         </MenuItem>
