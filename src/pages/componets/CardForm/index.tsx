@@ -232,7 +232,7 @@ function CardForm({isOpen, onClose}: Props) {
                         </FormControl>
 
                         <FormControl id="brand">
-                          <FormLabel>Tipo de tarjeta</FormLabel>
+                          <FormLabel>Marca</FormLabel>
                           <Select {...register("brand")} placeholder="Opciones">
                             <option value="Visa">Visa</option>
                             <option value="Mastercard">Mastercard</option>
