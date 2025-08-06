@@ -15,6 +15,10 @@ import {
     Textarea,
     Checkbox,
     HStack,
+    InputGroup,
+    InputRightElement,
+    IconButton,
+    Tooltip,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -23,6 +27,8 @@ import { useCopy } from "../../../useCopy";
 import useCurrentCardDetail from "../../../states/CurrentCardDetail";
 import Feature from "../../componets/Feature";
 import CardTemplate from "../../componets/CardForm/CardTemplate";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FiCopy } from "react-icons/fi";
 
 
 type Props = {
@@ -33,7 +39,8 @@ type Props = {
 }
 
 function CardDetail({isOpen, onClose, card, cardDetail}: Props) {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showNumber, setShowNumber] = useState(false)
+  const [showCsv, setShowCsv] = useState(false)
 
   const {copy} = useCopy()
   const {currentDetail, reset} = useCurrentCardDetail()
@@ -48,7 +55,8 @@ function CardDetail({isOpen, onClose, card, cardDetail}: Props) {
       onClose()
     }
 
-    setShowPassword(false)
+    setShowNumber(false)
+    setShowCsv(false)
   }, [isOpen]);
   
   return (
@@ -83,12 +91,25 @@ function CardDetail({isOpen, onClose, card, cardDetail}: Props) {
 
                         <FormControl mb={3} id="number">
                             <FormLabel>Número</FormLabel>
-                                <Input
-                                    value={cardDetail?.number}
-                                    isReadOnly
-                                    variant="flushed"
-                                    borderBottomColor="whiteAlpha.600"
-                                />
+                                <InputGroup>
+                                    <Input
+                                        type={showNumber ? "text" : "password"}
+                                        value={cardDetail?.number}
+                                        isReadOnly
+                                        variant="flushed"
+                                        borderBottomColor="whiteAlpha.600"
+                                    />
+                                    <InputRightElement width="4.5rem">
+                                        <IconButton aria-label="Cambiar visibilidad" mr={2} variant='ghost' color="gray.50" _hover={{color: "gray.700", bg: "gray.50"}} h="1.75rem" onClick={() => setShowNumber(!showNumber)}>
+                                            {showNumber ? <FaEyeSlash/> : <FaEye/>}
+                                        </IconButton >
+                                        <Tooltip label="Copiar contraseña">
+                                            <IconButton aria-label="Copiar" mr={7} h="1.75rem" onClick={() => copy(cardDetail ? cardDetail.number : "")}>
+                                            <FiCopy/>
+                                            </IconButton >
+                                        </Tooltip>
+                                    </InputRightElement>
+                                </InputGroup>
                         </FormControl>
 
                         <HStack>
@@ -114,12 +135,20 @@ function CardDetail({isOpen, onClose, card, cardDetail}: Props) {
 
                             <FormControl id="csv">
                                 <FormLabel><br />CSV</FormLabel>
+                                <InputGroup>
                                 <Input
+                                    type={showCsv ? "text" : "password"}
                                     value={cardDetail?.csv ? cardDetail.csv : ""}
                                     isReadOnly
                                     variant="flushed"
                                     borderBottomColor="whiteAlpha.600"
                                 />
+                                <InputRightElement width="4.5rem">
+                                    <IconButton aria-label="Cambiar visibilidad" mr={2} variant='ghost' color="gray.50" _hover={{color: "gray.700", bg: "gray.50"}} h="1.75rem" onClick={() => setShowCsv(!showCsv)}>
+                                        {showCsv ? <FaEyeSlash/> : <FaEye/>}
+                                    </IconButton >
+                                </InputRightElement>
+                                </InputGroup>
                             </FormControl>
                         </HStack>
 

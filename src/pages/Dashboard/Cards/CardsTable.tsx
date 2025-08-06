@@ -1,8 +1,7 @@
-import { Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr, IconButton, HStack, Text, Menu, MenuButton, MenuList, MenuItem, useDisclosure } from "@chakra-ui/react";
+import { Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr, IconButton, HStack, Text, Menu, MenuButton, MenuList, MenuItem, useDisclosure, MenuDivider } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
-import { FaCreditCard, FaRegFolderOpen } from "react-icons/fa";
+import { FaCreditCard } from "react-icons/fa";
 import { CardItem } from "../../../types";
-import { ImCopy } from "react-icons/im";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
 
@@ -10,6 +9,9 @@ import useCurrentCardDetail from "../../../states/CurrentCardDetail";
 import useCardDetail from "./useCardDetail";
 import CardDetailSecurity from "./CardDetailSecurity";
 import CardDetail from "./CardDetail";
+import { FiCopy } from "react-icons/fi";
+import { useCopy } from "../../../useCopy";
+import CardCopySecurity from "./CardCopySecurity";
 
 type Props = {
   UserCards: CardItem[];
@@ -17,12 +19,15 @@ type Props = {
 
 const CardsTable = ({ UserCards }: Props) => {
   const [selectedCard, setSelectedCard] = useState<CardItem | null>(null)
+  const [copyOption, setCopyOption] = useState<"number" | "csv">("number")
 
   const {mutate} = useCardDetail();
+  const {copy} = useCopy()
   const {currentDetail, setCurrentDetail} = useCurrentCardDetail()
 
   const MPwdModal = useDisclosure();
   const CardModal = useDisclosure();
+  const CopyModal = useDisclosure();
 
   useEffect(() => {
       if (currentDetail === null) return
@@ -49,11 +54,34 @@ const CardsTable = ({ UserCards }: Props) => {
       MPwdModal.onOpen()
     }
   }
+
+  function copyContent(card: CardItem, opt: "number" | "csv"){
+    setSelectedCard(card)
+
+    if(!card.ask_password){
+      mutate(
+        { card_id: card.id },
+        {
+          onSuccess: (data) => {
+            if(opt == "number") copy(data.number)
+            else copy(data.csv)
+          },
+          onError: (error) => {
+            console.error("Error al obtener contraseña:", error);
+          },
+        }
+      )
+    } else {
+      setCopyOption(opt)
+      CopyModal.onOpen()
+    }
+  }
   
   return (
     <Box>
        
       <CardDetailSecurity isOpen={MPwdModal.isOpen} onClose={MPwdModal.onClose} cardId={selectedCard?.id}/>
+      <CardCopySecurity isOpen={CopyModal.isOpen} onClose={CopyModal.onClose} cardId={selectedCard?.id} option={copyOption}/>
       <CardDetail card={selectedCard} cardDetail={currentDetail} isOpen={CardModal.isOpen} onClose={CardModal.onClose}/>
 
       <TableContainer>
@@ -98,12 +126,13 @@ const CardsTable = ({ UserCards }: Props) => {
                         _active={{bg: "purple.800"}}
                       />
                       <MenuList>
-                        <MenuItem _hover={{bg: "gray.200"}} icon={<FaRegFolderOpen />} onClick={() => selectCard(c)}>
-                          Abrir
+                        <MenuItem _hover={{bg: "gray.200"}} icon={<FiCopy/>} onClick={() => copyContent(c, "number")}>
+                          Copiar número
                         </MenuItem>
-                        <MenuItem _hover={{bg: "gray.200"}} icon={<ImCopy />} onClick={() => console.log("Clonar")}>
-                          Clonar
+                        <MenuItem _hover={{bg: "gray.200"}} icon={<FaCreditCard/>} onClick={() => selectCard(c)}>
+                          Detalle
                         </MenuItem>
+                        <MenuDivider/>
                         <MenuItem color="red.600" _hover={{bg: "gray.200"}} icon={<RiDeleteBin6Line/>} onClick={() => console.log("Eliminar")}>
                           Eliminar
                         </MenuItem>
