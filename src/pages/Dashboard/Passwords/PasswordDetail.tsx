@@ -21,14 +21,13 @@ import {
   Flex,
   Spacer,
   Stack,
-  Box,
   HStack,
 } from '@chakra-ui/react'
 
 import { FiCopy } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-import { PasswordDetailItem, PasswordItem, strengthColors, strengthLabels } from "../../../types";
+import { PasswordDetailItem, PasswordItem} from "../../../types";
 
 import { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -36,6 +35,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Feature from '../../componets/Feature';
 import { useCopy } from '../../../useCopy';
 import useCurrentPswDetail from '../../../states/CurrentPswDetail';
+import StrengthIndicator from '../../componets/SessionForm/StrengthIndicator';
 
 
 type Props = {
@@ -102,26 +102,7 @@ function PasswordDetail({isOpen, onClose, password, passwordDetail}: Props) {
                       isReadOnly
                     />
                     {password &&
-                      <Box  bg="gray.300" mt={2} w="100%" borderRadius="md" overflow="hidden" h="1.5rem">
-                        <Box
-                          w={`${(password.strength_level + 1) * 20}%`}
-                          h="100%"
-                          bg={strengthColors[password.strength_level]}
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          transition="width 0.3s ease"
-                        >
-                          <Text
-                            fontSize="sm"
-                            color="gray.50"
-                            fontWeight="bold"
-                            whiteSpace="nowrap"
-                          >
-                            {strengthLabels[password.strength_level]}
-                          </Text>
-                        </Box>
-                      </Box>
+                      <StrengthIndicator isLoading={false} strength={password.strength_level}/> 
                     }
                   </Stack>
                   <InputRightElement width="4.5rem">
