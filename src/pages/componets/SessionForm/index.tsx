@@ -18,15 +18,10 @@ import {
   InputRightElement,
   InputGroup,
   IconButton,
-  Box,
-  Spinner,
-  Flex,
   Select,
   Tooltip,
   useDisclosure,
 } from '@chakra-ui/react'
-
-import { keyframes } from "@emotion/react";
 
 import { useForm } from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod"
@@ -37,13 +32,13 @@ import Feature from '../Feature'
 import axios from 'axios'
 import usePasswordStrength from './usePasswordStrength'
 import { useState, useEffect } from 'react'
-import { strengthLabels, strengthColors } from '../../../types'
 import usePasswordsStore from '../../../states/PasswordsStore';
 import useFoldersStore from '../../../states/FoldersStore';
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { LuRefreshCcw } from "react-icons/lu";
 import PasswordGenerator from './PasswordGenerator';
+import StrengthIndicator from './StrengthIndicator';
 
 
 type Props = {
@@ -69,11 +64,6 @@ function SessionForm({isOpen, onClose}: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const MyModal = useDisclosure();
-
-  const shimmer = keyframes`
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  `;
 
   useEffect(() => {
     if (!isOpen) {
@@ -175,51 +165,8 @@ function SessionForm({isOpen, onClose}: Props) {
                     </InputRightElement>
                   </InputGroup>
                   {errors?.password?.message && (<Text color={"red.600"}>{errors?.password?.message}</Text>)}
-
-                  <Box  bg="gray.300" mt={2} w="100%" borderRadius="md" overflow="hidden" h="1.5rem">
-                    {strengthMutation.isPending ? (
-                      //Estado: Cargando
-                      <Flex
-                        w="100%"
-                        h="100%"
-                        align="center"
-                        justify="center"
-                        bg="gray.300"
-                        backgroundImage="linear-gradient(90deg, gray.400, gray.300, gray.400)"
-                        backgroundSize="200% 100%"
-                        animation={`${shimmer} 1.5s linear infinite`}
-                      >
-                        <Spinner size="sm" color="gray.600" thickness="2px" />
-                      </Flex>
-                    ) : passwordStrength !== undefined ? (
-                      //Estado: Evaluado
-                      <Box
-                        w={`${(passwordStrength + 1) * 20}%`}
-                        h="100%"
-                        bg={strengthColors[passwordStrength]}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        transition="width 0.3s ease"
-                      >
-                        <Text
-                          fontSize="sm"
-                          color="gray.50"
-                          fontWeight="bold"
-                          whiteSpace="nowrap"
-                        >
-                          {strengthLabels[passwordStrength]}
-                        </Text>
-                      </Box>
-                    ) : (
-                      //Estado: Apagado (sin contraseña)
-                      <Box
-                        w="100%"
-                        h="100%"
-                        bg="gray.300"
-                      />
-                    )}
-                  </Box>
+                  <StrengthIndicator isLoading={strengthMutation.isPending} strength={passwordStrength}/>
+                  
                 </FormControl>
               </Feature><br />
               <Feature title='Opciones extras'>
