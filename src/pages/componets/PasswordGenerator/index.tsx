@@ -39,7 +39,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   const { copy } = useCopy();
 
   const strengthMutation = usePasswordStrength();
-  const { mutate, isError, data, error } = useGeneratePassword();
+  const { mutate, isError, error } = useGeneratePassword();
 
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
