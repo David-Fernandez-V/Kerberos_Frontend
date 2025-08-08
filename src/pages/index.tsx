@@ -1,18 +1,22 @@
-import {createBrowserRouter} from "react-router-dom"
-import Layout from "./Layout"
-import ErrorDetail from "./ErrorDetail"
-import HomePage from "./HomePage"
-import SignUp from "./SingUp"
-import LogIn from "./LogIn"
-import Dashboard from "./Dashboard"
-import PublicRoutes from "./PublicRoutes"
-import PrivateRoutes from "./PrivateRoutes"
+import { createBrowserRouter } from "react-router-dom";
+import Layout from "./Layout";
+import ErrorDetail from "./ErrorDetail";
+import HomePage from "./HomePage";
+import SignUp from "./SingUp";
+import LogIn from "./LogIn";
+import Dashboard from "./Dashboard";
+import PublicRoutes from "./PublicRoutes";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <Layout><ErrorDetail /></Layout>,
+    errorElement: (
+      <Layout>
+        <ErrorDetail />
+      </Layout>
+    ),
     children: [
       {
         element: <PublicRoutes />,
@@ -44,4 +48,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router
+export default router;

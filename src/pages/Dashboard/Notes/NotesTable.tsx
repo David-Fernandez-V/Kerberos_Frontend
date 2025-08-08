@@ -1,4 +1,22 @@
-import { Box, Text, Table, TableContainer, Tbody, Td, Th, Thead, Tr, IconButton, HStack, Menu, MenuButton, MenuList, MenuItem, useDisclosure, MenuDivider } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  IconButton,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  useDisclosure,
+  MenuDivider,
+} from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { NoteItem } from "../../../types";
 import { MdEditNote } from "react-icons/md";
@@ -16,43 +34,52 @@ type Props = {
 };
 
 const NotesTable = ({ UserNotes }: Props) => {
-  const [selectedNote, setSelectedNote] = useState<NoteItem | null>(null)
+  const [selectedNote, setSelectedNote] = useState<NoteItem | null>(null);
 
-  const {mutate} = useNoteDetail();
-  const {currentDetail, setCurrentDetail} = useCurrentNoteDetail()
+  const { mutate } = useNoteDetail();
+  const { currentDetail, setCurrentDetail } = useCurrentNoteDetail();
 
   const MPwdModal = useDisclosure();
   const NoteModal = useDisclosure();
-  
+
   useEffect(() => {
-    if (currentDetail === null) return
-    NoteModal.onOpen()
+    if (currentDetail === null) return;
+    NoteModal.onOpen();
   }, [currentDetail]);
 
-  function selectNote(note: NoteItem){
-    setSelectedNote(note)
+  function selectNote(note: NoteItem) {
+    setSelectedNote(note);
 
-    if(!note.ask_password){
+    if (!note.ask_password) {
       mutate(
-        { note_id: note.id},
+        { note_id: note.id },
         {
           onSuccess: (data) => {
-            setCurrentDetail(data)
+            setCurrentDetail(data);
           },
           onError: (error) => {
             console.error("Error al obtener nota:", error);
           },
         }
-      )
-    } else{
-      MPwdModal.onOpen()
+      );
+    } else {
+      MPwdModal.onOpen();
     }
   }
 
   return (
     <Box>
-      <NoteDetailSecurity isOpen={MPwdModal.isOpen} onClose={MPwdModal.onClose} noteId={selectedNote?.id}/>
-      <NoteDetail note={selectedNote} noteDetail={currentDetail} isOpen={NoteModal.isOpen} onClose={NoteModal.onClose}/>
+      <NoteDetailSecurity
+        isOpen={MPwdModal.isOpen}
+        onClose={MPwdModal.onClose}
+        noteId={selectedNote?.id}
+      />
+      <NoteDetail
+        note={selectedNote}
+        noteDetail={currentDetail}
+        isOpen={NoteModal.isOpen}
+        onClose={NoteModal.onClose}
+      />
 
       <TableContainer>
         <Table variant="unstyled">
@@ -70,7 +97,7 @@ const NotesTable = ({ UserNotes }: Props) => {
                 <Tr key={n.id} _hover={{ bg: "gray.200" }}>
                   <Td>
                     <HStack cursor="pointer" onClick={() => selectNote(n)}>
-                      <MdEditNote size={27}/>
+                      <MdEditNote size={27} />
                       <Text
                         color="#175DDC"
                         ml={4}
@@ -87,28 +114,40 @@ const NotesTable = ({ UserNotes }: Props) => {
                     <Menu>
                       <MenuButton
                         as={IconButton}
-                        aria-label='Options'
+                        aria-label="Options"
                         icon={<SlOptionsVertical />}
-                        variant='outline'
+                        variant="outline"
                         bg="purple.700"
                         color="gray.50"
-                        _hover={{bg: "purple.600"}}
-                        _active={{bg: "purple.800"}}
+                        _hover={{ bg: "purple.600" }}
+                        _active={{ bg: "purple.800" }}
                       />
                       <MenuList>
-                        <MenuItem _hover={{bg: "gray.200"}} icon={<FaRegFolderOpen />} onClick={() => selectNote(n)}>
+                        <MenuItem
+                          _hover={{ bg: "gray.200" }}
+                          icon={<FaRegFolderOpen />}
+                          onClick={() => selectNote(n)}
+                        >
                           Abrir
                         </MenuItem>
-                        <MenuItem _hover={{bg: "gray.200"}} icon={<ImCopy />} onClick={() => console.log("Clonar")}>
+                        <MenuItem
+                          _hover={{ bg: "gray.200" }}
+                          icon={<ImCopy />}
+                          onClick={() => console.log("Clonar")}
+                        >
                           Clonar
                         </MenuItem>
-                        <MenuDivider/>
-                        <MenuItem color="red.600" _hover={{bg: "gray.200"}} icon={<RiDeleteBin6Line/>} onClick={() => console.log("Eliminar")}>
+                        <MenuDivider />
+                        <MenuItem
+                          color="red.600"
+                          _hover={{ bg: "gray.200" }}
+                          icon={<RiDeleteBin6Line />}
+                          onClick={() => console.log("Eliminar")}
+                        >
                           Eliminar
                         </MenuItem>
                       </MenuList>
                     </Menu>
-
                   </Td>
                 </Tr>
               );

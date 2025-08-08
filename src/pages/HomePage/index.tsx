@@ -1,11 +1,11 @@
-import Hero from './Hero'
+import Hero from "./Hero";
 
-type Props = {}
+type Props = {};
 
 export default function HomePage({}: Props) {
   return (
-    <div style={{height: "100vh"}}>
-      <Hero/>
+    <div style={{ height: "100vh" }}>
+      <Hero />
     </div>
-  )
+  );
 }

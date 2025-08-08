@@ -1,13 +1,13 @@
-import LoginForm from "./LoginForm"
+import LoginForm from "./LoginForm";
 
-type Props = {}
+type Props = {};
 
 function index({}: Props) {
   return (
     <div>
-        <LoginForm/>
+      <LoginForm />
     </div>
-  )
+  );
 }
 
-export default index
+export default index;
