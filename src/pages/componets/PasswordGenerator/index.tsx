@@ -26,6 +26,8 @@ import { LuRefreshCcw } from "react-icons/lu";
 
 import usePasswordStrength from "../SessionForm/usePasswordStrength";
 import StrengthIndicator from "../StrengthIndicator";
+import useGeneratePassword from "./useGeneratePassword";
+import { generatePswForm } from "../../../schemas/generatePswSchema";
 
 type Props = {
   isOpen: boolean;
@@ -33,16 +35,38 @@ type Props = {
 };
 
 function PasswordGenerator({ isOpen, onClose }: Props) {
+  //Constantes
   const { copy } = useCopy();
 
   const strengthMutation = usePasswordStrength();
+  const { mutate, isError, data, error } = useGeneratePassword();
 
-  const [passwordInput, setPasswordInput] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordInput, setPasswordInput] = useState<string>("");
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
     undefined
   );
+  const [errorMessage, setErrorMessage] = useState("");
 
+  //Funciones
+  const handleGenerate = () => {
+    const config: generatePswForm = {
+      length: 12,
+      include_capital: true,
+      include_lower: true,
+      include_number: true,
+      include_symbols: true,
+      quantity_numbers: 3,
+      quantity_symbols: 2,
+    };
+
+    mutate(config, {
+      onSuccess: (data) => {
+        setPasswordInput(data.password);
+      },
+    });
+  };
+
+  //Efectos
   useEffect(() => {
     if (!isOpen) {
       // Limpia los campos del formulario
@@ -58,15 +82,16 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
 
     const timeout = setTimeout(() => {
       strengthMutation.mutate(passwordInput, {
-        onSuccess: (data) => {
-          setPasswordStrength(data.strength_level);
+        onSuccess: ({ strength_level }) => {
+          setPasswordStrength(strength_level);
         },
       });
     }, 500);
 
-    return () => clearTimeout(timeout); // limpiar el timeout si se vuelve a escribir antes de los 500ms
+    return () => clearTimeout(timeout);
   }, [passwordInput]);
 
+  //Componente
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
@@ -82,23 +107,24 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
                 <Input
                   type="text"
                   readOnly
+                  value={passwordInput}
                   variant="flushed"
-                  onChange={(e) => {
-                    setPasswordInput(e.target.value);
-                  }}
                 />
+                {isError && (
+                  <p style={{ color: "red" }}>Error: {String(error)}</p>
+                )}
                 <InputRightElement width="4.5rem">
                   <Tooltip label="Generar contraseña">
                     <IconButton
-                      aria-label="Search database"
+                      aria-label="Generar contraseña"
                       mr={2}
                       h="1.75rem"
-                      onClick={() => console.log("Generar contraseña")}
+                      onClick={handleGenerate}
                     >
                       <LuRefreshCcw />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip label="Generar contraseña">
+                  <Tooltip label="Copiar contraseña">
                     <IconButton
                       aria-label="copy"
                       mr={2}
