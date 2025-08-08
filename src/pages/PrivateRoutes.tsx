@@ -13,7 +13,8 @@ const PrivateRoutes = () => {
   useRefreshSession();
 
   const toast = useToast();
-  const { login, logout, isAuthenticated, logoutReason, clearLogoutReason } = useAuthStore();
+  const { login, logout, isAuthenticated, logoutReason, clearLogoutReason } =
+    useAuthStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const PrivateRoutes = () => {
       } catch (error: any) {
         logout(); //sesión no válida
       } finally {
-        setLoading(false); //ya terminó
+        setLoading(false);
       }
     };
 
@@ -37,19 +38,20 @@ const PrivateRoutes = () => {
     if (logoutReason === "inactivity") {
       toast({
         title: "Sesión cerrada por inactividad.",
-        description: "Por tu seguridad, se ha cerrado tu sesión automáticamente.",
+        description:
+          "Por tu seguridad, se ha cerrado tu sesión automáticamente.",
         status: "warning",
         position: "top",
         duration: null,
         isClosable: true,
       });
 
-      clearLogoutReason(); // para que no se repita
+      clearLogoutReason();
     }
   }, [logoutReason, toast, clearLogoutReason]);
 
   if (loading) {
-    return <p>Cargando...</p>; // Puedes usar un spinner
+    return <p>Cargando...</p>; //spinner
   }
 
   return isAuthenticated ? (

@@ -27,7 +27,7 @@ const PublicRoutes = () => {
   }, []);
 
   if (loading) {
-    return <p>Cargando...</p>; // o un spinner bonito
+    return <p>Cargando...</p>; // o un spinner
   }
 
   return isAuthenticated ? <Navigate to="/dashboard" /> : <Outlet />;

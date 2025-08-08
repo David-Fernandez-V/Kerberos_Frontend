@@ -1,13 +1,13 @@
-import RegistrationForm from "./RegistrationForm"
+import RegistrationForm from "./RegistrationForm";
 
-type Props = {}
+type Props = {};
 
 function SignUp({}: Props) {
   return (
-    <div style={{height: "calc(100vh - 64px)"}}>
-      <RegistrationForm/>
+    <div style={{ height: "calc(100vh - 64px)" }}>
+      <RegistrationForm />
     </div>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

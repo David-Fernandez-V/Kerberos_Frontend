@@ -1,13 +1,12 @@
-import { Box, Icon } from "@chakra-ui/react"
-import { ReactNode } from "react"
-import { FaCreditCard } from "react-icons/fa"
+import { Box, Icon } from "@chakra-ui/react";
+import { ReactNode } from "react";
+import { FaCreditCard } from "react-icons/fa";
 
 type Props = {
-    children: ReactNode
-}
+  children: ReactNode;
+};
 
-function CardTemplate({children}: Props) {
-  
+function CardTemplate({ children }: Props) {
   return (
     <Box
       //bgGradient="linear(to-r, purple.500, blue.600)"
@@ -21,7 +20,6 @@ function CardTemplate({children}: Props) {
       mt={8}
       position="relative"
       fontFamily="monospace"
-      
     >
       <Icon
         as={FaCreditCard}
@@ -33,7 +31,7 @@ function CardTemplate({children}: Props) {
       />
       {children}
     </Box>
-  )
+  );
 }
 
-export default CardTemplate
+export default CardTemplate;

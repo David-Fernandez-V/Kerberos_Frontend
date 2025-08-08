@@ -13,23 +13,21 @@ import { Text } from "@chakra-ui/react";
 
 import { useEffect } from "react";
 
-
-
-type Props = {}
+type Props = {};
 
 function Dashboard({}: Props) {
-  const {passwords, /*isLoading,*/ refreshPasswords} = usePasswordsStore();
-  const {notes, refreshNotes} = useNotesStore()
-  const {cards, refreshCards} = useCardsStore()
-  const {currentFolder ,refreshFolders} = useFoldersStore()
-  const {showPasswords, showNotes, showCards} = useTablesStore()
-  
+  const { passwords, /*isLoading,*/ refreshPasswords } = usePasswordsStore();
+  const { notes, refreshNotes } = useNotesStore();
+  const { cards, refreshCards } = useCardsStore();
+  const { currentFolder, refreshFolders } = useFoldersStore();
+  const { showPasswords, showNotes, showCards } = useTablesStore();
+
   // Llamar cuando currentFolder esté definido
   useEffect(() => {
     if (typeof currentFolder === "number") {
       refreshPasswords(currentFolder);
-      refreshNotes(currentFolder)
-      refreshCards(currentFolder)
+      refreshNotes(currentFolder);
+      refreshCards(currentFolder);
     }
   }, [currentFolder]);
 
@@ -40,36 +38,37 @@ function Dashboard({}: Props) {
 
   return (
     <>
-      <Text fontSize="4xl" fontWeight="bold"> Mis Bóvedas</Text> <br />
-      
-      {showPasswords && 
+      <Text fontSize="4xl" fontWeight="bold">
+        {" "}
+        Mis Bóvedas
+      </Text>{" "}
+      <br />
+      {showPasswords && (
         <>
           <Feature title="Sesiones">
-            <PasswordsTable UserPasswords={passwords}/>
+            <PasswordsTable UserPasswords={passwords} />
           </Feature>
           <br />
         </>
-      }
-      
-      {showCards &&
+      )}
+      {showCards && (
         <>
           <Feature title="Tarjetas">
-            <CardsTable UserCards={cards}/>
-          </Feature>      
-          <br />
-        </>
-      }
-
-      {showNotes &&
-        <>
-          <Feature title="Notas">
-            <NotesTable UserNotes={notes}/>
+            <CardsTable UserCards={cards} />
           </Feature>
           <br />
         </>
-      }
+      )}
+      {showNotes && (
+        <>
+          <Feature title="Notas">
+            <NotesTable UserNotes={notes} />
+          </Feature>
+          <br />
+        </>
+      )}
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
