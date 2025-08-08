@@ -37,8 +37,8 @@ import useFoldersStore from "../../../states/FoldersStore";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { LuRefreshCcw } from "react-icons/lu";
-import PasswordGenerator from "./PasswordGenerator";
-import StrengthIndicator from "./StrengthIndicator";
+import PasswordGenerator from "../PasswordGenerator";
+import StrengthIndicator from "../StrengthIndicator";
 
 type Props = {
   isOpen: boolean;

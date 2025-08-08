@@ -3,7 +3,6 @@ import { noteForm } from "../../../schemas/noteSchema";
 
 import axios from "axios";
 
-
 interface NewNoteResponse {
   confirmation: string;
 }

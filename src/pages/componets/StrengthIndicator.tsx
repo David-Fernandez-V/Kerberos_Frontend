@@ -1,7 +1,7 @@
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 
-import { strengthLabels, strengthColors } from "../../../types";
+import { strengthLabels, strengthColors } from "../../types";
 
 type Props = {
   isLoading: boolean;

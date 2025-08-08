@@ -35,7 +35,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Feature from "../../componets/Feature";
 import { useCopy } from "../../../useCopy";
 import useCurrentPswDetail from "../../../states/CurrentPswDetail";
-import StrengthIndicator from "../../componets/SessionForm/StrengthIndicator";
+import StrengthIndicator from "../../componets/StrengthIndicator";
 
 type Props = {
   isOpen: boolean;
