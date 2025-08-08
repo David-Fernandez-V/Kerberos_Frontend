@@ -1,6 +1,9 @@
+
+//Niveles de fuerza
 export const strengthLabels: string[] = ["Muy Debil", "Debil", "Estandar", "Fuerte", "Muy Fuerte"]
 export const strengthColors = ["red.700", "orange.600", "yellow.500", "green.500", "teal.700"];
 
+//Meses
 export const months = [
     { value: "01", label: "Enero" },
     { value: "02", label: "Febrero" },
@@ -16,11 +19,13 @@ export const months = [
     { value: "12", label: "Diciembre" },
 ];
 
+//Carpeta
 export type FolderItem = {
   id: number
   name: string
 }
 
+//Contraseñas
 export type PasswordItem = {
   id: number
   service_name: string
@@ -38,6 +43,7 @@ export type PasswordDetailItem = {
   notes: string
 }
 
+//Notas
 export type NoteItem = {
   id: number
   title: string
@@ -51,6 +57,7 @@ export type NoteDetailItem = {
   content: string
 }
 
+//Tarjetas
 export type CardItem = {
   id: number
   alias: string
@@ -71,4 +78,3 @@ export type CardDetailItem = {
   created_at: string
   updated_at: string
 }
-

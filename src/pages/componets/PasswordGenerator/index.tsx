@@ -24,8 +24,8 @@ import { FiCopy } from "react-icons/fi";
 import { useCopy } from "../../../useCopy";
 import { LuRefreshCcw } from "react-icons/lu";
 
-import usePasswordStrength from "./usePasswordStrength";
-import StrengthIndicator from "./StrengthIndicator";
+import usePasswordStrength from "../SessionForm/usePasswordStrength";
+import StrengthIndicator from "../StrengthIndicator";
 
 type Props = {
   isOpen: boolean;
@@ -81,7 +81,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
               <InputGroup>
                 <Input
                   type="text"
-                  //readOnly
+                  readOnly
                   variant="flushed"
                   onChange={(e) => {
                     setPasswordInput(e.target.value);
