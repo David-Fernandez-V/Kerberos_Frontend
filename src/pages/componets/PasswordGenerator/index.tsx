@@ -16,6 +16,12 @@ import {
   InputRightElement,
   IconButton,
   Tooltip,
+  Container,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -45,6 +51,9 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
     undefined
   );
+  const [generationOption, setGenerationOption] = useState<
+    "password" | "passphrase"
+  >("password");
   const [errorMessage, setErrorMessage] = useState("");
 
   //Funciones
@@ -71,6 +80,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
     if (!isOpen) {
       // Limpia los campos del formulario
       setErrorMessage("");
+      setGenerationOption("password");
     }
   }, [isOpen]);
 
@@ -100,54 +110,130 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
         <ModalCloseButton />
         <Divider />
         <ModalBody>
-          <form id="mpwdForm" onSubmit={() => console.log("Submit")}>
-            <FormControl id="pwd" autoFocus={true}>
-              <FormLabel>Contraseña</FormLabel>
-              <InputGroup>
-                <Input
-                  type="text"
-                  readOnly
-                  value={passwordInput}
-                  variant="flushed"
-                />
-                {isError && (
-                  <p style={{ color: "red" }}>Error: {String(error)}</p>
-                )}
-                <InputRightElement width="4.5rem">
-                  <Tooltip label="Generar contraseña">
-                    <IconButton
-                      aria-label="Generar contraseña"
-                      mr={2}
-                      h="1.75rem"
-                      onClick={handleGenerate}
-                    >
-                      <LuRefreshCcw />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip label="Copiar contraseña">
-                    <IconButton
-                      aria-label="copy"
-                      mr={2}
-                      h="1.75rem"
-                      onClick={() => copy(passwordInput)}
-                    >
-                      <FiCopy />
-                    </IconButton>
-                  </Tooltip>
-                </InputRightElement>
-              </InputGroup>
-              {errorMessage && <Text color="red.600">{errorMessage}.</Text>}
+          {/*Botón para alternar opción */}
+          <Container mb={10} mt={5} mx="auto" w="fit-content">
+            <Button
+              borderRightRadius={0}
+              borderLeftRadius={10}
+              variant={generationOption === "password" ? "solid" : "ghost2"}
+              style={{ backgroundColor: "gray.100" }}
+              onClick={() => setGenerationOption("password")}
+            >
+              Contraseña estandar
+            </Button>
+            <Button
+              borderLeftRadius={0}
+              borderRightRadius={10}
+              variant={generationOption === "passphrase" ? "solid" : "ghost2"}
+              onClick={() => setGenerationOption("passphrase")}
+            >
+              Frase contraseña
+            </Button>
+          </Container>
 
-              <StrengthIndicator
-                isLoading={strengthMutation.isPending}
-                strength={passwordStrength}
+          {/*Display de la contraseña*/}
+          <FormControl id="pwd" autoFocus={true} mb={8}>
+            <FormLabel>Contraseña</FormLabel>
+            <InputGroup>
+              <Input
+                type="text"
+                readOnly
+                value={passwordInput}
+                variant="flushed"
               />
-            </FormControl>
+              {isError && (
+                <p style={{ color: "red" }}>Error: {String(error)}</p>
+              )}
+              <InputRightElement width="4.5rem">
+                <Tooltip label="Generar contraseña">
+                  <IconButton
+                    aria-label="Generar contraseña"
+                    mr={2}
+                    h="1.75rem"
+                    onClick={handleGenerate}
+                  >
+                    <LuRefreshCcw />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip label="Copiar contraseña">
+                  <IconButton
+                    aria-label="copy"
+                    mr={2}
+                    h="1.75rem"
+                    onClick={() => copy(passwordInput)}
+                  >
+                    <FiCopy />
+                  </IconButton>
+                </Tooltip>
+              </InputRightElement>
+            </InputGroup>
+            {errorMessage && <Text color="red.600">{errorMessage}.</Text>}
+            <StrengthIndicator
+              isLoading={strengthMutation.isPending}
+              strength={passwordStrength}
+            />
+          </FormControl>
+
+          {/*Formulario para las opciones*/}
+          <form id="optionsForm" onSubmit={() => console.log("Submit")}>
+            {generationOption === "password" ? (
+              /*Opción de password*/
+              <>
+                {/*Longitud */}
+                <FormControl id="length" mb={5}>
+                  <NumberInput>
+                    <NumberInputField
+                      borderRightRadius={5}
+                      borderLeftRadius={5}
+                    />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
+                {/*Mayusculas*/}
+                {/*Minusculas*/}
+                {/*Números*/}
+                {/*Símbolos*/}
+                {/*Cantidad de números*/}
+                <FormControl id="digits_number" mb={5}>
+                  <NumberInput>
+                    <NumberInputField
+                      borderRightRadius={5}
+                      borderLeftRadius={5}
+                    />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
+                {/*Cartidad de símbolos*/}
+                <FormControl id="simbols_number" mb={5}>
+                  <NumberInput>
+                    <NumberInputField
+                      borderRightRadius={5}
+                      borderLeftRadius={5}
+                    />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </FormControl>
+              </>
+            ) : (
+              /*Opcion de passphrase*/
+              <text>b</text>
+            )}
           </form>
         </ModalBody>
+
+        {/*Pie del modal */}
         <ModalFooter>
-          <Button form="mpwdForm" type="submit" mr={3}>
-            Aceptar
+          <Button form="optionsForm" type="submit" mr={3}>
+            Usar contraseña
           </Button>
           <Button variant="ghost" onClick={onClose}>
             Cancelar
