@@ -80,6 +80,10 @@ const theme = extendTheme({
           _hover: { bg: "purple.600" , color: "gray.50"},
           _active: {bg: "purple.800"}
         },
+        ghost2: {
+          bg: "gray.200",
+          _hover: { bg: "gray.300" },
+        },
       },
     },
     Select: {
