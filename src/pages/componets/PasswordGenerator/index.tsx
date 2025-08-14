@@ -37,6 +37,8 @@ import StrengthIndicator from "../StrengthIndicator";
 import useGeneratePassword from "./useGeneratePassword";
 import { generatePswForm } from "../../../schemas/generatePswSchema";
 import Feature from "../Feature";
+import useGeneratePassphrase from "./useGeneratePassphrase";
+import { generatePassphraseForm } from "../../../schemas/generatePassphraseSchema";
 
 type Props = {
   isOpen: boolean;
@@ -48,7 +50,8 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   const { copy } = useCopy();
 
   const strengthMutation = usePasswordStrength();
-  const { mutate, isError, error } = useGeneratePassword();
+  const { mutate: passswordMutation, isError, error } = useGeneratePassword();
+  const { mutate: passphraseMutation } = useGeneratePassphrase();
 
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
@@ -71,11 +74,29 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
       quantity_symbols: 2,
     };
 
-    mutate(config, {
-      onSuccess: (data) => {
-        setPasswordInput(data.password);
-      },
-    });
+    const config2: generatePassphraseForm = {
+      words_number: 12,
+      separator: "_",
+      include_number: true,
+      include_symbol: true,
+      capitalize: true,
+      english: true,
+      spanish: true,
+    };
+
+    if (generationOption == "password") {
+      passswordMutation(config, {
+        onSuccess: (data) => {
+          setPasswordInput(data.password);
+        },
+      });
+    } else {
+      passphraseMutation(config2, {
+        onSuccess: (data) => {
+          setPasswordInput(data.passphrase);
+        },
+      });
+    }
   };
 
   //Efectos
@@ -258,7 +279,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
               </>
             ) : (
               /*Opcion de passphrase*/
-              <text>b</text>
+              <Text>b</Text>
             )}
           </form>
         </ModalBody>
