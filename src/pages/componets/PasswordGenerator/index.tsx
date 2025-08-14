@@ -22,6 +22,8 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  HStack,
+  Checkbox,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -34,6 +36,7 @@ import usePasswordStrength from "../SessionForm/usePasswordStrength";
 import StrengthIndicator from "../StrengthIndicator";
 import useGeneratePassword from "./useGeneratePassword";
 import { generatePswForm } from "../../../schemas/generatePswSchema";
+import Feature from "../Feature";
 
 type Props = {
   isOpen: boolean;
@@ -180,48 +183,78 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
               /*Opción de password*/
               <>
                 {/*Longitud */}
-                <FormControl id="length" mb={5}>
-                  <NumberInput>
-                    <NumberInputField
-                      borderRightRadius={5}
-                      borderLeftRadius={5}
-                    />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                </FormControl>
-                {/*Mayusculas*/}
-                {/*Minusculas*/}
-                {/*Números*/}
-                {/*Símbolos*/}
-                {/*Cantidad de números*/}
-                <FormControl id="digits_number" mb={5}>
-                  <NumberInput>
-                    <NumberInputField
-                      borderRightRadius={5}
-                      borderLeftRadius={5}
-                    />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                </FormControl>
-                {/*Cartidad de símbolos*/}
-                <FormControl id="simbols_number" mb={5}>
-                  <NumberInput>
-                    <NumberInputField
-                      borderRightRadius={5}
-                      borderLeftRadius={5}
-                    />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                </FormControl>
+                <Feature title="Longitud de la contraseña">
+                  <FormControl id="length" mb={5}>
+                    <NumberInput>
+                      <NumberInputField
+                        borderRightRadius={5}
+                        borderLeftRadius={5}
+                      />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+                  </FormControl>
+                </Feature>
+                <br />
+
+                <Feature title="Incluir">
+                  <HStack>
+                    {/*Mayusculas*/}
+                    <FormControl id="capital_case">
+                      <FormLabel>Mayúsculas</FormLabel>
+                      <Checkbox></Checkbox>
+                    </FormControl>
+                    {/*Minusculas*/}
+                    <FormControl id="lowe_case">
+                      <FormLabel>Minúsculas</FormLabel>
+                      <Checkbox></Checkbox>
+                    </FormControl>
+                    {/*Números*/}
+                    <FormControl id="digits">
+                      <FormLabel>Números</FormLabel>
+                      <Checkbox></Checkbox>
+                    </FormControl>
+                    {/*Símbolos*/}
+                    <FormControl id="simbols">
+                      <FormLabel>Símbolos</FormLabel>
+                      <Checkbox></Checkbox>
+                    </FormControl>
+                  </HStack>
+
+                  <HStack mt={5}>
+                    {/*Cantidad de números*/}
+                    <FormControl id="digits_number" mb={5}>
+                      <FormLabel>Cantida de dígitos</FormLabel>
+                      <NumberInput>
+                        <NumberInputField
+                          borderRightRadius={5}
+                          borderLeftRadius={5}
+                        />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </FormControl>
+                    {/*Cartidad de símbolos*/}
+
+                    <FormControl id="simbols_number" mb={5}>
+                      <FormLabel>Cantidad de símbolos</FormLabel>
+                      <NumberInput>
+                        <NumberInputField
+                          borderRightRadius={5}
+                          borderLeftRadius={5}
+                        />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </FormControl>
+                  </HStack>
+                </Feature>
               </>
             ) : (
               /*Opcion de passphrase*/
@@ -232,7 +265,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
 
         {/*Pie del modal */}
         <ModalFooter>
-          <Button form="optionsForm" type="submit" mr={3}>
+          <Button form="optionsForm" /*type="submit"*/ mr={3}>
             Usar contraseña
           </Button>
           <Button variant="ghost" onClick={onClose}>
