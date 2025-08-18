@@ -39,6 +39,7 @@ import { generatePswForm } from "../../../schemas/generatePswSchema";
 import Feature from "../Feature";
 import useGeneratePassphrase from "./useGeneratePassphrase";
 import { generatePassphraseForm } from "../../../schemas/generatePassphraseSchema";
+import GeneratedPassword from "../../../states/GeneratedPassword";
 
 type Props = {
   isOpen: boolean;
@@ -52,6 +53,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   const strengthMutation = usePasswordStrength();
   const { mutate: passswordMutation, isError, error } = useGeneratePassword();
   const { mutate: passphraseMutation } = useGeneratePassphrase();
+  const { setGeneratedPassword } = GeneratedPassword();
 
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
@@ -102,10 +104,16 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
     }
   };
 
+  //Confirmar uso de contraseña
+  const handleUsePassword = () => {
+    setGeneratedPassword(passwordInput);
+    onClose();
+  };
+
   //Efectos
   useEffect(() => {
     if (!isOpen) {
-      // Limpia los campos del formulario
+      //Resetar valores al cerrar
       setPasswordInput("");
       setErrorMessage("");
       setGenerationOption("password");
@@ -168,6 +176,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
                 readOnly
                 value={passwordInput}
                 variant="flushed"
+                content="asv"
               />
               {isError && (
                 <p style={{ color: "red" }}>Error: {String(error)}</p>
@@ -359,7 +368,11 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
 
         {/*Pie del modal */}
         <ModalFooter>
-          <Button form="optionsForm" /*type="submit"*/ mr={3}>
+          <Button
+            form="optionsForm"
+            onClick={handleUsePassword}
+            /*type="submit"*/ mr={3}
+          >
             Usar contraseña
           </Button>
           <Button variant="ghost" onClick={onClose}>

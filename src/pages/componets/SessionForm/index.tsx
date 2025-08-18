@@ -39,6 +39,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { LuRefreshCcw } from "react-icons/lu";
 import PasswordGenerator from "../PasswordGenerator";
 import StrengthIndicator from "../StrengthIndicator";
+import GeneratedPassword from "../../../states/GeneratedPassword";
 
 type Props = {
   isOpen: boolean;
@@ -59,6 +60,12 @@ function SessionForm({ isOpen, onClose }: Props) {
     resolver: zodResolver(passwordSchema),
   });
 
+  const {
+    generatedPasword,
+    setGeneratedPassword,
+    reset: resetGenerator,
+  } = GeneratedPassword();
+
   const mutation = useCreatePassword();
   const strengthMutation = usePasswordStrength();
   const { refreshPasswords } = usePasswordsStore();
@@ -75,6 +82,7 @@ function SessionForm({ isOpen, onClose }: Props) {
   useEffect(() => {
     if (!isOpen) {
       reset(); // Limpia los campos del formulario
+      resetGenerator();
       setPasswordStrength(undefined);
     }
   }, [isOpen]);
@@ -95,6 +103,13 @@ function SessionForm({ isOpen, onClose }: Props) {
 
     return () => clearTimeout(timeout); // limpiar el timeout si se vuelve a escribir antes de los 500ms
   }, [passwordInput]);
+
+  useEffect(() => {
+    /*Borrar */
+    if (generatedPasword !== null) {
+      setPasswordInput(generatedPasword);
+    }
+  }, [generatedPasword]);
 
   const onSubmit = (data: passwordForm) => {
     mutation.mutate(data, {
@@ -172,8 +187,10 @@ function SessionForm({ isOpen, onClose }: Props) {
                   <InputGroup>
                     <Input
                       type={showPassword ? "text" : "password"}
+                      value={generatedPasword !== null ? generatedPasword : ""}
                       {...register("password")}
                       onChange={(e) => {
+                        setGeneratedPassword(e.target.value);
                         setPasswordInput(e.target.value);
                       }}
                     />
