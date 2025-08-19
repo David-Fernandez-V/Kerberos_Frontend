@@ -105,7 +105,7 @@ function SessionForm({ isOpen, onClose }: Props) {
   }, [passwordInput]);
 
   useEffect(() => {
-    /*Borrar */
+    //Setear la contraseña generada
     if (generatedPasword !== null) {
       setPasswordInput(generatedPasword);
     }
