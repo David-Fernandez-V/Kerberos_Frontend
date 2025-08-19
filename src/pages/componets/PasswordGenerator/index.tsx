@@ -170,9 +170,6 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
                 variant="flushed"
                 content="asv"
               />
-              {isError && (
-                <p style={{ color: "red" }}>Error: {String(error)}</p>
-              )}
               <InputRightElement width="4.5rem">
                 <Tooltip label="Generar contraseña">
                   <IconButton
@@ -196,12 +193,13 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
                 </Tooltip>
               </InputRightElement>
             </InputGroup>
-            {errorMessage && <Text color="red.600">{errorMessage}.</Text>}
             <StrengthIndicator
               isLoading={strengthMutation.isPending}
               strength={passwordStrength}
             />
           </FormControl>
+          {errorMessage && <Text color="red.600">{errorMessage}.</Text>}
+          {isError && <p style={{ color: "red" }}>Error: {String(error)}</p>}
 
           {/*Formulario para las opciones*/}
           <form id="optionsForm" onSubmit={() => console.log("Submit")}>
