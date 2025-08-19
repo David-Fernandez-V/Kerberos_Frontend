@@ -12,14 +12,34 @@ import {
   NumberInputStepper,
 } from "@chakra-ui/react";
 import Feature from "../Feature";
-import { useState } from "react";
 
-type Props = {};
+import { useEffect, useState } from "react";
 
-function PassphraseOptions({}: Props) {
+import { generatePassphraseForm } from "../../../schemas/generatePassphraseSchema";
+
+type Props = {
+  onChange: (config: generatePassphraseForm) => void;
+};
+
+function PassphraseOptions({ onChange }: Props) {
   const [languageOption, setLanguageOption] = useState<"spanish" | "english">(
     "spanish"
   );
+
+  const [config, setConfig] = useState<generatePassphraseForm>({
+    words_number: 4,
+    separator: "_",
+    include_number: true,
+    include_symbol: true,
+    capitalize: true,
+    english: true,
+    spanish: true,
+  });
+
+  useEffect(() => {
+    onChange(config);
+  }, [config]);
+
   return (
     <>
       <Feature title="Opciones de la frase">
@@ -27,7 +47,10 @@ function PassphraseOptions({}: Props) {
           {/*Número de palabras*/}
           <FormControl id="words_number">
             <FormLabel>Cantidad de palabras</FormLabel>
-            <NumberInput>
+            <NumberInput
+              value={config.words_number}
+              onChange={(_, v) => setConfig({ ...config, words_number: v })}
+            >
               <NumberInputField borderRightRadius={5} borderLeftRadius={5} />
               <NumberInputStepper>
                 <NumberIncrementStepper />
@@ -39,7 +62,13 @@ function PassphraseOptions({}: Props) {
           {/*Separador*/}
           <FormControl>
             <FormLabel>Separador</FormLabel>
-            <Input type="text" />
+            <Input
+              type="text"
+              value={config.separator}
+              onChange={(e) =>
+                setConfig({ ...config, separator: e.target.value })
+              }
+            />
           </FormControl>
         </HStack>
 
@@ -50,7 +79,10 @@ function PassphraseOptions({}: Props) {
           borderLeftRadius={3}
           variant={languageOption === "spanish" ? "solid" : "ghost2"}
           style={{ backgroundColor: "gray.100" }}
-          onClick={() => setLanguageOption("spanish")}
+          onClick={() => {
+            setLanguageOption("spanish");
+            setConfig({ ...config, spanish: true, english: true });
+          }}
         >
           Español
         </Button>
@@ -59,7 +91,10 @@ function PassphraseOptions({}: Props) {
           borderLeftRadius={0}
           borderRightRadius={3}
           variant={languageOption === "english" ? "solid" : "ghost2"}
-          onClick={() => setLanguageOption("english")}
+          onClick={() => {
+            setLanguageOption("english");
+            setConfig({ ...config, english: true, spanish: false });
+          }}
         >
           Ingles
         </Button>
@@ -70,20 +105,35 @@ function PassphraseOptions({}: Props) {
         <HStack>
           {/*Números*/}
           <FormControl id="digits">
-            <FormLabel>Números</FormLabel>
-            <Checkbox></Checkbox>
+            <FormLabel>Número</FormLabel>
+            <Checkbox
+              isChecked={config.include_number}
+              onChange={(e) =>
+                setConfig({ ...config, include_number: e.target.checked })
+              }
+            />
           </FormControl>
 
           {/*Símbolos*/}
           <FormControl id="simbols">
-            <FormLabel>Símbolos</FormLabel>
-            <Checkbox></Checkbox>
+            <FormLabel>Símbolo</FormLabel>
+            <Checkbox
+              isChecked={config.include_symbol}
+              onChange={(e) =>
+                setConfig({ ...config, include_symbol: e.target.checked })
+              }
+            />
           </FormControl>
 
           {/*Usar mayúsculas*/}
           <FormControl id="capitalize">
             <FormLabel>Mayúsculas</FormLabel>
-            <Checkbox></Checkbox>
+            <Checkbox
+              isChecked={config.capitalize}
+              onChange={(e) =>
+                setConfig({ ...config, capitalize: e.target.checked })
+              }
+            />
           </FormControl>
         </HStack>
       </Feature>
