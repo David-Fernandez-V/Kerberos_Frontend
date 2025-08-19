@@ -49,6 +49,8 @@ function PassphraseOptions({ onChange }: Props) {
             <NumberInput
               value={config.words_number}
               onChange={(_, v) => setConfig({ ...config, words_number: v })}
+              min={2}
+              max={20}
             >
               <NumberInputField borderRightRadius={5} borderLeftRadius={5} />
               <NumberInputStepper>
@@ -67,6 +69,7 @@ function PassphraseOptions({ onChange }: Props) {
               onChange={(e) =>
                 setConfig({ ...config, separator: e.target.value })
               }
+              //max={1}
             />
           </FormControl>
         </HStack>
