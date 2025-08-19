@@ -14,11 +14,10 @@ import {
 import Feature from "../Feature";
 
 import { useEffect, useState } from "react";
-
-import { generatePassphraseForm } from "../../../schemas/generatePassphraseSchema";
+import { PassphraseConfig } from "../../../types";
 
 type Props = {
-  onChange: (config: generatePassphraseForm) => void;
+  onChange: (config: PassphraseConfig) => void;
 };
 
 function PassphraseOptions({ onChange }: Props) {
@@ -26,7 +25,7 @@ function PassphraseOptions({ onChange }: Props) {
     "spanish"
   );
 
-  const [config, setConfig] = useState<generatePassphraseForm>({
+  const [config, setConfig] = useState<PassphraseConfig>({
     words_number: 4,
     separator: "_",
     include_number: true,
