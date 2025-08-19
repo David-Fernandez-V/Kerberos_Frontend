@@ -17,13 +17,6 @@ import {
   IconButton,
   Tooltip,
   Container,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  HStack,
-  Checkbox,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -36,10 +29,11 @@ import usePasswordStrength from "../SessionForm/usePasswordStrength";
 import StrengthIndicator from "../StrengthIndicator";
 import useGeneratePassword from "./useGeneratePassword";
 import { generatePswForm } from "../../../schemas/generatePswSchema";
-import Feature from "../Feature";
 import useGeneratePassphrase from "./useGeneratePassphrase";
 import { generatePassphraseForm } from "../../../schemas/generatePassphraseSchema";
 import GeneratedPassword from "../../../states/GeneratedPassword";
+import PasswordOptions from "./PasswordOptions";
+import PassphraseOptions from "./PassphraseOptions";
 
 type Props = {
   isOpen: boolean;
@@ -62,9 +56,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   const [generationOption, setGenerationOption] = useState<
     "password" | "passphrase"
   >("password");
-  const [languageOption, setLanguageOption] = useState<"spanish" | "english">(
-    "spanish"
-  );
+
   const [errorMessage, setErrorMessage] = useState("");
 
   //Funciones
@@ -215,153 +207,10 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
           <form id="optionsForm" onSubmit={() => console.log("Submit")}>
             {generationOption === "password" ? (
               /*Opción de password*/
-              <>
-                {/*Longitud */}
-                <Feature title="Longitud de la contraseña">
-                  <FormControl id="length" mb={5}>
-                    <NumberInput>
-                      <NumberInputField
-                        borderRightRadius={5}
-                        borderLeftRadius={5}
-                      />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormControl>
-                </Feature>
-                <br />
-
-                <Feature title="Incluir">
-                  <HStack>
-                    {/*Mayusculas*/}
-                    <FormControl id="capital_case">
-                      <FormLabel>Mayúsculas</FormLabel>
-                      <Checkbox></Checkbox>
-                    </FormControl>
-                    {/*Minusculas*/}
-                    <FormControl id="lowe_case">
-                      <FormLabel>Minúsculas</FormLabel>
-                      <Checkbox></Checkbox>
-                    </FormControl>
-                    {/*Números*/}
-                    <FormControl id="digits">
-                      <FormLabel>Números</FormLabel>
-                      <Checkbox></Checkbox>
-                    </FormControl>
-                    {/*Símbolos*/}
-                    <FormControl id="simbols">
-                      <FormLabel>Símbolos</FormLabel>
-                      <Checkbox></Checkbox>
-                    </FormControl>
-                  </HStack>
-
-                  <HStack mt={5}>
-                    {/*Cantidad de números*/}
-                    <FormControl id="digits_number" mb={5}>
-                      <FormLabel>Cantida de dígitos</FormLabel>
-                      <NumberInput>
-                        <NumberInputField
-                          borderRightRadius={5}
-                          borderLeftRadius={5}
-                        />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                    {/*Cartidad de símbolos*/}
-
-                    <FormControl id="simbols_number" mb={5}>
-                      <FormLabel>Cantidad de símbolos</FormLabel>
-                      <NumberInput>
-                        <NumberInputField
-                          borderRightRadius={5}
-                          borderLeftRadius={5}
-                        />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-                  </HStack>
-                </Feature>
-              </>
+              <PasswordOptions />
             ) : (
               /*Opcion de passphrase*/
-              <>
-                <Feature title="Opciones de la frase">
-                  <HStack mb={5}>
-                    {/*Número de palabras*/}
-                    <FormControl id="words_number">
-                      <FormLabel>Cantidad de palabras</FormLabel>
-                      <NumberInput>
-                        <NumberInputField
-                          borderRightRadius={5}
-                          borderLeftRadius={5}
-                        />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </FormControl>
-
-                    {/*Separador*/}
-                    <FormControl>
-                      <FormLabel>Separador</FormLabel>
-                      <Input type="text" />
-                    </FormControl>
-                  </HStack>
-
-                  {/*Ingles/español*/}
-                  <Button
-                    size="sm"
-                    borderRightRadius={0}
-                    borderLeftRadius={3}
-                    variant={languageOption === "spanish" ? "solid" : "ghost2"}
-                    style={{ backgroundColor: "gray.100" }}
-                    onClick={() => setLanguageOption("spanish")}
-                  >
-                    Español
-                  </Button>
-                  <Button
-                    size="sm"
-                    borderLeftRadius={0}
-                    borderRightRadius={3}
-                    variant={languageOption === "english" ? "solid" : "ghost2"}
-                    onClick={() => setLanguageOption("english")}
-                  >
-                    Ingles
-                  </Button>
-                </Feature>
-                <br />
-
-                <Feature title="Incluir">
-                  <HStack>
-                    {/*Números*/}
-                    <FormControl id="digits">
-                      <FormLabel>Números</FormLabel>
-                      <Checkbox></Checkbox>
-                    </FormControl>
-
-                    {/*Símbolos*/}
-                    <FormControl id="simbols">
-                      <FormLabel>Símbolos</FormLabel>
-                      <Checkbox></Checkbox>
-                    </FormControl>
-
-                    {/*Usar mayúsculas*/}
-                    <FormControl id="capitalize">
-                      <FormLabel>Mayúsculas</FormLabel>
-                      <Checkbox></Checkbox>
-                    </FormControl>
-                  </HStack>
-                </Feature>
-              </>
+              <PassphraseOptions />
             )}
           </form>
         </ModalBody>
