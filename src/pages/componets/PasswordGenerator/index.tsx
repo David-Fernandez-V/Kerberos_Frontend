@@ -28,12 +28,12 @@ import { LuRefreshCcw } from "react-icons/lu";
 import usePasswordStrength from "../SessionForm/usePasswordStrength";
 import StrengthIndicator from "../StrengthIndicator";
 import useGeneratePassword from "./useGeneratePassword";
-import { generatePswForm } from "../../../schemas/generatePswSchema";
 import useGeneratePassphrase from "./useGeneratePassphrase";
-import { generatePassphraseForm } from "../../../schemas/generatePassphraseSchema";
 import GeneratedPassword from "../../../states/GeneratedPassword";
 import PasswordOptions from "./PasswordOptions";
 import PassphraseOptions from "./PassphraseOptions";
+
+import { PasswordConfig, PassphraseConfig } from "../../../types/index";
 
 type Props = {
   isOpen: boolean;
@@ -53,11 +53,11 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
     undefined
   );
-  const [passwordConfig, setPasswordConfig] = useState<generatePswForm | null>(
+  const [passwordConfig, setPasswordConfig] = useState<PasswordConfig | null>(
     null
   );
   const [passphraseConfig, setPassphraseConfig] =
-    useState<generatePassphraseForm | null>(null);
+    useState<PassphraseConfig | null>(null);
   const [generationOption, setGenerationOption] = useState<
     "password" | "passphrase"
   >("password");

@@ -78,3 +78,25 @@ export type CardDetailItem = {
   created_at: string
   updated_at: string
 }
+
+//Generador de contraseñas
+
+export type PasswordConfig = {
+  length: number;
+  include_capital: boolean;
+  include_lower: boolean;
+  include_number: boolean;
+  include_symbols: boolean;
+  quantity_numbers: number;
+  quantity_symbols: number;
+};
+
+export type PassphraseConfig = {
+  words_number: number;
+  separator: string;
+  include_number: boolean;
+  include_symbol: boolean;
+  capitalize: boolean;
+  english: boolean;
+  spanish: boolean;
+};

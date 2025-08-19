@@ -12,15 +12,15 @@ import {
 
 import Feature from "../Feature";
 
-import { generatePswForm } from "../../../schemas/generatePswSchema";
 import { useEffect, useState } from "react";
+import { PasswordConfig } from "../../../types";
 
 type Props = {
-  onChange: (config: generatePswForm) => void;
+  onChange: (config: PasswordConfig) => void;
 };
 
 function PasswordOptions({ onChange }: Props) {
-  const [config, setConfig] = useState<generatePswForm>({
+  const [config, setConfig] = useState<PasswordConfig>({
     length: 12,
     include_capital: true,
     include_lower: true,

@@ -20,13 +20,12 @@ const StrengthIndicator = ({ isLoading, strength }: Props) => {
   const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
+    // "alargar" el tiempo de carga
     let timeout: NodeJS.Timeout;
 
     if (isLoading) {
-      // Cuando comienza la carga → mostrar inmediatamente
       setShowLoading(true);
     } else if (showLoading) {
-      // Cuando termina → esperar al menos MIN_LOADING_TIME
       timeout = setTimeout(() => setShowLoading(false), MIN_LOADING_TIME);
     }
 
