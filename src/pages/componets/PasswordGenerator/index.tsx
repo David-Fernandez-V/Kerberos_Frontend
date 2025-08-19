@@ -53,6 +53,11 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
     undefined
   );
+  const [passwordConfig, setPasswordConfig] = useState<generatePswForm | null>(
+    null
+  );
+  const [passphraseConfig, setPassphraseConfig] =
+    useState<generatePassphraseForm | null>(null);
   const [generationOption, setGenerationOption] = useState<
     "password" | "passphrase"
   >("password");
@@ -61,34 +66,14 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
 
   //Funciones
   const handleGenerate = () => {
-    const config: generatePswForm = {
-      length: 12,
-      include_capital: true,
-      include_lower: true,
-      include_number: true,
-      include_symbols: true,
-      quantity_numbers: 3,
-      quantity_symbols: 2,
-    };
-
-    const config2: generatePassphraseForm = {
-      words_number: 12,
-      separator: "_",
-      include_number: true,
-      include_symbol: true,
-      capitalize: true,
-      english: true,
-      spanish: true,
-    };
-
-    if (generationOption == "password") {
-      passswordMutation(config, {
+    if (generationOption === "password" && passwordConfig) {
+      passswordMutation(passwordConfig, {
         onSuccess: (data) => {
           setPasswordInput(data.password);
         },
       });
-    } else {
-      passphraseMutation(config2, {
+    } else if (generationOption === "passphrase" && passphraseConfig) {
+      passphraseMutation(passphraseConfig, {
         onSuccess: (data) => {
           setPasswordInput(data.passphrase);
         },
@@ -104,8 +89,8 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
 
   //Efectos
   useEffect(() => {
+    //Resetar valores al cerrar
     if (!isOpen) {
-      //Resetar valores al cerrar
       setPasswordInput("");
       setErrorMessage("");
       setGenerationOption("password");
@@ -113,6 +98,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   }, [isOpen]);
 
   useEffect(() => {
+    //Análisis de la contraseña
     if (passwordInput.trim().length === 0) {
       setPasswordStrength(undefined);
       return;
@@ -128,6 +114,20 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
 
     return () => clearTimeout(timeout);
   }, [passwordInput]);
+
+  useEffect(() => {
+    //generar contraseña al recibir modificaciones
+    if (generationOption === "password" && passwordConfig) {
+      handleGenerate();
+    }
+  }, [passwordConfig]);
+
+  useEffect(() => {
+    //generar contraseña al recibir modificaciones
+    if (generationOption == "passphrase" && passphraseConfig) {
+      handleGenerate();
+    }
+  }, [passphraseConfig]);
 
   //Componente
   return (
@@ -207,10 +207,10 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
           <form id="optionsForm" onSubmit={() => console.log("Submit")}>
             {generationOption === "password" ? (
               /*Opción de password*/
-              <PasswordOptions />
+              <PasswordOptions onChange={setPasswordConfig} />
             ) : (
               /*Opcion de passphrase*/
-              <PassphraseOptions />
+              <PassphraseOptions onChange={setPassphraseConfig} />
             )}
           </form>
         </ModalBody>

@@ -2,6 +2,7 @@ import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 
 import { strengthLabels, strengthColors } from "../../types";
+import { useEffect, useState } from "react";
 
 type Props = {
   isLoading: boolean;
@@ -13,8 +14,28 @@ const shimmer = keyframes`
     100% { background-position: 200% 0; }
 `;
 
+const MIN_LOADING_TIME = 300;
+
 const StrengthIndicator = ({ isLoading, strength }: Props) => {
-  if (isLoading) {
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (isLoading) {
+      // Cuando comienza la carga → mostrar inmediatamente
+      setShowLoading(true);
+    } else if (showLoading) {
+      // Cuando termina → esperar al menos MIN_LOADING_TIME
+      timeout = setTimeout(() => setShowLoading(false), MIN_LOADING_TIME);
+    }
+
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [isLoading]);
+
+  if (showLoading) {
     return (
       <Box
         bg="gray.300"
