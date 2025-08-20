@@ -25,6 +25,7 @@ function PassphraseOptions({ onChange }: Props) {
     "spanish"
   );
 
+  //Configuración predeterminada
   const [config, setConfig] = useState<PassphraseConfig>({
     words_number: 4,
     separator: "_",
@@ -35,6 +36,20 @@ function PassphraseOptions({ onChange }: Props) {
     spanish: true,
   });
 
+  //Manejar cambios del separador
+  const handleSeparatorChange = (input: string) => {
+    const char = input.substring(0, 1);
+
+    const symbolRegex = /^[^a-zA-Z0-9]$/;
+
+    if (symbolRegex.test(char)) {
+      setConfig({ ...config, separator: char });
+    } else if (input.length === 0) {
+      setConfig({ ...config, separator: "" });
+    }
+  };
+
+  //Generar contraseña con cada cambio
   useEffect(() => {
     onChange(config);
   }, [config]);
@@ -62,14 +77,11 @@ function PassphraseOptions({ onChange }: Props) {
 
           {/*Separador*/}
           <FormControl>
-            <FormLabel>Separador</FormLabel>
+            <FormLabel>Separador (solo símbolos)</FormLabel>
             <Input
               type="text"
               value={config.separator}
-              onChange={(e) =>
-                setConfig({ ...config, separator: e.target.value })
-              }
-              //max={1}
+              onChange={(e) => handleSeparatorChange(e.target.value)}
             />
           </FormControl>
         </HStack>
@@ -105,6 +117,17 @@ function PassphraseOptions({ onChange }: Props) {
 
       <Feature title="Incluir">
         <HStack>
+          {/*Usar mayúsculas*/}
+          <FormControl id="capitalize">
+            <FormLabel>Mayúsculas</FormLabel>
+            <Checkbox
+              isChecked={config.capitalize}
+              onChange={(e) =>
+                setConfig({ ...config, capitalize: e.target.checked })
+              }
+            />
+          </FormControl>
+
           {/*Números*/}
           <FormControl id="digits">
             <FormLabel>Número</FormLabel>
@@ -123,17 +146,6 @@ function PassphraseOptions({ onChange }: Props) {
               isChecked={config.include_symbol}
               onChange={(e) =>
                 setConfig({ ...config, include_symbol: e.target.checked })
-              }
-            />
-          </FormControl>
-
-          {/*Usar mayúsculas*/}
-          <FormControl id="capitalize">
-            <FormLabel>Mayúsculas</FormLabel>
-            <Checkbox
-              isChecked={config.capitalize}
-              onChange={(e) =>
-                setConfig({ ...config, capitalize: e.target.checked })
               }
             />
           </FormControl>

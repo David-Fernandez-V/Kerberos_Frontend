@@ -87,8 +87,6 @@ export type PasswordConfig = {
   include_lower: boolean;
   include_number: boolean;
   include_symbols: boolean;
-  quantity_numbers: number;
-  quantity_symbols: number;
 };
 
 export type PassphraseConfig = {
