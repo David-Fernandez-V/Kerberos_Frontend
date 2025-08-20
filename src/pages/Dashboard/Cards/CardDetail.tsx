@@ -92,8 +92,12 @@ function CardDetail({ isOpen, onClose, card, cardDetail }: Props) {
                   <FormLabel>Número</FormLabel>
                   <InputGroup>
                     <Input
-                      type={showNumber ? "text" : "password"}
-                      value={cardDetail?.number}
+                      type="text"
+                      value={
+                        showNumber
+                          ? cardDetail?.number.replace(/(.{4})/g, "$1 ").trim()
+                          : "xxxx xxxx xxxx xxxx"
+                      } //Dar formato
                       isReadOnly
                       variant="flushed"
                       borderBottomColor="whiteAlpha.600"
@@ -110,10 +114,10 @@ function CardDetail({ isOpen, onClose, card, cardDetail }: Props) {
                       >
                         {showNumber ? <FaEyeSlash /> : <FaEye />}
                       </IconButton>
-                      <Tooltip label="Copiar contraseña">
+                      <Tooltip label="Copiar número">
                         <IconButton
                           aria-label="Copiar"
-                          mr={7}
+                          mr={3}
                           h="1.75rem"
                           onClick={() =>
                             copy(cardDetail ? cardDetail.number : "")
@@ -154,8 +158,14 @@ function CardDetail({ isOpen, onClose, card, cardDetail }: Props) {
                     </FormLabel>
                     <InputGroup>
                       <Input
-                        type={showCsv ? "text" : "password"}
-                        value={cardDetail?.csv ? cardDetail.csv : ""}
+                        type="text"
+                        value={
+                          cardDetail?.csv
+                            ? showCsv
+                              ? cardDetail.csv
+                              : "xxx"
+                            : ""
+                        }
                         isReadOnly
                         variant="flushed"
                         borderBottomColor="whiteAlpha.600"
@@ -173,6 +183,16 @@ function CardDetail({ isOpen, onClose, card, cardDetail }: Props) {
                           >
                             {showCsv ? <FaEyeSlash /> : <FaEye />}
                           </IconButton>
+                          <Tooltip label="Copiar csv">
+                            <IconButton
+                              aria-label="Copiar"
+                              mr={3}
+                              h="1.75rem"
+                              onClick={() => copy(cardDetail.csv)}
+                            >
+                              <FiCopy />
+                            </IconButton>
+                          </Tooltip>
                         </InputRightElement>
                       )}
                     </InputGroup>
