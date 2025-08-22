@@ -28,6 +28,7 @@ import useCurrentNoteDetail from "../../../states/CurrentNoteDetail";
 import useNoteDetail from "./useNoteDetail";
 import NoteDetail from "./NoteDetail";
 import NoteDetailSecurity from "./NoteDetailSecurity";
+import DeleteNoteConfirmation from "./DeleteNoteConfirmation";
 
 type Props = {
   UserNotes: NoteItem[];
@@ -35,18 +36,16 @@ type Props = {
 
 const NotesTable = ({ UserNotes }: Props) => {
   const [selectedNote, setSelectedNote] = useState<NoteItem | null>(null);
+  const [masterPwd, setMasterPwd] = useState<null | string>(null);
 
   const { mutate } = useNoteDetail();
   const { currentDetail, setCurrentDetail } = useCurrentNoteDetail();
 
   const MPwdModal = useDisclosure();
   const NoteModal = useDisclosure();
+  const ConfirmationAlert = useDisclosure();
 
-  useEffect(() => {
-    if (currentDetail === null) return;
-    NoteModal.onOpen();
-  }, [currentDetail]);
-
+  //Seleccionar nota
   function selectNote(note: NoteItem) {
     setSelectedNote(note);
 
@@ -67,18 +66,41 @@ const NotesTable = ({ UserNotes }: Props) => {
     }
   }
 
+  //Eliminar nota
+  function handleDelete(note: NoteItem) {
+    if (!note.ask_password) {
+      setSelectedNote(note);
+      ConfirmationAlert.onOpen();
+    } else {
+      //Medida de seguridad
+    }
+  }
+
+  //Abrir detalle de nota
+  useEffect(() => {
+    if (currentDetail === null) return;
+    NoteModal.onOpen();
+  }, [currentDetail]);
+
   return (
     <Box>
       <NoteDetailSecurity
         isOpen={MPwdModal.isOpen}
         onClose={MPwdModal.onClose}
+        setMasterPwd={setMasterPwd}
         noteId={selectedNote?.id}
       />
       <NoteDetail
         note={selectedNote}
         noteDetail={currentDetail}
+        masterPwd={masterPwd}
         isOpen={NoteModal.isOpen}
         onClose={NoteModal.onClose}
+      />
+      <DeleteNoteConfirmation
+        isOpen={ConfirmationAlert.isOpen}
+        onClose={ConfirmationAlert.onClose}
+        note={selectedNote}
       />
 
       <TableContainer>
@@ -142,7 +164,7 @@ const NotesTable = ({ UserNotes }: Props) => {
                           color="red.600"
                           _hover={{ bg: "gray.200" }}
                           icon={<RiDeleteBin6Line />}
-                          onClick={() => console.log("Eliminar")}
+                          onClick={() => handleDelete(n)}
                         >
                           Eliminar
                         </MenuItem>
