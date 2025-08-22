@@ -61,7 +61,6 @@ const CardsTable = ({ UserCards }: Props) => {
         {
           onSuccess: (data) => {
             setCurrentDetail(data);
-            console.log(data);
           },
           onError: (error) => {
             console.error("Error al obtener tarjeta:", error);

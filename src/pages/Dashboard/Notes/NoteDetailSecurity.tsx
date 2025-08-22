@@ -30,10 +30,11 @@ import useCurrentNoteDetail from "../../../states/CurrentNoteDetail";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  setMasterPwd: (pwd: string) => void;
   noteId: number | undefined;
 };
 
-function NoteDetailSecurity({ isOpen, onClose, noteId }: Props) {
+function NoteDetailSecurity({ isOpen, onClose, setMasterPwd, noteId }: Props) {
   const toast = useToast();
 
   const {
@@ -66,7 +67,9 @@ function NoteDetailSecurity({ isOpen, onClose, noteId }: Props) {
         {
           onSuccess: (data) => {
             setCurrentDetail(data);
-
+            const pws = (document.getElementById("pwd") as HTMLInputElement)
+              .value;
+            setMasterPwd(pws);
             toast({
               title: "Contraseña correcta",
               description: "Mostrando Nota",
@@ -99,6 +102,7 @@ function NoteDetailSecurity({ isOpen, onClose, noteId }: Props) {
               <FormLabel>Vuelva a introducir la contraseña maestra</FormLabel>
               <InputGroup>
                 <Input
+                  id="pwd"
                   type={showPassword ? "text" : "password"}
                   {...register("mpwd")}
                   onFocus={() => setErrorMessage("")}

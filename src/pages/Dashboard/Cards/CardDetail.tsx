@@ -29,6 +29,7 @@ import Feature from "../../componets/Feature";
 import CardTemplate from "../../componets/CardForm/CardTemplate";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiCopy } from "react-icons/fi";
+import useNoteDelete from "../Notes/useDeleteNote";
 
 type Props = {
   isOpen: boolean;
@@ -43,6 +44,10 @@ function CardDetail({ isOpen, onClose, card, cardDetail }: Props) {
 
   const { copy } = useCopy();
   const { currentDetail, reset } = useCurrentCardDetail();
+  const { mutate } = useNoteDelete();
+
+  //Borrar nota
+  function deleteNote() {}
 
   useEffect(() => {
     if (!isOpen) {
