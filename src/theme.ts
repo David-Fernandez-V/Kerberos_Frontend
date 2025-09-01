@@ -3,7 +3,7 @@ import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 
 // Configura el modo oscuro por defecto
 const config: ThemeConfig = {
-  initialColorMode: "dark",
+  initialColorMode: "light",
   useSystemColorMode: false,
 };
 

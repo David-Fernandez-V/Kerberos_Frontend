@@ -19,6 +19,7 @@ type Props = {
   note: NoteItem | null;
   masterPwd?: string | null;
   onCloseDetail?: () => void;
+  onCloseMpwd?: () => void;
 };
 
 function DeleteNoteConfirmation({
@@ -27,6 +28,7 @@ function DeleteNoteConfirmation({
   note,
   masterPwd,
   onCloseDetail,
+  onCloseMpwd,
 }: Props) {
   const { mutate } = useNoteDelete();
   const { refreshNotes } = useNotesStore();
@@ -55,6 +57,7 @@ function DeleteNoteConfirmation({
             });
             onClose();
             onCloseDetail && onCloseDetail();
+            onCloseMpwd && onCloseMpwd();
           },
           onError: (error) => {
             console.error("Error al borrar nota:", error);
@@ -79,7 +82,7 @@ function DeleteNoteConfirmation({
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              ¿Estás seguro que quieres borrar esta nota?
+              ¿Estás seguro de que quieres borrar esta nota?
             </AlertDialogBody>
 
             <AlertDialogFooter>

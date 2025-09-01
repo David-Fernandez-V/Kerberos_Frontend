@@ -29,6 +29,7 @@ import useNoteDetail from "./useNoteDetail";
 import NoteDetail from "./NoteDetail";
 import NoteDetailSecurity from "./NoteDetailSecurity";
 import DeleteNoteConfirmation from "./DeleteNoteConfirmation";
+import NoteDeleteSecurity from "./NoteDeleteSecurity";
 
 type Props = {
   UserNotes: NoteItem[];
@@ -43,6 +44,7 @@ const NotesTable = ({ UserNotes }: Props) => {
 
   const MPwdModal = useDisclosure();
   const NoteModal = useDisclosure();
+  const MPwdDelete = useDisclosure();
   const ConfirmationAlert = useDisclosure();
 
   //Seleccionar nota
@@ -73,6 +75,7 @@ const NotesTable = ({ UserNotes }: Props) => {
       ConfirmationAlert.onOpen();
     } else {
       //Medida de seguridad
+      MPwdDelete.onOpen();
     }
   }
 
@@ -89,6 +92,13 @@ const NotesTable = ({ UserNotes }: Props) => {
         onClose={MPwdModal.onClose}
         setMasterPwd={setMasterPwd}
         noteId={selectedNote?.id}
+      />
+      <NoteDeleteSecurity
+        isOpen={MPwdDelete.isOpen}
+        onClose={MPwdDelete.onClose}
+        note={selectedNote}
+        ConfirmationIsOpen={ConfirmationAlert.isOpen}
+        ConfirmationOnClose={ConfirmationAlert.onClose}
       />
       <NoteDetail
         note={selectedNote}
