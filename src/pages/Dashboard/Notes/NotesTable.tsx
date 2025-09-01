@@ -70,8 +70,8 @@ const NotesTable = ({ UserNotes }: Props) => {
 
   //Eliminar nota
   function handleDelete(note: NoteItem) {
+    setSelectedNote(note);
     if (!note.ask_password) {
-      setSelectedNote(note);
       ConfirmationAlert.onOpen();
     } else {
       //Medida de seguridad
@@ -97,8 +97,6 @@ const NotesTable = ({ UserNotes }: Props) => {
         isOpen={MPwdDelete.isOpen}
         onClose={MPwdDelete.onClose}
         note={selectedNote}
-        ConfirmationIsOpen={ConfirmationAlert.isOpen}
-        ConfirmationOnClose={ConfirmationAlert.onClose}
       />
       <NoteDetail
         note={selectedNote}

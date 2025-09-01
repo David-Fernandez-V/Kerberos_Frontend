@@ -15,7 +15,7 @@ export default function useCheckMasterpwd() {
               
       const response = await axios.post<NoteDetailItem>(
         URL,
-        master_password,
+        {master_password},
         {
           withCredentials: true,
         }

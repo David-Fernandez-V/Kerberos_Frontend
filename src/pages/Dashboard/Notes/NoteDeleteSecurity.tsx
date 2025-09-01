@@ -15,6 +15,7 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
@@ -25,22 +26,15 @@ import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import DeleteNoteConfirmation from "./DeleteNoteConfirmation";
 import { NoteItem } from "../../../types";
+import useCheckMasterpwd from "../../../hooks/useCheckMasterpwd";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  ConfirmationIsOpen: boolean;
-  ConfirmationOnClose: () => void;
   note: NoteItem | null;
 };
 
-function NoteDeleteSecurity({
-  isOpen,
-  onClose,
-  note,
-  ConfirmationIsOpen,
-  ConfirmationOnClose,
-}: Props) {
+function NoteDeleteSecurity({ isOpen, onClose, note }: Props) {
   const {
     register,
     handleSubmit,
@@ -54,6 +48,9 @@ function NoteDeleteSecurity({
   const [errorMessage, setErrorMessage] = useState("");
   const [Mpwd, setMpwd] = useState<string | null>(null);
 
+  const ConfirmationAlert = useDisclosure();
+  const { mutate } = useCheckMasterpwd();
+
   useEffect(() => {
     if (!isOpen) {
       reset(); // Limpia los campos del formulario
@@ -62,18 +59,32 @@ function NoteDeleteSecurity({
     }
   }, [isOpen]);
 
-  const onSubmit = () => {
+  const onSubmit = (formData: mpwdForm) => {
     if (note) {
-      const pws = (document.getElementById("pwd") as HTMLInputElement).value;
-      setMpwd(pws);
+      mutate(
+        { master_password: formData.mpwd },
+        {
+          onSuccess: (data) => {
+            setMpwd(formData.mpwd);
+            console.log(data);
+            ConfirmationAlert.onOpen();
+            onClose();
+          },
+          onError: () => {
+            setErrorMessage("Contraseña incorrecta");
+          },
+        }
+      );
+    } else {
+      console.log("Sin nota seleccionada");
     }
   };
 
   return (
     <>
       <DeleteNoteConfirmation
-        isOpen={ConfirmationIsOpen}
-        onClose={ConfirmationOnClose}
+        isOpen={ConfirmationAlert.isOpen}
+        onClose={ConfirmationAlert.onClose}
         note={note}
         masterPwd={Mpwd}
         onCloseDetail={onClose}
