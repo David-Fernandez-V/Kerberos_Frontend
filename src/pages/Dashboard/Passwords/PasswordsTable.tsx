@@ -36,6 +36,8 @@ import useCurrentPswDetail from "../../../states/CurrentPswDetail";
 
 import PwdDetailSecurity from "./PwdDetailSecurity";
 import PwdCopySecurity from "./PwdCopySecurity";
+import PwdConfirmation from "./PwdConfirmation";
+import PwdDeleteSecurity from "./PwdDeleteSecurity";
 
 type Props = {
   UserPasswords: PasswordItem[];
@@ -57,7 +59,10 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
   const MPwdModal = useDisclosure();
   const CopyModal = useDisclosure();
   const PasswordModal = useDisclosure();
+  const MPwdDelete = useDisclosure();
+  const ConfirmationAlert = useDisclosure();
 
+  //Seleccionar contraseña
   function selectPassword(pwd: PasswordItem) {
     setSelectedPassword(pwd);
 
@@ -78,6 +83,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
     }
   }
 
+  //Copiar contenido
   function copyContent(pwd: PasswordItem, opt: "password" | "username") {
     setSelectedPassword(pwd);
 
@@ -100,6 +106,18 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
     }
   }
 
+  //Eliminar tarjeta
+  function handleDelete(pwd: PasswordItem) {
+    setSelectedPassword(pwd);
+    if (!pwd.ask_password) {
+      ConfirmationAlert.onOpen();
+    } else {
+      //Medida de seguridad
+      MPwdDelete.onOpen();
+    }
+  }
+
+  //Abrir detalle de sesión
   useEffect(() => {
     if (currentDetail === null) return;
     PasswordModal.onOpen();
@@ -119,12 +137,22 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
         pwdId={selectedPassword?.id}
         option={copyOption}
       />
+      <PwdDeleteSecurity
+        isOpen={MPwdDelete.isOpen}
+        onClose={MPwdDelete.onClose}
+        password={selectedPassword}
+      />
       <PasswordDetail
         password={selectedPassword}
         passwordDetail={currentDetail}
         masterPwd={masterPwd}
         isOpen={PasswordModal.isOpen}
         onClose={PasswordModal.onClose}
+      />
+      <PwdConfirmation
+        isOpen={ConfirmationAlert.isOpen}
+        onClose={ConfirmationAlert.onClose}
+        password={selectedPassword}
       />
 
       <TableContainer>
@@ -221,7 +249,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
                           color="red.600"
                           _hover={{ bg: "gray.200" }}
                           icon={<RiDeleteBin6Line />}
-                          onClick={() => console.log("Eliminar")}
+                          onClick={() => handleDelete(p)}
                         >
                           Eliminar
                         </MenuItem>
