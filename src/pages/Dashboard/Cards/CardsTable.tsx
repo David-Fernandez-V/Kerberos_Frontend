@@ -30,6 +30,7 @@ import CardDetail from "./CardDetail";
 import { FiCopy } from "react-icons/fi";
 import { useCopy } from "../../../useCopy";
 import CardCopySecurity from "./CardCopySecurity";
+import CardConfirmation from "./CardConfirmation";
 
 type Props = {
   UserCards: CardItem[];
@@ -37,6 +38,7 @@ type Props = {
 
 const CardsTable = ({ UserCards }: Props) => {
   const [selectedCard, setSelectedCard] = useState<CardItem | null>(null);
+  const [masterPwd, setMasterPwd] = useState<null | string>(null);
   const [copyOption, setCopyOption] = useState<"number" | "csv">("number");
 
   const { mutate } = useCardDetail();
@@ -46,12 +48,10 @@ const CardsTable = ({ UserCards }: Props) => {
   const MPwdModal = useDisclosure();
   const CardModal = useDisclosure();
   const CopyModal = useDisclosure();
+  const MPwdDelete = useDisclosure();
+  const ConfirmationAlert = useDisclosure();
 
-  useEffect(() => {
-    if (currentDetail === null) return;
-    CardModal.onOpen();
-  }, [currentDetail]);
-
+  //Seleccionar tarjeta
   function selectCard(card: CardItem) {
     setSelectedCard(card);
 
@@ -72,6 +72,7 @@ const CardsTable = ({ UserCards }: Props) => {
     }
   }
 
+  //Copiar contenido
   function copyContent(card: CardItem, opt: "number" | "csv") {
     setSelectedCard(card);
 
@@ -94,11 +95,29 @@ const CardsTable = ({ UserCards }: Props) => {
     }
   }
 
+  //Eliminar tarjeta
+  function handleDelete(card: CardItem) {
+    setSelectedCard(card);
+    if (!card.ask_password) {
+      ConfirmationAlert.onOpen();
+    } else {
+      //Medida de seguridad
+      MPwdDelete.onOpen();
+    }
+  }
+
+  //Abrir detalle de tarjeta
+  useEffect(() => {
+    if (currentDetail === null) return;
+    CardModal.onOpen();
+  }, [currentDetail]);
+
   return (
     <Box>
       <CardDetailSecurity
         isOpen={MPwdModal.isOpen}
         onClose={MPwdModal.onClose}
+        setMasterPwd={setMasterPwd}
         cardId={selectedCard?.id}
       />
       <CardCopySecurity
@@ -110,8 +129,14 @@ const CardsTable = ({ UserCards }: Props) => {
       <CardDetail
         card={selectedCard}
         cardDetail={currentDetail}
+        masterPwd={masterPwd}
         isOpen={CardModal.isOpen}
         onClose={CardModal.onClose}
+      />
+      <CardConfirmation
+        isOpen={ConfirmationAlert.isOpen}
+        onClose={ConfirmationAlert.onClose}
+        card={selectedCard}
       />
 
       <TableContainer>
@@ -175,7 +200,7 @@ const CardsTable = ({ UserCards }: Props) => {
                           color="red.600"
                           _hover={{ bg: "gray.200" }}
                           icon={<RiDeleteBin6Line />}
-                          onClick={() => console.log("Eliminar")}
+                          onClick={() => handleDelete(c)}
                         >
                           Eliminar
                         </MenuItem>

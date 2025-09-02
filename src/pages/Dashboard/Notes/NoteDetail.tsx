@@ -38,11 +38,12 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
 
   const ConfirmationAlert = useDisclosure();
 
+  //Eliminar nota
   const hanldeDelete = () => {
     ConfirmationAlert.onOpen();
-    //onClose();
   };
 
+  //Reiniciar valores
   useEffect(() => {
     if (!isOpen) {
       reset();

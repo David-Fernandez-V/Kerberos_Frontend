@@ -30,10 +30,11 @@ import useCurrentCardDetail from "../../../states/CurrentCardDetail";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  setMasterPwd: (pwd: string) => void;
   cardId: number | undefined;
 };
 
-function CardDetailSecurity({ isOpen, onClose, cardId }: Props) {
+function CardDetailSecurity({ isOpen, onClose, setMasterPwd, cardId }: Props) {
   const toast = useToast();
 
   const {
@@ -66,7 +67,9 @@ function CardDetailSecurity({ isOpen, onClose, cardId }: Props) {
         {
           onSuccess: (data) => {
             setCurrentDetail(data);
-
+            const pws = (document.getElementById("pwd") as HTMLInputElement)
+              .value;
+            setMasterPwd(pws);
             toast({
               title: "Contraseña correcta",
               description: "Mostrando detalles",

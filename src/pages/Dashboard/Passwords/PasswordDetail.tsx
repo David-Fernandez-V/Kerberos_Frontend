@@ -67,7 +67,7 @@ function PasswordDetail({ isOpen, onClose, password, passwordDetail }: Props) {
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader color="purple.700">Detalle de la Sesión</ModalHeader>
+        <ModalHeader color="purple.700">Detalle de Sesión</ModalHeader>
         <ModalCloseButton />
         <Divider />
         <ModalBody>
