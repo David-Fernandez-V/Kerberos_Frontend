@@ -30,10 +30,11 @@ import useCurrentPswDetail from "../../../states/CurrentPswDetail";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  setMasterPwd: (pwd: string) => void;
   pwdId: number | undefined;
 };
 
-function PwdDetailSecurity({ isOpen, onClose, pwdId }: Props) {
+function PwdDetailSecurity({ isOpen, onClose, setMasterPwd, pwdId }: Props) {
   const toast = useToast();
 
   const {
@@ -66,6 +67,9 @@ function PwdDetailSecurity({ isOpen, onClose, pwdId }: Props) {
         {
           onSuccess: (data) => {
             setCurrentDetail(data);
+            const pws = (document.getElementById("mpwd") as HTMLInputElement)
+              .value;
+            setMasterPwd(pws);
 
             toast({
               title: "Contraseña correcta",
