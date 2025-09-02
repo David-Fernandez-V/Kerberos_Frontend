@@ -22,7 +22,7 @@ type Props = {
   onCloseMpwd?: () => void;
 };
 
-function PasswordConfirmation({
+function PwdConfirmation({
   isOpen,
   onClose,
   password,
@@ -100,4 +100,4 @@ function PasswordConfirmation({
   );
 }
 
-export default PasswordConfirmation;
+export default PwdConfirmation;

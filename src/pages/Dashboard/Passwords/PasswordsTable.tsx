@@ -45,6 +45,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
   const [selectedPassword, setSelectedPassword] = useState<PasswordItem | null>(
     null
   );
+  const [masterPwd, setMasterPwd] = useState<null | string>(null);
   const [copyOption, setCopyOption] = useState<"password" | "username">(
     "username"
   );
@@ -109,6 +110,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
       <PwdDetailSecurity
         isOpen={MPwdModal.isOpen}
         onClose={MPwdModal.onClose}
+        setMasterPwd={setMasterPwd}
         pwdId={selectedPassword?.id}
       />
       <PwdCopySecurity
@@ -117,10 +119,10 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
         pwdId={selectedPassword?.id}
         option={copyOption}
       />
-
       <PasswordDetail
         password={selectedPassword}
         passwordDetail={currentDetail}
+        masterPwd={masterPwd}
         isOpen={PasswordModal.isOpen}
         onClose={PasswordModal.onClose}
       />
