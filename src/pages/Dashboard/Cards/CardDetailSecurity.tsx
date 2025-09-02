@@ -67,9 +67,9 @@ function CardDetailSecurity({ isOpen, onClose, setMasterPwd, cardId }: Props) {
         {
           onSuccess: (data) => {
             setCurrentDetail(data);
-            const pws = (document.getElementById("pwd") as HTMLInputElement)
+            const pws = (document.getElementById("mpwd") as HTMLInputElement)
               .value;
-            setMasterPwd(pws);
+            setMasterPwd("string");
             toast({
               title: "Contraseña correcta",
               description: "Mostrando detalles",

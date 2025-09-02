@@ -39,6 +39,7 @@ function DeleteNoteConfirmation({
 
   const deleteCard = () => {
     if (card) {
+      //console.log(masterPwd);
       mutate(
         {
           card_id: card.id,
