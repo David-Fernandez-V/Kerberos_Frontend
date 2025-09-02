@@ -31,6 +31,7 @@ import { FiCopy } from "react-icons/fi";
 import { useCopy } from "../../../useCopy";
 import CardCopySecurity from "./CardCopySecurity";
 import CardConfirmation from "./CardConfirmation";
+import CardDeleteSecurity from "./CardDeleteSecurity";
 
 type Props = {
   UserCards: CardItem[];
@@ -125,6 +126,11 @@ const CardsTable = ({ UserCards }: Props) => {
         onClose={CopyModal.onClose}
         cardId={selectedCard?.id}
         option={copyOption}
+      />
+      <CardDeleteSecurity
+        isOpen={MPwdDelete.isOpen}
+        onClose={MPwdDelete.onClose}
+        card={selectedCard}
       />
       <CardDetail
         card={selectedCard}
