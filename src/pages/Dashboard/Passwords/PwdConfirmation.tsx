@@ -9,47 +9,47 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useRef } from "react";
-import { CardItem } from "../../../types";
-import useDeleteCard from "./useDeleteCard";
-import useCardsStore from "../../../states/CardsStore";
+import { PasswordItem } from "../../../types";
+import useDeletePassword from "./usePasswordDelete";
+import usePasswordsStore from "../../../states/PasswordsStore";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  card: CardItem | null;
+  password: PasswordItem | null;
   masterPwd?: string | null;
   onCloseDetail?: () => void;
   onCloseMpwd?: () => void;
 };
 
-function CardConfirmation({
+function PasswordConfirmation({
   isOpen,
   onClose,
-  card,
+  password,
   masterPwd,
   onCloseDetail,
   onCloseMpwd,
 }: Props) {
-  const { mutate } = useDeleteCard();
-  const { refreshCards } = useCardsStore();
+  const { mutate } = useDeletePassword();
+  const { refreshPasswords } = usePasswordsStore();
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   const toast = useToast();
 
   const deleteCard = () => {
-    if (card) {
+    if (password) {
       mutate(
         {
-          card_id: card.id,
+          password_id: password.id,
           master_password: masterPwd !== null ? masterPwd : "",
         },
         {
           onSuccess: async () => {
-            await refreshCards(-1);
+            await refreshPasswords(-1);
             toast({
               title: "Completado",
-              description: "La tarjeta ha sido eliminada con éxito",
+              description: "La sesión ha sido eliminada con éxito",
               status: "success",
               duration: 2000,
               isClosable: true,
@@ -60,12 +60,12 @@ function CardConfirmation({
             onCloseMpwd && onCloseMpwd();
           },
           onError: (error) => {
-            console.error("Error al borrar tarjeta:", error);
+            console.error("Error la sesión tarjeta:", error);
           },
         }
       );
     } else {
-      console.log("Sin tarjeta por borrar");
+      console.log("Sin sesión por borrar");
     }
   };
   return (
@@ -78,11 +78,11 @@ function CardConfirmation({
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Eliminación de Tarjeta
+              Eliminación de Sesión
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              ¿Estás seguro de que quieres borrar esta tarjeta?
+              ¿Estás seguro de que quieres borrar esta sesión?
             </AlertDialogBody>
 
             <AlertDialogFooter>
@@ -100,4 +100,4 @@ function CardConfirmation({
   );
 }
 
-export default CardConfirmation;
+export default PasswordConfirmation;
