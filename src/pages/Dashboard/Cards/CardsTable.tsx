@@ -25,8 +25,8 @@ import {
   FaCcMastercard,
   FaCcVisa,
   FaCreditCard,
-} from "react-icons/fa";
-import { FaCcAmex } from "react-icons/fa6";
+  FaCcAmex,
+} from "react-icons/fa6";
 import { CardItem } from "../../../types";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
