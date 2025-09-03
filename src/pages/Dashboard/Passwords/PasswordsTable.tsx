@@ -19,7 +19,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
-import { BsQuestionSquare } from "react-icons/bs";
+import { PiGlobeBold } from "react-icons/pi";
 import { PasswordItem } from "../../../types";
 import { strengthLabels } from "../../../types";
 import PasswordDetail from "./PasswordDetail";
@@ -180,11 +180,11 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
                         <Image
                           src={faviconUrl}
                           alt="favicon"
-                          boxSize="20px"
+                          boxSize="30px"
                           borderRadius="md"
                         />
                       ) : (
-                        <BsQuestionSquare size="21px" />
+                        <PiGlobeBold size="30px" />
                       )}
 
                       <Text

@@ -18,7 +18,15 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
-import { FaCreditCard } from "react-icons/fa";
+import {
+  FaCcDinersClub,
+  FaCcDiscover,
+  FaCcJcb,
+  FaCcMastercard,
+  FaCcVisa,
+  FaCreditCard,
+} from "react-icons/fa";
+import { FaCcAmex } from "react-icons/fa6";
 import { CardItem } from "../../../types";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useEffect, useState } from "react";
@@ -161,7 +169,24 @@ const CardsTable = ({ UserCards }: Props) => {
                 <Tr key={c.id} _hover={{ bg: "gray.200" }}>
                   <Td>
                     <HStack cursor="pointer" onClick={() => selectCard(c)}>
-                      <FaCreditCard size="21px" />
+                      {
+                        /*Marca de la tarjeta */
+                        c.brand === "Visa" ? (
+                          <FaCcVisa size="30px" />
+                        ) : c.brand === "Mastercard" ? (
+                          <FaCcMastercard size="30px" />
+                        ) : c.brand === "American Express" ? (
+                          <FaCcAmex size="30px" />
+                        ) : c.brand === "Discover" ? (
+                          <FaCcDiscover size="30px" />
+                        ) : c.brand === "Diners Club" ? (
+                          <FaCcDinersClub size="30px" />
+                        ) : c.brand === "JCB" ? (
+                          <FaCcJcb size="30px" />
+                        ) : (
+                          <FaCreditCard size="30px" />
+                        )
+                      }
                       <Text
                         color="#175DDC"
                         ml={4}
