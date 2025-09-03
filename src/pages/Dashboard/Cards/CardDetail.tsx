@@ -30,7 +30,17 @@ import { useCopy } from "../../../useCopy";
 import useCurrentCardDetail from "../../../states/CurrentCardDetail";
 import Feature from "../../componets/Feature";
 import CardTemplate from "../../componets/CardForm/CardTemplate";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  FaCcAmex,
+  FaCcDinersClub,
+  FaCcDiscover,
+  FaCcJcb,
+  FaCcMastercard,
+  FaCcVisa,
+  FaCreditCard,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa6";
 import { FiCopy } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import CardConfirmation from "./CardConfirmation";
@@ -89,18 +99,33 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="purple.700">Detalle de Tarjeta</ModalHeader>
+          <ModalHeader>
+            <HStack>
+              {
+                /*Marca de la tarjeta */
+                card?.brand === "Visa" ? (
+                  <FaCcVisa size="30px" />
+                ) : card?.brand === "Mastercard" ? (
+                  <FaCcMastercard size="30px" />
+                ) : card?.brand === "American Express" ? (
+                  <FaCcAmex size="30px" />
+                ) : card?.brand === "Discover" ? (
+                  <FaCcDiscover size="30px" />
+                ) : card?.brand === "Diners Club" ? (
+                  <FaCcDinersClub size="30px" />
+                ) : card?.brand === "JCB" ? (
+                  <FaCcJcb size="30px" />
+                ) : (
+                  <FaCreditCard size="30px" />
+                )
+              }
+              <Text color="purple.700">{card?.alias}</Text>
+            </HStack>
+          </ModalHeader>
           <ModalCloseButton />
           <Divider />
           <ModalBody>
             <form id="cardForm">
-              <Feature title="Alias">
-                <FormControl id="alias">
-                  <Input type="text" isReadOnly value={card?.alias} />
-                </FormControl>
-              </Feature>
-              <br />
-
               {/* Información de la tarjeta*/}
 
               <Feature title="Datos de la tarjeta">
@@ -233,7 +258,7 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
 
               {/*Opciones extra */}
 
-              <Feature title="Opciones extras">
+              <Feature title="Información extra">
                 <HStack>
                   <FormControl id="type">
                     <FormLabel>Tipo de tarjeta</FormLabel>

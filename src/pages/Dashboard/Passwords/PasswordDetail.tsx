@@ -23,6 +23,7 @@ import {
   Stack,
   HStack,
   useDisclosure,
+  Image,
 } from "@chakra-ui/react";
 
 import { FiCopy } from "react-icons/fi";
@@ -38,6 +39,7 @@ import { useCopy } from "../../../useCopy";
 import useCurrentPswDetail from "../../../states/CurrentPswDetail";
 import StrengthIndicator from "../../componets/StrengthIndicator";
 import PwdConfirmation from "./PwdConfirmation";
+import { PiGlobeBold } from "react-icons/pi";
 
 type Props = {
   isOpen: boolean;
@@ -59,6 +61,14 @@ function PasswordDetail({
   const { copy } = useCopy();
   const { currentDetail, reset } = useCurrentPswDetail();
   const ConfirmationAlert = useDisclosure();
+
+  //Ícono
+  const domain = password?.web_page
+    ? new URL(password.web_page).hostname
+    : null;
+  const faviconUrl = domain
+    ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
+    : null;
 
   //Borrar sesión
   const hanldeDelete = () => {
@@ -96,21 +106,25 @@ function PasswordDetail({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="purple.700">Detalle de Sesión</ModalHeader>
+          <ModalHeader>
+            <HStack>
+              {faviconUrl ? (
+                <Image
+                  src={faviconUrl}
+                  alt="favicon"
+                  boxSize="30px"
+                  borderRadius="md"
+                />
+              ) : (
+                <PiGlobeBold size="30px" />
+              )}
+              <Text color="purple.700">{password?.service_name}</Text>
+            </HStack>
+          </ModalHeader>
           <ModalCloseButton />
           <Divider />
           <ModalBody>
             <form id="passwordForm">
-              <Feature title="Nombre del elemento">
-                <FormControl id="name">
-                  <Input
-                    type="text"
-                    value={password?.service_name}
-                    isReadOnly
-                  />
-                </FormControl>
-              </Feature>
-              <br />
               <Feature title="Credenciales de inicio de sesión">
                 <FormControl id="user">
                   <FormLabel>Usuario</FormLabel>
@@ -180,7 +194,7 @@ function PasswordDetail({
               </Feature>
               <br />
 
-              <Feature title="Opciones extras">
+              <Feature title="Información extra">
                 <FormControl id="webpage">
                   <FormLabel>Página web (URL)</FormLabel>
                   <Input
