@@ -278,8 +278,6 @@ function CardForm({ isOpen, onClose }: Props) {
                     <option value="Discover">Discover</option>
                     <option value="Diners Club">Diners Club</option>
                     <option value="JCB">JCB</option>
-                    <option value="Union Pay">Union Pay</option>
-                    <option value="Mir">Mir</option>
                     <option value="">Otra</option>
                   </Select>
                   {errors?.brand?.message && (
