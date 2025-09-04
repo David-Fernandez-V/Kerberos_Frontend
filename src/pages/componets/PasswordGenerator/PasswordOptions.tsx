@@ -29,11 +29,36 @@ function PasswordOptions({ onChange }: Props) {
     include_symbols: true,
   });
 
+  //Evitar desmarcar todas las cajas
+  const handleCheckboxChange =
+    (field: keyof PasswordConfig) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.checked;
+
+      //no permitir desmarcar la única caja
+      if (
+        !newValue && // intenta desmarcar
+        Object.entries(config).filter(
+          ([key, val]) =>
+            [
+              "include_capital",
+              "include_lower",
+              "include_number",
+              "include_symbols",
+            ].includes(key) && val === true
+        ).length === 1
+      ) {
+        return; // ignorar el cambio
+      }
+
+      setConfig({ ...config, [field]: newValue });
+    };
+
   //Efecto para actualizar con cada cambio
   useEffect(() => {
-    console.log(config);
+    //console.log(config);
     onChange(config);
-  }, [config]);
+  }, [config, onChange]);
 
   return (
     <>
@@ -67,9 +92,7 @@ function PasswordOptions({ onChange }: Props) {
             <FormLabel>Mayúsculas</FormLabel>
             <Checkbox
               isChecked={config.include_capital}
-              onChange={(e) =>
-                setConfig({ ...config, include_capital: e.target.checked })
-              }
+              onChange={handleCheckboxChange("include_capital")}
             />
           </FormControl>
           {/*Minusculas*/}
@@ -77,9 +100,7 @@ function PasswordOptions({ onChange }: Props) {
             <FormLabel>Minúsculas</FormLabel>
             <Checkbox
               isChecked={config.include_lower}
-              onChange={(e) =>
-                setConfig({ ...config, include_lower: e.target.checked })
-              }
+              onChange={handleCheckboxChange("include_lower")}
             />
           </FormControl>
           {/*Números*/}
@@ -87,9 +108,7 @@ function PasswordOptions({ onChange }: Props) {
             <FormLabel>Dígitos</FormLabel>
             <Checkbox
               isChecked={config.include_number}
-              onChange={(e) =>
-                setConfig({ ...config, include_number: e.target.checked })
-              }
+              onChange={handleCheckboxChange("include_number")}
             />
           </FormControl>
           {/*Símbolos*/}
@@ -97,9 +116,7 @@ function PasswordOptions({ onChange }: Props) {
             <FormLabel>Símbolos</FormLabel>
             <Checkbox
               isChecked={config.include_symbols}
-              onChange={(e) =>
-                setConfig({ ...config, include_symbols: e.target.checked })
-              }
+              onChange={handleCheckboxChange("include_symbols")}
             />
           </FormControl>
         </HStack>
