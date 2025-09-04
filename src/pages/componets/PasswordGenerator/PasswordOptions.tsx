@@ -70,7 +70,7 @@ function PasswordOptions({ onChange }: Props) {
             min={8}
             max={40}
             onChange={(_, v) => {
-              if (v >= 12 && v <= 40) {
+              if (v !== config.length) {
                 setConfig({ ...config, length: v });
               }
             }}
