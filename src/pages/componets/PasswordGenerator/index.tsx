@@ -3,7 +3,6 @@ import {
   Divider,
   FormControl,
   FormLabel,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,13 +12,14 @@ import {
   ModalFooter,
   Button,
   InputGroup,
-  InputRightElement,
   IconButton,
   Tooltip,
   Container,
+  HStack,
+  Textarea,
 } from "@chakra-ui/react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { FiCopy } from "react-icons/fi";
 import { useCopy } from "../../../useCopy";
@@ -63,6 +63,8 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
   >("password");
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   //Funciones
   const handleGenerate = () => {
@@ -129,6 +131,15 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
     }
   }, [passphraseConfig]);
 
+  //Ajustar tamaño de contraseña
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto"; // resetear altura
+      textarea.style.height = `${textarea.scrollHeight}px`; // ajustar según contenido
+    }
+  }, [passwordInput]);
+
   //Componente
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
@@ -163,14 +174,17 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
           <FormControl id="pwd" autoFocus={true} mb={8}>
             <FormLabel>Contraseña</FormLabel>
             <InputGroup>
-              <Input
-                type="text"
-                readOnly
-                value={passwordInput}
-                variant="flushed"
-                content="asv"
-              />
-              <InputRightElement width="4.5rem">
+              <HStack width="100%">
+                <Textarea
+                  ref={textareaRef}
+                  value={passwordInput}
+                  readOnly
+                  variant="flushed"
+                  resize="none"
+                  overflow="hidden"
+                  rows={1}
+                  fontFamily="monospace"
+                />
                 <Tooltip label="Generar contraseña">
                   <IconButton
                     aria-label="Generar contraseña"
@@ -191,7 +205,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
                     <FiCopy />
                   </IconButton>
                 </Tooltip>
-              </InputRightElement>
+              </HStack>
             </InputGroup>
             <StrengthIndicator
               isLoading={strengthMutation.isPending}

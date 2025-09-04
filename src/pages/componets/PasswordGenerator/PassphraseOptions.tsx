@@ -27,7 +27,7 @@ function PassphraseOptions({ onChange }: Props) {
 
   //Configuración predeterminada
   const [config, setConfig] = useState<PassphraseConfig>({
-    words_number: 4,
+    words_number: 3,
     separator: "_",
     include_number: true,
     include_symbol: true,
@@ -63,9 +63,13 @@ function PassphraseOptions({ onChange }: Props) {
             <FormLabel>Cantidad de palabras</FormLabel>
             <NumberInput
               value={config.words_number}
-              onChange={(_, v) => setConfig({ ...config, words_number: v })}
+              onChange={(_, v) => {
+                if (v !== config.words_number) {
+                  setConfig({ ...config, words_number: v });
+                }
+              }}
               min={2}
-              max={20}
+              max={10}
             >
               <NumberInputField borderRightRadius={5} borderLeftRadius={5} />
               <NumberInputStepper>
