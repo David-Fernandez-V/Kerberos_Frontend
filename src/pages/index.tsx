@@ -7,6 +7,7 @@ import LogIn from "./LogIn";
 import Dashboard from "./Dashboard";
 import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
+import Verification from "./Verification";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
           {
             path: "signUp",
             element: <SignUp />,
+          },
+          {
+            path: "verify",
+            element: <Verification />,
           },
           {
             path: "logIn",
