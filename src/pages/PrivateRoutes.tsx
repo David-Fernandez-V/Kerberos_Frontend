@@ -2,7 +2,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useAuthStore } from "../states/AuthStore";
 import SideBar from "./componets/SideBar";
 import { useEffect, useState } from "react";
-import { useToast } from "@chakra-ui/react";
+import { Flex, Spinner, useToast } from "@chakra-ui/react";
 import axios from "axios";
 
 import useRefreshSession from "../hooks/useRefreshSession";
@@ -51,7 +51,11 @@ const PrivateRoutes = () => {
   }, [logoutReason, toast, clearLogoutReason]);
 
   if (loading) {
-    return <p>Cargando...</p>; //spinner
+    return (
+      <Flex minH="100vh" align="center" justify="center">
+        <Spinner size="md" />
+      </Flex>
+    ); //spinner
   }
 
   return isAuthenticated ? (
