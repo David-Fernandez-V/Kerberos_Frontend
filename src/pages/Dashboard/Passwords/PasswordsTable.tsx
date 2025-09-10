@@ -159,10 +159,20 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
         <Table variant="unstyled">
           <Thead>
             <Tr>
-              <Th>Nombre</Th>
-              <Th>Carpeta</Th>
-              <Th>Nivel de seguridad</Th>
-              <Th></Th>
+              <Th w={{ base: "80%", md: "40%" }}>Nombre</Th>
+              <Th
+                display={{ base: "none", md: "table-cell" }}
+                w={{ base: "0", md: "20%" }}
+              >
+                Carpeta
+              </Th>
+              <Th
+                display={{ base: "none", md: "table-cell" }}
+                w={{ base: "0", md: "20%" }}
+              >
+                Nivel de seguridad
+              </Th>
+              <Th w={{ base: "20%", md: "20%" }} />
             </Tr>
           </Thead>
           <Tbody fontSize={18}>
@@ -174,7 +184,10 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
 
               return (
                 <Tr key={p.service_name} _hover={{ bg: "gray.200" }}>
-                  <Td>
+                  <Td
+                    whiteSpace="normal" // permite que el texto se envuelva
+                    wordBreak="break-word"
+                  >
                     <HStack cursor="pointer" onClick={() => selectPassword(p)}>
                       {faviconUrl ? (
                         <Image
@@ -196,8 +209,12 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
                       </Text>
                     </HStack>
                   </Td>
-                  <Td>{p.folder === null ? "Sin carpeta" : p.folder?.name}</Td>
-                  <Td>{strengthLabels[p.strength_level]}</Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>
+                    {p.folder === null ? "Sin carpeta" : p.folder?.name}
+                  </Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>
+                    {strengthLabels[p.strength_level]}
+                  </Td>
                   <Td>
                     <Menu>
                       <MenuButton

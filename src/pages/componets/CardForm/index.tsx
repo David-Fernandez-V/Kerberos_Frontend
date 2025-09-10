@@ -20,6 +20,7 @@ import {
   useColorModeValue,
   NumberInput,
   NumberInputField,
+  Stack,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -171,7 +172,11 @@ function CardForm({ isOpen, onClose }: Props) {
                   )}
                 </FormControl>
 
-                <HStack>
+                <Stack
+                  direction={{ base: "column", md: "row" }} // en móvil = columna, en escritorio = fila
+                  spacing={4}
+                  w="100%"
+                >
                   <FormControl id="expiration_month">
                     <FormLabel>Mes de expiración</FormLabel>
                     <Select
@@ -249,7 +254,7 @@ function CardForm({ isOpen, onClose }: Props) {
                       <Text color={"red.600"}>{errors?.csv?.message}</Text>
                     )}
                   </FormControl>
-                </HStack>
+                </Stack>
               </CardTemplate>
             </Feature>
             <br />

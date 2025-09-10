@@ -17,6 +17,7 @@ import {
   IconButton,
   Spinner,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 
 import { NavLink as RouterLink, useNavigate } from "react-router-dom";
@@ -30,6 +31,7 @@ import {
   registrationForm,
   registrationSchema,
 } from "../../schemas/registrationSchema";
+import { strengthLabels } from "../../types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRegister from "./useRegister";
 
@@ -41,6 +43,7 @@ export default function RegistrationForm() {
   const [passwordInput, setPasswordInput] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const toast = useToast();
 
   const strengthMutation = usePasswordStrength();
 
@@ -58,21 +61,34 @@ export default function RegistrationForm() {
 
   //Función para registrar
   const onSubmit = (data: registrationForm) => {
-    setErrorMessage("");
-    mutate(data, {
-      onSuccess: async (response) => {
-        console.log(response.data);
-        setIsRegistered(true);
-      },
+    if (passwordStrength && passwordStrength > 2) {
+      setErrorMessage("");
+      mutate(data, {
+        onSuccess: async (response) => {
+          console.log(response.data);
+          setIsRegistered(true);
+        },
 
-      onError: (error: any) => {
-        if (error.response?.status === 400) {
-          setErrorMessage("El correo ya está registrado");
-        } else {
-          setErrorMessage("Ocurrió un error. Intenta de nuevo.");
-        }
-      },
-    });
+        onError: (error: any) => {
+          if (error.response?.status === 400) {
+            setErrorMessage("El correo ya está registrado");
+          } else {
+            setErrorMessage("Ocurrió un error. Intenta de nuevo.");
+          }
+        },
+      });
+    } else {
+      var pwdIndex = 0;
+      if (passwordStrength !== undefined) pwdIndex = passwordStrength;
+      toast({
+        title: "Nivel de seguridad: " + strengthLabels[pwdIndex],
+        description: "Asegurate de que tu contraseña maestra sea mas segura",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
   };
 
   //Análizar contraseña
@@ -104,12 +120,24 @@ export default function RegistrationForm() {
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         {/*Logo*/}
         <RouterLink to={"/"}>
-          <HStack align="center" spacing={4} color="gray.50">
-            <Text fontSize="450%" fontWeight="bold" mr={5}>
+          <HStack
+            align="center"
+            justify="center"
+            spacing={{ base: 2, sm: 4 }}
+            color="gray.50"
+          >
+            <Text
+              fontSize={{ base: "6xl", sm: "6xl", md: "6xl", lg: "6xl" }}
+              fontWeight="bold"
+              mr={{ base: 2, sm: 5 }}
+            >
               Kerberos
             </Text>
 
-            <Box boxSize="30%">
+            <Box
+              boxSize={{ base: "100px", sm: "100px", md: "100px", lg: "100px" }}
+              flexShrink={0}
+            >
               <Kerberos2 width="100%" height="100%" />
             </Box>
           </HStack>
@@ -178,7 +206,7 @@ export default function RegistrationForm() {
                   </FormControl>
 
                   {/* */}
-                  <Stack spacing={10}>
+                  <Stack spacing={5}>
                     <Text fontSize={"lg"} color="gray.600" align="center">
                       La Contraseña Maestra es la única que deberás recordar.
                       Asegurate de que llegue al mayor nivel de seguridad.

@@ -112,20 +112,33 @@ const NotesTable = ({ UserNotes }: Props) => {
       />
 
       <TableContainer>
-        <Table variant="unstyled">
+        <Table variant="unstyled" w="100%">
           <Thead>
             <Tr>
-              <Th>Nombre</Th>
-              <Th>Carpeta</Th>
-              <Th>Última modificación</Th>
-              <Th></Th>
+              <Th w={{ base: "80%", md: "40%" }}>Nombre</Th>
+              <Th
+                display={{ base: "none", md: "table-cell" }}
+                w={{ base: "0", md: "20%" }}
+              >
+                Carpeta
+              </Th>
+              <Th
+                display={{ base: "none", md: "table-cell" }}
+                w={{ base: "0", md: "20%" }}
+              >
+                Última modificación
+              </Th>
+              <Th w={{ base: "20%", md: "20%" }} />
             </Tr>
           </Thead>
           <Tbody fontSize={18}>
             {UserNotes.map((n) => {
               return (
                 <Tr key={n.id} _hover={{ bg: "gray.200" }}>
-                  <Td>
+                  <Td
+                    whiteSpace="normal" // permite que el texto se envuelva
+                    wordBreak="break-word"
+                  >
                     <HStack cursor="pointer" onClick={() => selectNote(n)}>
                       <MdEditNote size={27} />
                       <Text
@@ -137,8 +150,12 @@ const NotesTable = ({ UserNotes }: Props) => {
                       </Text>
                     </HStack>
                   </Td>
-                  <Td>{n.folder === null ? "Sin carpeta" : n.folder?.name}</Td>
-                  <Td>{new Date(n.updated_at).toLocaleString()}</Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>
+                    {n.folder === null ? "Sin carpeta" : n.folder?.name}
+                  </Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>
+                    {new Date(n.updated_at).toLocaleString()}
+                  </Td>
                   <Td>
                     {/*Menu de botón*/}
                     <Menu>

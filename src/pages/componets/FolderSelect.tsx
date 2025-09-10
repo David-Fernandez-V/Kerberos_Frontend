@@ -24,12 +24,21 @@ const FolderSelect = ({ options }: Props) => {
   return (
     <Box mr="auto" p={2.5}>
       <HStack spacing={{ base: "0", md: "6" }}>
-        <Text fontSize="lg" fontWeight="bold" pr={2}>
+        <Text
+          fontSize="lg"
+          fontWeight="bold"
+          pr={2}
+          display={{ base: "none", md: "block" }}
+        >
           Carpetas
         </Text>
         <Select
           onChange={handleSelect}
           value={currentFolder !== null ? currentFolder : -2}
+          maxW={{ base: "120px", md: "300px" }}
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
         >
           <option value={-1}>Todas</option>
           {options &&
