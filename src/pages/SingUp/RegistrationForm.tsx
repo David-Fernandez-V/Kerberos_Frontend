@@ -16,9 +16,10 @@ import {
   InputRightElement,
   IconButton,
   Spinner,
+  Divider,
 } from "@chakra-ui/react";
 
-import { NavLink as RouterLink } from "react-router-dom";
+import { NavLink as RouterLink, useNavigate } from "react-router-dom";
 import Kerberos2 from "../../icons/Kerberos";
 import { useEffect, useState } from "react";
 import usePasswordStrength from "../componets/SessionForm/usePasswordStrength";
@@ -44,6 +45,7 @@ export default function RegistrationForm() {
   const strengthMutation = usePasswordStrength();
 
   const { mutate, isPending } = useRegister();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -208,6 +210,23 @@ export default function RegistrationForm() {
               <Text>Registro exitoso</Text>
             </>
           )}
+          <Divider mt={3} mb={3} />
+          <Stack>
+            <Text fontSize={"md"} color="gray.600" align="center">
+              ¿Ya tienes una cuenta?
+            </Text>
+            <Box display="flex" justifyContent="center">
+              <Button
+                size="md"
+                width="60%"
+                variant="ghost"
+                _hover={{ bg: "gray.300" }}
+                onClick={() => navigate("/LogIn")}
+              >
+                Iniciar sesión
+              </Button>
+            </Box>
+          </Stack>
         </Box>
       </Stack>
     </Flex>

@@ -2,6 +2,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useAuthStore } from "../states/AuthStore";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Flex, Spinner } from "@chakra-ui/react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -27,7 +28,11 @@ const PublicRoutes = () => {
   }, []);
 
   if (loading) {
-    return <p>Cargando...</p>; // o un spinner
+    return (
+      <Flex minH="100vh" align="center" justify="center">
+        <Spinner size="lg" />
+      </Flex>
+    ); // o un spinner
   }
 
   return isAuthenticated ? <Navigate to="/dashboard" /> : <Outlet />;
