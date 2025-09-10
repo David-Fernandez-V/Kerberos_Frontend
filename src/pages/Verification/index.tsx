@@ -44,7 +44,7 @@ export default function Verify() {
         <Stack textAlign="center" spacing={6}>
           <Heading
             fontWeight={600}
-            fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+            fontSize={{ base: "3xl", sm: "6xl", md: "6xl" }}
             lineHeight="110%"
           >
             Gracias por registrarte en <br />

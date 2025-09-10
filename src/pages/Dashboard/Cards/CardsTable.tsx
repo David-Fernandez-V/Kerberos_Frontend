@@ -157,17 +157,30 @@ const CardsTable = ({ UserCards }: Props) => {
         <Table variant="unstyled">
           <Thead>
             <Tr>
-              <Th>Nombre</Th>
-              <Th>Carpeta</Th>
-              <Th>Tipo</Th>
-              <Th></Th>
+              <Th w={{ base: "80%", md: "40%" }}>Nombre</Th>
+              <Th
+                display={{ base: "none", md: "table-cell" }}
+                w={{ base: "0", md: "20%" }}
+              >
+                Carpeta
+              </Th>
+              <Th
+                display={{ base: "none", md: "table-cell" }}
+                w={{ base: "0", md: "20%" }}
+              >
+                Tipo
+              </Th>
+              <Th w={{ base: "20%", md: "20%" }} />
             </Tr>
           </Thead>
           <Tbody fontSize={18}>
             {UserCards.map((c) => {
               return (
                 <Tr key={c.id} _hover={{ bg: "gray.200" }}>
-                  <Td>
+                  <Td
+                    whiteSpace="normal" // permite que el texto se envuelva
+                    wordBreak="break-word"
+                  >
                     <HStack cursor="pointer" onClick={() => selectCard(c)}>
                       {
                         /*Marca de la tarjeta */
@@ -196,8 +209,10 @@ const CardsTable = ({ UserCards }: Props) => {
                       </Text>
                     </HStack>
                   </Td>
-                  <Td>{c.folder === null ? "Sin carpeta" : c.folder?.name}</Td>
-                  <Td>{c.type}</Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>
+                    {c.folder === null ? "Sin carpeta" : c.folder?.name}
+                  </Td>
+                  <Td display={{ base: "none", md: "table-cell" }}>{c.type}</Td>
                   <Td>
                     {/*Menu de botón*/}
                     <Menu>

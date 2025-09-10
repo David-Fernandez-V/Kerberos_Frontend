@@ -89,7 +89,7 @@ function PasswordOptions({ onChange }: Props) {
         <HStack>
           {/*Mayusculas*/}
           <FormControl id="capital_case">
-            <FormLabel>Mayúsculas</FormLabel>
+            <FormLabel>A-Z</FormLabel>
             <Checkbox
               isChecked={config.include_capital}
               onChange={handleCheckboxChange("include_capital")}
@@ -97,7 +97,7 @@ function PasswordOptions({ onChange }: Props) {
           </FormControl>
           {/*Minusculas*/}
           <FormControl id="lowe_case">
-            <FormLabel>Minúsculas</FormLabel>
+            <FormLabel>a-z</FormLabel>
             <Checkbox
               isChecked={config.include_lower}
               onChange={handleCheckboxChange("include_lower")}
@@ -105,7 +105,7 @@ function PasswordOptions({ onChange }: Props) {
           </FormControl>
           {/*Números*/}
           <FormControl id="digits">
-            <FormLabel>Dígitos</FormLabel>
+            <FormLabel>0-9</FormLabel>
             <Checkbox
               isChecked={config.include_number}
               onChange={handleCheckboxChange("include_number")}

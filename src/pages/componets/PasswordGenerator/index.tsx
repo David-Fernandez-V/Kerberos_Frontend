@@ -150,7 +150,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
         <Divider />
         <ModalBody>
           {/*Botón para alternar opción */}
-          <Container mb={10} mt={5} mx="auto" w="fit-content">
+          <Container mb={5} mt={5} mx="auto" w="fit-content">
             <Button
               borderRightRadius={0}
               borderLeftRadius={10}
@@ -158,7 +158,7 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
               style={{ backgroundColor: "gray.100" }}
               onClick={() => setGenerationOption("password")}
             >
-              Contraseña estandar
+              Estandar
             </Button>
             <Button
               borderLeftRadius={0}

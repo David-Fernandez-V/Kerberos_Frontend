@@ -60,7 +60,7 @@ function PassphraseOptions({ onChange }: Props) {
         <HStack mb={5}>
           {/*Número de palabras*/}
           <FormControl id="words_number">
-            <FormLabel>Cantidad de palabras</FormLabel>
+            <FormLabel> Palabras</FormLabel>
             <NumberInput
               value={config.words_number}
               onChange={(_, v) => {

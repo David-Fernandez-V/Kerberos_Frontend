@@ -22,6 +22,7 @@ import {
   Flex,
   Spacer,
   useDisclosure,
+  Stack,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -184,7 +185,11 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                     </InputGroup>
                   </FormControl>
 
-                  <HStack>
+                  <Stack
+                    direction={{ base: "column", md: "row" }} // en móvil = columna, en escritorio = fila
+                    spacing={4}
+                    w="100%"
+                  >
                     <FormControl id="expiration_month">
                       <FormLabel>Mes de expiración</FormLabel>
                       <Input
@@ -251,7 +256,7 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                         )}
                       </InputGroup>
                     </FormControl>
-                  </HStack>
+                  </Stack>
                 </CardTemplate>
               </Feature>
               <br />
