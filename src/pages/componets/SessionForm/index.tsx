@@ -196,7 +196,7 @@ function SessionForm({ isOpen, onClose }: Props) {
                     />
                     <InputRightElement width="4.5rem">
                       <IconButton
-                        aria-label="Search database"
+                        aria-label="Cambiar visibilidad"
                         mr={2}
                         variant="ghost"
                         h="1.75rem"
