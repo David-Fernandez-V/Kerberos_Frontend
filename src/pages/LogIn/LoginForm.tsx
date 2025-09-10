@@ -15,6 +15,7 @@ import {
   IconButton,
   Image,
   Box,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { NavLink as RouterLink } from "react-router-dom";
@@ -154,9 +155,15 @@ export default function LoginForm() {
                 </Checkbox>
                 <Text color={"blue.500"}>¿Olvidaste tu contraseña?</Text>
               </Stack>
-              <Button type="submit" variant={"solid"}>
-                Iniciar Sesión
-              </Button>
+              {!login.isPending ? (
+                <Button type="submit" variant={"solid"}>
+                  Iniciar Sesión
+                </Button>
+              ) : (
+                <Box display="flex" justifyContent="center">
+                  <Spinner size="md" />
+                </Box>
+              )}
               {errorMessage && <Text color="red.500">{errorMessage}</Text>}
             </Stack>
           </form>
