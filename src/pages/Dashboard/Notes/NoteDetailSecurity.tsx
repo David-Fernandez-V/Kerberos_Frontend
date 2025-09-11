@@ -97,7 +97,11 @@ function NoteDetailSecurity({ isOpen, onClose, setMasterPwd, noteId }: Props) {
         <ModalCloseButton />
         <Divider />
         <ModalBody>
-          <form id="mpwdForm" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            id="mpwdForm"
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <FormControl id="mpwd">
               <FormLabel>Vuelva a introducir la contraseña maestra</FormLabel>
               <InputGroup>

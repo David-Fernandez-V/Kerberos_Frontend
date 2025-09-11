@@ -124,7 +124,7 @@ function PasswordDetail({
           <ModalCloseButton />
           <Divider />
           <ModalBody>
-            <form id="passwordForm">
+            <form id="passwordForm" autoComplete="off">
               <Feature title="Credenciales de inicio de sesión">
                 <FormControl id="user">
                   <FormLabel>Usuario</FormLabel>

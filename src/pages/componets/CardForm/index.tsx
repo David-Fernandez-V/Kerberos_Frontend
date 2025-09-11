@@ -121,7 +121,11 @@ function CardForm({ isOpen, onClose }: Props) {
         <ModalCloseButton />
         <Divider />
         <ModalBody>
-          <form id="cardForm" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            id="cardForm"
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
+          >
             <Feature title="Alias">
               <FormControl id="alias">
                 <Input type="text" {...register("alias")} />

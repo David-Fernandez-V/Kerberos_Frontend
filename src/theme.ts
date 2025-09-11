@@ -189,7 +189,7 @@ const theme = extendTheme({
         flushed: {
           field: {
             borderColor: "purple.700",
-            borderBottomWidth: "2px", // por defecto 1px, aquí aumentamos
+            borderBottomWidth: "2px", // por defecto 1px
             borderRadius: 0,
             _hover: {
               borderColor: "purple.600",
@@ -203,7 +203,10 @@ const theme = extendTheme({
               boxShadow: "0 1px 0 0 purple.600",
             },
           },
-        }
+        },
+        defaultProps: {
+          autoComplete: "new-password",
+        },
       },
     },
     NumberInput: {
@@ -224,7 +227,7 @@ const theme = extendTheme({
         flushed: {
           field: {
             borderColor: "purple.700",
-            borderBottomWidth: "2px", // por defecto 1px, aquí aumentamos
+            borderBottomWidth: "2px", // por defecto 1px
             borderRadius: 0,
             _hover: {
               borderColor: "purple.600",

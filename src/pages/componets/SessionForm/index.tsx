@@ -161,7 +161,11 @@ function SessionForm({ isOpen, onClose }: Props) {
           <ModalCloseButton />
           <Divider />
           <ModalBody>
-            <form id="passwordForm" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              id="passwordForm"
+              onSubmit={handleSubmit(onSubmit)}
+              autoComplete="off"
+            >
               <Feature title="Nombre del elemento">
                 <FormControl id="name">
                   <Input type="text" {...register("service_name")} />
@@ -176,7 +180,11 @@ function SessionForm({ isOpen, onClose }: Props) {
               <Feature title="Credenciales de inicio de sesión">
                 <FormControl id="user">
                   <FormLabel>Usuario</FormLabel>
-                  <Input type="text" {...register("username")} />
+                  <Input
+                    type="text"
+                    {...register("username")}
+                    autoComplete="new-password"
+                  />
                   {errors?.username?.message && (
                     <Text color={"red.600"}>{errors?.username?.message}</Text>
                   )}
@@ -233,6 +241,7 @@ function SessionForm({ isOpen, onClose }: Props) {
                     type="text"
                     {...register("web_page")}
                     placeholder="https://sitio-web.com"
+                    autoComplete="on"
                   />
                   {errors?.web_page?.message && (
                     <Text color={"red.600"}>{errors?.web_page?.message}</Text>

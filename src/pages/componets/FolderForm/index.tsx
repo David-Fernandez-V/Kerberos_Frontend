@@ -92,7 +92,11 @@ function FolderForm({ isOpen, onClose }: Props) {
         <ModalCloseButton />
         <Divider />
         <ModalBody>
-          <form id="folderForm" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            id="folderForm"
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
+          >
             <FormControl id="name">
               <FormLabel>Nombre</FormLabel>
               <Input type="text" {...register("name")} />
