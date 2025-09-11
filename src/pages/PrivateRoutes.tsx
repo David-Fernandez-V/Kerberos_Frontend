@@ -2,10 +2,11 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useAuthStore } from "../states/AuthStore";
 import SideBar from "./componets/SideBar";
 import { useEffect, useState } from "react";
-import { Flex, Spinner, useToast } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import axios from "axios";
 
 import useRefreshSession from "../hooks/useRefreshSession";
+import PrivateSkeleton from "./componets/PrivateSkeleton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -53,9 +54,9 @@ const PrivateRoutes = () => {
   if (loading) {
     return (
       <Flex minH="100vh" align="center" justify="center">
-        <Spinner size="md" />
+        <PrivateSkeleton />
       </Flex>
-    ); //spinner
+    );
   }
 
   return isAuthenticated ? (

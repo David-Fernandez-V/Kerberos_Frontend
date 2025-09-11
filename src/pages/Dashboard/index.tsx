@@ -2,6 +2,7 @@ import PasswordsTable from "./Passwords/PasswordsTable";
 import NotesTable from "./Notes/NotesTable";
 import CardsTable from "./Cards/CardsTable";
 import Feature from "../componets/Feature";
+import TableSkeletone from "./TableSkeletone";
 
 import useFoldersStore from "../../states/FoldersStore";
 import usePasswordsStore from "../../states/PasswordsStore";
@@ -16,9 +17,13 @@ import { useEffect } from "react";
 type Props = {};
 
 function Dashboard({}: Props) {
-  const { passwords, /*isLoading,*/ refreshPasswords } = usePasswordsStore();
-  const { notes, refreshNotes } = useNotesStore();
-  const { cards, refreshCards } = useCardsStore();
+  const {
+    passwords,
+    isLoading: passwordsLoading,
+    refreshPasswords,
+  } = usePasswordsStore();
+  const { notes, isLoading: notesLoading, refreshNotes } = useNotesStore();
+  const { cards, isLoading: cardsLoading, refreshCards } = useCardsStore();
   const { currentFolder, refreshFolders } = useFoldersStore();
   const { showPasswords, showNotes, showCards } = useTablesStore();
 
@@ -43,30 +48,57 @@ function Dashboard({}: Props) {
         Mis Bóvedas
       </Text>{" "}
       <br />
-      {showPasswords && (
-        <>
-          <Feature title="Sesiones">
-            <PasswordsTable UserPasswords={passwords} />
-          </Feature>
-          <br />
-        </>
-      )}
-      {showCards && (
-        <>
-          <Feature title="Tarjetas">
-            <CardsTable UserCards={cards} />
-          </Feature>
-          <br />
-        </>
-      )}
-      {showNotes && (
-        <>
-          <Feature title="Notas">
-            <NotesTable UserNotes={notes} />
-          </Feature>
-          <br />
-        </>
-      )}
+      {/*Tabla de contraseñas */}
+      {showPasswords &&
+        (passwordsLoading ? (
+          <>
+            <Feature title="">
+              <TableSkeletone />
+            </Feature>
+            <br />
+          </>
+        ) : (
+          <>
+            <Feature title="Sesiones">
+              <PasswordsTable UserPasswords={passwords} />
+            </Feature>
+            <br />
+          </>
+        ))}
+      {/*Tabal de tarjetas */}
+      {showCards &&
+        (cardsLoading ? (
+          <>
+            <Feature title="">
+              <TableSkeletone />
+            </Feature>
+            <br />
+          </>
+        ) : (
+          <>
+            <Feature title="Tarjetas">
+              <CardsTable UserCards={cards} />
+            </Feature>
+            <br />
+          </>
+        ))}
+      {/*Tabla de notas*/}
+      {showNotes &&
+        (notesLoading ? (
+          <>
+            <Feature title="">
+              <TableSkeletone />
+            </Feature>
+            <br />
+          </>
+        ) : (
+          <>
+            <Feature title="Notas">
+              <NotesTable UserNotes={notes} />
+            </Feature>
+            <br />
+          </>
+        ))}
     </>
   );
 }
