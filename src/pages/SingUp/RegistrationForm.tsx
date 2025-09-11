@@ -239,7 +239,13 @@ export default function RegistrationForm() {
           ) : (
             <>
               {/*Mensaje de confirmación*/}
-              <Text>Registro exitoso</Text>
+              <Stack align={"center"} mb={3}>
+                <Heading fontSize={"4xl"}>¡Registro exitoso!</Heading>
+              </Stack>
+              <Text fontSize={"lg"} align="center">
+                Te hemos enviado un correo para poder verificarte. Este es el
+                último paso antes de poder usar tu cuenta
+              </Text>
             </>
           )}
           <Divider mt={3} mb={3} />
