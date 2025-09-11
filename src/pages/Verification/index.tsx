@@ -102,11 +102,21 @@ export default function Verify() {
             <br />
             {isError && (
               <Text color="red.600">
-                "Token de verificación no válido: Vuelva a realizar el
-                registro."
+                Token de verificación no válido: Vuelva a realizar el registro.
               </Text>
             )}
             {error && <Text color="red.600">{error}</Text>}
+            {(isError || error) && (
+              <Button
+                size="lg"
+                color="purple.700"
+                bg="gray.100"
+                mt={4}
+                onClick={() => navigate("/signUp")}
+              >
+                Registrarse
+              </Button>
+            )}
           </>
         ) : (
           <>
