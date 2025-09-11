@@ -108,7 +108,7 @@ export default function LoginForm() {
           <Heading fontSize={"4xl"} mt={140} mb="5%">
             Inicio de sesión
           </Heading>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <FormControl id="email">
               <FormLabel fontSize="xl">Correo electrónico</FormLabel>
               <Input type="text" {...register("email")} />
@@ -122,6 +122,7 @@ export default function LoginForm() {
               <InputGroup>
                 <Input
                   type={showPassword ? "text" : "password"}
+                  autoComplete="new-password"
                   {...register("password")}
                 />
                 <InputRightElement width="4.5rem">

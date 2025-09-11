@@ -162,7 +162,11 @@ export default function RegistrationForm() {
                 </Text>
               </Stack>
               <br />
-              <form id="RegistrationForm" onSubmit={handleSubmit(onSubmit)}>
+              <form
+                id="RegistrationForm"
+                onSubmit={handleSubmit(onSubmit)}
+                autoComplete="off"
+              >
                 <Stack spacing={4}>
                   {/*Correo electrónico*/}
                   <FormControl id="email">

@@ -216,7 +216,11 @@ function PasswordGenerator({ isOpen, onClose }: Props) {
           {isError && <p style={{ color: "red" }}>Error: {String(error)}</p>}
 
           {/*Formulario para las opciones*/}
-          <form id="optionsForm" onSubmit={() => console.log("Submit")}>
+          <form
+            id="optionsForm"
+            autoComplete="off"
+            onSubmit={() => console.log("Submit")}
+          >
             {generationOption === "password" ? (
               /*Opción de password*/
               <PasswordOptions onChange={setPasswordConfig} />

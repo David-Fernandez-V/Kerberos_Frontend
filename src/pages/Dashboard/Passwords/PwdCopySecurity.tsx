@@ -85,7 +85,11 @@ function PwdCopySecurity({ isOpen, onClose, pwdId, option }: Props) {
         <ModalCloseButton />
         <Divider />
         <ModalBody>
-          <form id="mpwdForm" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            id="mpwdForm"
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
+          >
             <FormControl id="mpwd" autoFocus={true}>
               <FormLabel>Vuelva a introducir la contraseña maestra</FormLabel>
               <InputGroup>

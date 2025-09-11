@@ -126,7 +126,7 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
           <ModalCloseButton />
           <Divider />
           <ModalBody>
-            <form id="cardForm">
+            <form id="cardForm" autoComplete="off">
               {/* Información de la tarjeta*/}
 
               <Feature title="Datos de la tarjeta">

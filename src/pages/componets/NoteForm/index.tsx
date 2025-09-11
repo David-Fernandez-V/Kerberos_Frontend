@@ -98,7 +98,11 @@ function NoteForm({ isOpen, onClose }: Props) {
         <ModalCloseButton />
         <Divider />
         <ModalBody>
-          <form id="noteForm" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            id="noteForm"
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
+          >
             <Feature title="Nota">
               <FormControl id="title">
                 <Input
