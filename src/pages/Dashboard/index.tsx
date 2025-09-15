@@ -13,6 +13,7 @@ import useTablesStore from "../../states/TablesStore";
 import { Text } from "@chakra-ui/react";
 
 import { useEffect } from "react";
+import { useDashboardWs } from "./useDashboardWs";
 
 type Props = {};
 
@@ -26,6 +27,8 @@ function Dashboard({}: Props) {
   const { cards, isLoading: cardsLoading, refreshCards } = useCardsStore();
   const { currentFolder, refreshFolders } = useFoldersStore();
   const { showPasswords, showNotes, showCards } = useTablesStore();
+
+  useDashboardWs(refreshNotes, refreshPasswords, refreshCards, currentFolder);
 
   // Llamar cuando currentFolder esté definido
   useEffect(() => {
