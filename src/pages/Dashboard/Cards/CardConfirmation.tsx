@@ -46,15 +46,6 @@ function CardConfirmation({
         },
         {
           onSuccess: async () => {
-            await refreshCards(-1);
-            toast({
-              title: "Completado",
-              description: "La tarjeta ha sido eliminada con éxito",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-              position: "top-right",
-            });
             onClose();
             onCloseDetail && onCloseDetail();
             onCloseMpwd && onCloseMpwd();

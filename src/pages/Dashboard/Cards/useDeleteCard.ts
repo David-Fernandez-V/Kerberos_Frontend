@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -14,6 +15,8 @@ interface DeleteResponse {
 }
 
 export default function useDeleteCard() {
+  const toast = useToast();
+  
   return useMutation({
     mutationFn: async ({ card_id, master_password }: CardRequest): Promise<DeleteResponse> => {
       const response = await axios.delete<DeleteResponse>(
@@ -24,6 +27,26 @@ export default function useDeleteCard() {
         }
       );
       return response.data;
+    },
+    onSuccess: () => {
+      toast({
+          title: "Completado",
+          description: "La tarjeta ha sido eliminada con éxito",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.response?.data?.detail || "No se pudo eliminar la tarjeta",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
     },
   });
 }

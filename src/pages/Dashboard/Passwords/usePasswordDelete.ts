@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -14,6 +15,8 @@ interface DeleteResponse {
 }
 
 export default function useDeletePassword() {
+  const toast = useToast();
+  
   return useMutation({
     mutationFn: async ({ password_id, master_password }: PasswordRequest): Promise<DeleteResponse> => {
       const response = await axios.delete<DeleteResponse>(
@@ -25,5 +28,26 @@ export default function useDeletePassword() {
       );
       return response.data;
     },
+    onSuccess: () => {
+      toast({
+          title: "Completado",
+          description: "La sesión ha sido eliminada con éxito",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.response?.data?.detail || "No se pudo eliminar la sesión",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top-right",
+      });
+    },
+    
   });
 }

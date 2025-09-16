@@ -10,7 +10,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  useToast,
   ModalFooter,
   Button,
   Select,
@@ -26,7 +25,6 @@ import axios from "axios";
 import Feature from "../Feature";
 import { noteSchema, noteForm } from "../../../schemas/noteSchema";
 import useCreateNote from "./useCreateNote";
-import useNotesStore from "../../../states/NotesStore";
 import useFoldersStore from "../../../states/FoldersStore";
 
 type Props = {
@@ -35,8 +33,7 @@ type Props = {
 };
 
 function NoteForm({ isOpen, onClose }: Props) {
-  const toast = useToast();
-  const { folders, currentFolder } = useFoldersStore();
+  const { folders } = useFoldersStore();
 
   const {
     register,
@@ -49,7 +46,6 @@ function NoteForm({ isOpen, onClose }: Props) {
   });
 
   const mutation = useCreateNote();
-  const { refreshNotes } = useNotesStore();
 
   useEffect(() => {
     if (!isOpen) {
@@ -59,17 +55,7 @@ function NoteForm({ isOpen, onClose }: Props) {
 
   const onSubmit = (data: noteForm) => {
     mutation.mutate(data, {
-      onSuccess: async (response) => {
-        await refreshNotes(currentFolder); // Actualiza estado global
-        toast({
-          title: "Nueva nota creada",
-          description:
-            response.confirmation || "Los datos se guardaron correctamente.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-          position: "top",
-        });
+      onSuccess: async () => {
         onClose();
       },
       onError: (error: any) => {
