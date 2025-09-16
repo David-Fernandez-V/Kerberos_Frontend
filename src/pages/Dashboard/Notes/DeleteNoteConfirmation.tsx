@@ -46,15 +46,6 @@ function DeleteNoteConfirmation({
         },
         {
           onSuccess: async () => {
-            await refreshNotes(-1);
-            toast({
-              title: "Completado",
-              description: "La nota ha sido eliminada con éxito",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-              position: "top-right",
-            });
             onClose();
             onCloseDetail && onCloseDetail();
             onCloseMpwd && onCloseMpwd();

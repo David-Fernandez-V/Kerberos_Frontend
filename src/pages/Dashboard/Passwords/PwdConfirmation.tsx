@@ -46,15 +46,6 @@ function PwdConfirmation({
         },
         {
           onSuccess: async () => {
-            await refreshPasswords(-1);
-            toast({
-              title: "Completado",
-              description: "La sesión ha sido eliminada con éxito",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-              position: "top-right",
-            });
             onClose();
             onCloseDetail && onCloseDetail();
             onCloseMpwd && onCloseMpwd();

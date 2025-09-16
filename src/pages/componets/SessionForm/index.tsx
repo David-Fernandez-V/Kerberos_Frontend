@@ -14,7 +14,6 @@ import {
   Text,
   Divider,
   Textarea,
-  useToast,
   InputRightElement,
   InputGroup,
   IconButton,
@@ -32,7 +31,6 @@ import Feature from "../Feature";
 import axios from "axios";
 import usePasswordStrength from "./usePasswordStrength";
 import { useState, useEffect } from "react";
-import usePasswordsStore from "../../../states/PasswordsStore";
 import useFoldersStore from "../../../states/FoldersStore";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -47,7 +45,6 @@ type Props = {
 };
 
 function SessionForm({ isOpen, onClose }: Props) {
-  const toast = useToast();
   const { folders } = useFoldersStore();
 
   const {
@@ -68,8 +65,6 @@ function SessionForm({ isOpen, onClose }: Props) {
 
   const mutation = useCreatePassword();
   const strengthMutation = usePasswordStrength();
-  const { refreshPasswords } = usePasswordsStore();
-  const { currentFolder } = useFoldersStore();
 
   const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
     undefined
@@ -113,18 +108,7 @@ function SessionForm({ isOpen, onClose }: Props) {
 
   const onSubmit = (data: passwordForm) => {
     mutation.mutate(data, {
-      onSuccess: async (response) => {
-        await refreshPasswords(currentFolder); // Actualiza estado global
-
-        toast({
-          title: "Nuevo inicio de sesión registrado",
-          description:
-            response.confirmation || "Los datos se guardaron correctamente.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-          position: "top",
-        });
+      onSuccess: async () => {
         onClose();
       },
       onError: (error: any) => {

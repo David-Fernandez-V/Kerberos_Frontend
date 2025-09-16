@@ -10,7 +10,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  useToast,
   ModalFooter,
   Button,
   Select,
@@ -32,7 +31,6 @@ import Feature from "../Feature";
 
 import { cardSchema, cardForm } from "../../../schemas/cardSchema";
 import useCreateCard from "./useCreateCard";
-import useCardsStore from "../../../states/CardsStore";
 import useFoldersStore from "../../../states/FoldersStore";
 import CardTemplate from "./CardTemplate";
 import { months } from "../../../types";
@@ -47,8 +45,7 @@ function CardForm({ isOpen, onClose }: Props) {
 
   const [displayValue, setDisplayValue] = useState("");
 
-  const toast = useToast();
-  const { folders, currentFolder } = useFoldersStore();
+  const { folders } = useFoldersStore();
 
   const {
     register,
@@ -62,7 +59,6 @@ function CardForm({ isOpen, onClose }: Props) {
   });
 
   const mutation = useCreateCard();
-  const { refreshCards } = useCardsStore();
 
   useEffect(() => {
     if (!isOpen) {
@@ -82,17 +78,7 @@ function CardForm({ isOpen, onClose }: Props) {
 
   const onSubmit = (data: cardForm) => {
     mutation.mutate(data, {
-      onSuccess: async (response) => {
-        await refreshCards(currentFolder); // Actualiza estado global
-        toast({
-          title: "Nueva tarjeta creada",
-          description:
-            response.confirmation || "Los datos se guardaron correctamente.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-          position: "top",
-        });
+      onSuccess: async () => {
         onClose();
       },
       onError: (error: any) => {
