@@ -28,7 +28,7 @@ function Dashboard({}: Props) {
   const { currentFolder } = useFoldersStore();
   const { showPasswords, showNotes, showCards } = useTablesStore();
 
-  useDashboardWs(refreshNotes, refreshPasswords, refreshCards, currentFolder);
+  useDashboardWs(currentFolder);
 
   // Llamar cuando currentFolder esté definido
   useEffect(() => {

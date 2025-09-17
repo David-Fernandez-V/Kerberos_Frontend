@@ -6,12 +6,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useToast,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { NoteItem } from "../../../types";
 import useNoteDelete from "./useDeleteNote";
-import useNotesStore from "../../../states/NotesStore";
 
 type Props = {
   isOpen: boolean;
@@ -31,11 +29,8 @@ function DeleteNoteConfirmation({
   onCloseMpwd,
 }: Props) {
   const { mutate } = useNoteDelete();
-  const { refreshNotes } = useNotesStore();
 
   const cancelRef = useRef<HTMLButtonElement>(null);
-
-  const toast = useToast();
 
   const deleteNote = () => {
     if (note) {

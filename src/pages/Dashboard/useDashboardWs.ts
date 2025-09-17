@@ -1,15 +1,19 @@
 import { useEffect, useRef } from "react";
+import usePasswordsStore from "../../states/PasswordsStore";
+import useNotesStore from "../../states/NotesStore";
+import useCardsStore from "../../states/CardsStore";
+import useFoldersStore from "../../states/FoldersStore";
 
-export function useDashboardWs(
-  refreshNotes: (currentFolder: number) => void,
-  refreshPasswords: (currentFolder: number) => void,
-  refreshCards: (currentFolder: number) => void,
-  currentFolder:number
-) {
+export function useDashboardWs(currentFolder: number) {
   const BASE_WS_URL = import.meta.env.VITE_WS_URL;
   const WS_URL = `${BASE_WS_URL}/dashboard`;
 
   const ws = useRef<WebSocket | null>(null);
+
+  const {refreshPasswords} = usePasswordsStore();
+  const { refreshNotes } = useNotesStore();
+  const { refreshCards } = useCardsStore();
+  //const { currentFolder } = useFoldersStore();
 
   useEffect(() => {
     ws.current = new WebSocket(WS_URL);
@@ -25,6 +29,7 @@ export function useDashboardWs(
         switch (message.type) {
           case "note":
             refreshNotes(currentFolder);
+            console.log(currentFolder)
             break;
           case "password":
             refreshPasswords(currentFolder);
