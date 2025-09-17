@@ -8,10 +8,16 @@ export function useDashboardWs(currentFolder: number) {
   const WS_URL = `${BASE_WS_URL}/dashboard`;
 
   const ws = useRef<WebSocket | null>(null);
+  const folderRef = useRef(currentFolder);
 
   const {refreshPasswords} = usePasswordsStore();
   const { refreshNotes } = useNotesStore();
   const { refreshCards } = useCardsStore();
+
+   // actualizar folderRef cada vez que cambie
+  useEffect(() => {
+    folderRef.current = currentFolder;
+  }, [currentFolder]);
 
   useEffect(() => {
     ws.current = new WebSocket(WS_URL);
@@ -26,14 +32,14 @@ export function useDashboardWs(currentFolder: number) {
         const message = JSON.parse(event.data);
         switch (message.type) {
           case "note":
-            refreshNotes(currentFolder);
-            console.log(currentFolder)
+            refreshNotes(folderRef.current);
+            console.log(folderRef.current)
             break;
           case "password":
-            refreshPasswords(currentFolder);
+            refreshPasswords(folderRef.current);
             break;
           case "card":
-            refreshCards(currentFolder);
+            refreshCards(folderRef.current);
             break;
           default:
             console.log("Evento desconocido:", message);
