@@ -40,11 +40,10 @@ import { FaCreditCard } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa";
 
 import { IconType } from "react-icons";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 import { useAuthStore } from "../../../states/AuthStore";
 import useTablesStore from "../../../states/TablesStore";
-import useFoldersStore from "../../../states/FoldersStore";
 
 import SessionForm from "../SessionForm";
 import FolderForm from "../FolderForm";
@@ -216,11 +215,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     base: <FaPlus />,
     md: "+ Nuevo",
   });
-  const { refreshFolders } = useFoldersStore();
-
-  useEffect(() => {
-    refreshFolders();
-  }, []);
 
   const { logout } = useAuthStore();
   const SessionModal = useDisclosure();

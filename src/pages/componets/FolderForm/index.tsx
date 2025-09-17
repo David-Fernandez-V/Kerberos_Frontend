@@ -10,7 +10,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  useToast,
   ModalFooter,
   Button,
 } from "@chakra-ui/react";
@@ -21,7 +20,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import axios from "axios";
 
-import useFoldersStore from "../../../states/FoldersStore";
 import useCreateFolder from "./useCreateFolder";
 
 type Props = {
@@ -30,8 +28,6 @@ type Props = {
 };
 
 function FolderForm({ isOpen, onClose }: Props) {
-  const toast = useToast();
-
   const {
     register,
     handleSubmit,
@@ -43,7 +39,6 @@ function FolderForm({ isOpen, onClose }: Props) {
   });
 
   const mutation = useCreateFolder();
-  const { refreshFolders } = useFoldersStore();
 
   useEffect(() => {
     if (!isOpen) {
@@ -53,17 +48,7 @@ function FolderForm({ isOpen, onClose }: Props) {
 
   const onSubmit = (data: folderForm) => {
     mutation.mutate(data, {
-      onSuccess: async (response) => {
-        await refreshFolders(); // Actualiza estado global
-        toast({
-          title: "Nueva carpeta registrada",
-          description:
-            response.confirmation || "Los datos se guardaron correctamente.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-          position: "top",
-        });
+      onSuccess: async () => {
         onClose();
       },
       onError: (error: any) => {
