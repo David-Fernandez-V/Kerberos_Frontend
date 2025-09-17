@@ -12,7 +12,6 @@ const url = `${API_URL}/folders/create`;
 export default function useCreateFolder() {
   return useMutation<NewFolderResponse, unknown, folderForm>({
     mutationFn: async (newFolder) => {
-      console.log("Datos a enviar:", newFolder);
       const response = await axios.post<NewFolderResponse>(url, newFolder, {
         withCredentials: true,
       });

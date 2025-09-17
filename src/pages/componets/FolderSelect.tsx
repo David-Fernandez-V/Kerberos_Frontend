@@ -1,15 +1,18 @@
 import { Box, HStack, Text, Select } from "@chakra-ui/react";
-import { FolderItem } from "../../types";
 import useFoldersStore from "../../states/FoldersStore";
 import { useEffect } from "react";
 import usePasswordsStore from "../../states/PasswordsStore";
+import { useSidebarWs } from "./SideBar/useSidebarWs";
 
-type Props = {
-  options: FolderItem[] | null;
-};
+type Props = {};
 
-const FolderSelect = ({ options }: Props) => {
-  const { currentFolder, setCurrentFolder } = useFoldersStore();
+const FolderSelect = ({}: Props) => {
+  const {
+    currentFolder,
+    setCurrentFolder,
+    refreshFolders,
+    folders: options,
+  } = useFoldersStore();
   const { refreshPasswords } = usePasswordsStore();
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -20,6 +23,8 @@ const FolderSelect = ({ options }: Props) => {
   useEffect(() => {
     refreshPasswords(currentFolder);
   }, [currentFolder]);
+
+  useSidebarWs(refreshFolders);
 
   return (
     <Box mr="auto" p={2.5}>

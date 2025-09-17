@@ -42,17 +42,17 @@ import { FaPlus } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { ReactNode, useEffect } from "react";
 
-import { useAuthStore } from "../../states/AuthStore";
-import useTablesStore from "../../states/TablesStore";
-import useFoldersStore from "../../states/FoldersStore";
+import { useAuthStore } from "../../../states/AuthStore";
+import useTablesStore from "../../../states/TablesStore";
+import useFoldersStore from "../../../states/FoldersStore";
 
-import SessionForm from "./SessionForm";
-import FolderForm from "./FolderForm";
-import NoteForm from "./NoteForm";
-import CardForm from "./CardForm";
+import SessionForm from "../SessionForm";
+import FolderForm from "../FolderForm";
+import NoteForm from "../NoteForm";
+import CardForm from "../CardForm";
 
-import FolderSelect from "./FolderSelect";
-import Kerberos from "../../icons/Kerberos";
+import FolderSelect from "../FolderSelect";
+import Kerberos from "../../../icons/Kerberos";
 
 interface LinkItemProps {
   name: string;
@@ -216,7 +216,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     base: <FaPlus />,
     md: "+ Nuevo",
   });
-  const { folders, refreshFolders } = useFoldersStore();
+  const { refreshFolders } = useFoldersStore();
 
   useEffect(() => {
     refreshFolders();
@@ -263,7 +263,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         m={2}
       />
 
-      <FolderSelect options={folders} />
+      <FolderSelect />
 
       <HStack spacing={{ base: "0", md: "6" }}>
         <Menu>
