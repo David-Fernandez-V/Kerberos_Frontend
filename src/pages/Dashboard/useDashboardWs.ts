@@ -33,7 +33,6 @@ export function useDashboardWs(currentFolder: number) {
         switch (message.type) {
           case "note":
             refreshNotes(folderRef.current);
-            console.log(folderRef.current)
             break;
           case "password":
             refreshPasswords(folderRef.current);
