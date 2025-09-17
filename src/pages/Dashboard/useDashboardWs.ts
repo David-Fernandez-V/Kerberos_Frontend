@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import usePasswordsStore from "../../states/PasswordsStore";
 import useNotesStore from "../../states/NotesStore";
 import useCardsStore from "../../states/CardsStore";
-import useFoldersStore from "../../states/FoldersStore";
 
 export function useDashboardWs(currentFolder: number) {
   const BASE_WS_URL = import.meta.env.VITE_WS_URL;
@@ -13,7 +12,6 @@ export function useDashboardWs(currentFolder: number) {
   const {refreshPasswords} = usePasswordsStore();
   const { refreshNotes } = useNotesStore();
   const { refreshCards } = useCardsStore();
-  //const { currentFolder } = useFoldersStore();
 
   useEffect(() => {
     ws.current = new WebSocket(WS_URL);
