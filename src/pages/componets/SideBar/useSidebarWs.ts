@@ -1,12 +1,17 @@
 import { useEffect, useRef } from "react";
+import useFoldersStore from "../../../states/FoldersStore";
 
-export function useSidebarWs(
-  refreshFolders: () => void,
-) {
+export function useSidebarWs() {
   const BASE_WS_URL = import.meta.env.VITE_WS_URL;
   const WS_URL = `${BASE_WS_URL}/sidebar`;
 
   const ws = useRef<WebSocket | null>(null);
+
+  const {
+
+    refreshFolders,
+
+  } = useFoldersStore();
 
   useEffect(() => {
     ws.current = new WebSocket(WS_URL);
