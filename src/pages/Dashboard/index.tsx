@@ -25,7 +25,7 @@ function Dashboard({}: Props) {
   } = usePasswordsStore();
   const { notes, isLoading: notesLoading, refreshNotes } = useNotesStore();
   const { cards, isLoading: cardsLoading, refreshCards } = useCardsStore();
-  const { currentFolder, refreshFolders } = useFoldersStore();
+  const { currentFolder } = useFoldersStore();
   const { showPasswords, showNotes, showCards } = useTablesStore();
 
   useDashboardWs(refreshNotes, refreshPasswords, refreshCards, currentFolder);
@@ -38,11 +38,6 @@ function Dashboard({}: Props) {
       refreshCards(currentFolder);
     }
   }, [currentFolder]);
-
-  // refrescar carpetas una vez al inicio
-  useEffect(() => {
-    refreshFolders();
-  }, []);
 
   return (
     <>

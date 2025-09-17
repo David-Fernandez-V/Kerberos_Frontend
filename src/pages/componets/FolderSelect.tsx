@@ -24,6 +24,10 @@ const FolderSelect = ({}: Props) => {
     refreshPasswords(currentFolder);
   }, [currentFolder]);
 
+  useEffect(() => {
+    refreshFolders();
+  }, []);
+
   useSidebarWs(refreshFolders);
 
   return (
