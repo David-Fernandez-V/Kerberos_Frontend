@@ -31,7 +31,7 @@ import {
 
 import { NavLink as RouterLink } from "react-router-dom";
 
-import { FiSettings, FiChevronDown } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
 
 import { BsSafe2 } from "react-icons/bs";
 import { MdPassword } from "react-icons/md";
@@ -117,14 +117,6 @@ const SidebarContent = ({ onClose, isDrawer, ...rest }: SidebarProps) => {
       onClick: () => {
         setShowNotes();
         setActiveTab("Notas");
-        onClose();
-      },
-    },
-    {
-      name: "Configuración",
-      icon: FiSettings,
-      onClick: () => {
-        console.log("Settings"), setActiveTab("Configuración");
         onClose();
       },
     },

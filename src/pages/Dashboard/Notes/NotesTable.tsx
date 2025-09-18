@@ -122,7 +122,7 @@ const NotesTable = ({ UserNotes }: Props) => {
                 Carpeta
               </Th>
               <Th
-                display={{ base: "none", md: "table-cell" }}
+                display={{ base: "none", lg: "table-cell" }}
                 w={{ base: "0", md: "20%" }}
               >
                 Última modificación
@@ -134,10 +134,7 @@ const NotesTable = ({ UserNotes }: Props) => {
             {UserNotes.map((n) => {
               return (
                 <Tr key={n.id} _hover={{ bg: "gray.200" }}>
-                  <Td
-                    whiteSpace="normal" // permite que el texto se envuelva
-                    wordBreak="break-word"
-                  >
+                  <Td whiteSpace="normal" wordBreak="break-word">
                     <HStack cursor="pointer" onClick={() => selectNote(n)}>
                       <MdEditNote size={27} />
                       <Text
@@ -152,7 +149,7 @@ const NotesTable = ({ UserNotes }: Props) => {
                   <Td display={{ base: "none", md: "table-cell" }}>
                     {n.folder === null ? "Sin carpeta" : n.folder?.name}
                   </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
+                  <Td display={{ base: "none", lg: "table-cell" }}>
                     {new Date(n.updated_at).toLocaleString()}
                   </Td>
                   <Td>

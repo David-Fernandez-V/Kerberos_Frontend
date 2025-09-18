@@ -177,6 +177,15 @@ export default function RegistrationForm() {
                     )}
                   </FormControl>
 
+                  {/*Nombre*/}
+                  <FormControl id="name">
+                    <FormLabel>Nombre</FormLabel>
+                    <Input type="text" {...register("name")} />
+                    {errors?.name?.message && (
+                      <Text color={"red.600"}>{errors?.name?.message}</Text>
+                    )}
+                  </FormControl>
+
                   {/*Contraseña */}
                   <FormControl id="password">
                     <FormLabel>Contraseña maestra</FormLabel>

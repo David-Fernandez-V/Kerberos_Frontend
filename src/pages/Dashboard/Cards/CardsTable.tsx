@@ -165,7 +165,7 @@ const CardsTable = ({ UserCards }: Props) => {
                 Carpeta
               </Th>
               <Th
-                display={{ base: "none", md: "table-cell" }}
+                display={{ base: "none", lg: "table-cell" }}
                 w={{ base: "0", md: "20%" }}
               >
                 Tipo
@@ -212,7 +212,7 @@ const CardsTable = ({ UserCards }: Props) => {
                   <Td display={{ base: "none", md: "table-cell" }}>
                     {c.folder === null ? "Sin carpeta" : c.folder?.name}
                   </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>{c.type}</Td>
+                  <Td display={{ base: "none", lg: "table-cell" }}>{c.type}</Td>
                   <Td>
                     {/*Menu de botón*/}
                     <Menu>
