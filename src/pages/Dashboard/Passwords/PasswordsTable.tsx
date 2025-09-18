@@ -167,7 +167,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
                 Carpeta
               </Th>
               <Th
-                display={{ base: "none", md: "table-cell" }}
+                display={{ base: "none", lg: "table-cell" }}
                 w={{ base: "0", md: "20%" }}
               >
                 Nivel de seguridad
@@ -212,7 +212,7 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
                   <Td display={{ base: "none", md: "table-cell" }}>
                     {p.folder === null ? "Sin carpeta" : p.folder?.name}
                   </Td>
-                  <Td display={{ base: "none", md: "table-cell" }}>
+                  <Td display={{ base: "none", lg: "table-cell" }}>
                     {strengthLabels[p.strength_level]}
                   </Td>
                   <Td>
