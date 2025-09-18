@@ -146,6 +146,7 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                     <InputGroup>
                       <Input
                         type="text"
+                        pr="4.7rem"
                         value={
                           showNumber
                             ? cardDetail?.number
@@ -160,7 +161,7 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                       <InputRightElement width="4.5rem">
                         <IconButton
                           aria-label="Cambiar visibilidad"
-                          mr={2}
+                          mr={1}
                           variant="ghost"
                           color="gray.50"
                           _hover={{ color: "gray.700", bg: "gray.50" }}
@@ -172,7 +173,6 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                         <Tooltip label="Copiar número">
                           <IconButton
                             aria-label="Copiar"
-                            mr={3}
                             h="1.75rem"
                             onClick={() =>
                               copy(cardDetail ? cardDetail.number : "")
