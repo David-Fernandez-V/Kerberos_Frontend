@@ -1,4 +1,3 @@
-
 //Niveles de fuerza
 export const strengthLabels: string[] = ["Muy Debil", "Debil", "Estandar", "Fuerte", "Muy Fuerte"]
 export const strengthColors = ["red.700", "orange.600", "yellow.500", "green.500", "teal.700"];
@@ -18,6 +17,12 @@ export const months = [
     { value: "11", label: "Noviembre" },
     { value: "12", label: "Diciembre" },
 ];
+
+//Usuario
+export type User = {
+  email: string
+  name: string
+}
 
 //Carpeta
 export type FolderItem = {

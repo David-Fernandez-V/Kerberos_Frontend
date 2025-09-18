@@ -20,7 +20,6 @@ import {
 import { SlOptionsVertical } from "react-icons/sl";
 import { NoteItem } from "../../../types";
 import { MdEditNote } from "react-icons/md";
-import { ImCopy } from "react-icons/im";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -176,13 +175,6 @@ const NotesTable = ({ UserNotes }: Props) => {
                           onClick={() => selectNote(n)}
                         >
                           Abrir
-                        </MenuItem>
-                        <MenuItem
-                          _hover={{ bg: "gray.200" }}
-                          icon={<ImCopy />}
-                          onClick={() => console.log("Clonar")}
-                        >
-                          Clonar
                         </MenuItem>
                         <MenuDivider />
                         <MenuItem
