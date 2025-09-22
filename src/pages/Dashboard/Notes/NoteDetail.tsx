@@ -23,6 +23,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiCopy } from "react-icons/fi";
 import { useEffect } from "react";
 import DeleteNoteConfirmation from "./DeleteNoteConfirmation";
+import CardModification from "../Cards/CardModification";
 
 type Props = {
   isOpen: boolean;
@@ -37,10 +38,15 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
   const { currentDetail, reset } = useCurrentNoteDetail();
 
   const ConfirmationAlert = useDisclosure();
+  const ModificationModal = useDisclosure();
 
   //Eliminar nota
   const hanldeDelete = () => {
     ConfirmationAlert.onOpen();
+  };
+
+  const hanldeModification = () => {
+    ModificationModal.onOpen();
   };
 
   //Reiniciar valores
@@ -62,6 +68,14 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
         note={note}
         masterPwd={masterPwd}
         onCloseDetail={onClose}
+      />
+      <CardModification
+        isOpen={ModificationModal.isOpen}
+        onClose={ModificationModal.onClose}
+        onCloseDetail={onClose}
+        note={note}
+        noteDetail={noteDetail}
+        masterPwd={masterPwd}
       />
       <Modal
         isOpen={isOpen}
@@ -121,7 +135,9 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
                 </IconButton>
               </Tooltip>
               <Spacer />
-              <Button mr={3}>Editar</Button>
+              <Button mr={3} onClick={hanldeModification}>
+                Editar
+              </Button>
             </Flex>
           </ModalFooter>
         </ModalContent>
