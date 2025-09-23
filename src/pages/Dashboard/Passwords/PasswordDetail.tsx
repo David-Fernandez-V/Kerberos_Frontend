@@ -105,14 +105,6 @@ function PasswordDetail({
         masterPwd={masterPwd}
         onCloseDetail={onClose}
       />
-      <PasswordModification
-        isOpen={ModificationModal.isOpen}
-        onClose={ModificationModal.onClose}
-        onCloseDetail={onClose}
-        password={password}
-        passwordDetail={passwordDetail}
-        masterPwd={masterPwd}
-      />
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -121,6 +113,14 @@ function PasswordDetail({
       >
         <ModalOverlay />
         <ModalContent>
+          <PasswordModification
+            isOpen={ModificationModal.isOpen}
+            onClose={ModificationModal.onClose}
+            onCloseDetail={onClose}
+            password={password}
+            passwordDetail={passwordDetail}
+            masterPwd={masterPwd}
+          />
           <ModalHeader>
             <HStack>
               {faviconUrl ? (

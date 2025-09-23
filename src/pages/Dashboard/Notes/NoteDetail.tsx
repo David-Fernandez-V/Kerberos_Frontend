@@ -70,14 +70,6 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
         masterPwd={masterPwd}
         onCloseDetail={onClose}
       />
-      <NoteModification
-        isOpen={ModificationModal.isOpen}
-        onClose={ModificationModal.onClose}
-        onCloseDetail={onClose}
-        note={note}
-        noteDetail={noteDetail}
-        masterPwd={masterPwd}
-      />
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -86,6 +78,14 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
       >
         <ModalOverlay />
         <ModalContent>
+          <NoteModification
+            isOpen={ModificationModal.isOpen}
+            onClose={ModificationModal.onClose}
+            onCloseDetail={onClose}
+            note={note}
+            noteDetail={noteDetail}
+            masterPwd={masterPwd}
+          />
           <ModalHeader color="purple.700">{note?.title}</ModalHeader>
           <ModalCloseButton />
           <Divider />
