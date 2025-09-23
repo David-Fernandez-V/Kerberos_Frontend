@@ -24,7 +24,7 @@ import axios from "axios";
 
 import Feature from "../../componets/Feature";
 import { noteSchema, noteForm } from "../../../schemas/noteSchema";
-import useModifyNote from "./useModifyNote";
+import useModifyNote from "../Cards/useModifyNote";
 import useFoldersStore from "../../../states/FoldersStore";
 import { NoteItem, NoteDetailItem } from "../../../types";
 
@@ -37,7 +37,7 @@ type Props = {
   masterPwd: string | null;
 };
 
-function NoteForm({
+function NoteModification({
   isOpen,
   onClose,
   onCloseDetail,
@@ -205,4 +205,4 @@ function NoteForm({
   );
 }
 
-export default NoteForm;
+export default NoteModification;
