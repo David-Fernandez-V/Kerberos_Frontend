@@ -20,6 +20,7 @@ import {
   Select,
   Tooltip,
   useDisclosure,
+  Spacer,
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
@@ -96,6 +97,7 @@ function PasswordModification({
       reset(); // Limpia los campos del formulario
       resetGenerator();
       setPasswordStrength(undefined);
+      setProblem("");
     } else {
       if (passwordDetail) {
         setGeneratedPassword(passwordDetail?.password);
@@ -128,13 +130,16 @@ function PasswordModification({
   }, [generatedPasword]);
 
   function dataIsDiferent(data: passwordForm) {
+    let folder_id: number | null | undefined = password?.folder?.id;
+    if (folder_id === undefined) folder_id = null;
+
     if (
       data.service_name !== oldPassword?.service_name ||
       data.username !== oldPasswordDetail?.username ||
       data.password !== oldPasswordDetail.password ||
       data.web_page !== oldPassword.web_page ||
       data.notes !== oldPasswordDetail.notes ||
-      data.folder_id !== oldPassword.folder?.id ||
+      data.folder_id !== folder_id ||
       data.ask_master_password !== oldPassword.ask_password
     )
       return true;
@@ -144,7 +149,7 @@ function PasswordModification({
 
   const onSubmit = (data: passwordForm) => {
     if (!dataIsDiferent(data)) {
-      setProblem("Al menos un campo debe ser diferente");
+      setProblem("Sin cambios");
       return;
     }
 
@@ -323,8 +328,9 @@ function PasswordModification({
           <Divider />
           <ModalFooter>
             <Text color="red.600">{problem}</Text>
-            <Button form="PasswordModification" type="submit" mr={3}>
-              Guardar cambios
+            <Spacer />
+            <Button form="PasswordModification" type="submit" ml={3} mr={3}>
+              Guardar
             </Button>
             <Button variant="ghost" onClick={onClose}>
               Cancelar

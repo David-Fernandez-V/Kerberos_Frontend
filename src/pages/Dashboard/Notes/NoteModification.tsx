@@ -67,14 +67,18 @@ function NoteModification({
   useEffect(() => {
     if (!isOpen) {
       reset(); // Limpia los campos del formulario
+      setProblem("");
     }
   }, [isOpen]);
 
   function dataIsDiferent(data: noteForm) {
+    let folder_id: number | null | undefined = note?.folder?.id;
+    if (folder_id === undefined) folder_id = null;
+
     if (
       data.title !== oldNote?.title ||
       data.content !== oldNoteDetail?.content ||
-      data.folder_id !== oldNote.folder?.id ||
+      data.folder_id !== folder_id ||
       data.ask_master_password !== oldNote.ask_password
     )
       return true;
@@ -84,7 +88,7 @@ function NoteModification({
 
   const onSubmit = (data: noteForm) => {
     if (!dataIsDiferent(data)) {
-      setProblem("Al menos un campo debe ser diferente");
+      setProblem("Sin cambios");
       return;
     }
 
@@ -187,14 +191,14 @@ function NoteModification({
                 </Checkbox>
               </FormControl>
               <br />
-              <Text color="red.600">{problem}</Text>
             </Feature>
           </form>
         </ModalBody>
         <Divider />
         <ModalFooter>
-          <Button form="noteForm" type="submit" mr={3}>
-            Guardar cambios
+          <Text color="red.600">{problem}</Text>
+          <Button form="noteForm" type="submit" ml={3} mr={3}>
+            Guardar
           </Button>
           <Button variant="ghost" onClick={onClose}>
             Cancelar
