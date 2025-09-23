@@ -23,7 +23,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiCopy } from "react-icons/fi";
 import { useEffect } from "react";
 import DeleteNoteConfirmation from "./DeleteNoteConfirmation";
-import CardModification from "../Cards/CardModification";
+import NoteModification from "./NoteModification";
 
 type Props = {
   isOpen: boolean;
@@ -45,6 +45,7 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
     ConfirmationAlert.onOpen();
   };
 
+  //Abrir modificación
   const hanldeModification = () => {
     ModificationModal.onOpen();
   };
@@ -69,7 +70,7 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
         masterPwd={masterPwd}
         onCloseDetail={onClose}
       />
-      <CardModification
+      <NoteModification
         isOpen={ModificationModal.isOpen}
         onClose={ModificationModal.onClose}
         onCloseDetail={onClose}

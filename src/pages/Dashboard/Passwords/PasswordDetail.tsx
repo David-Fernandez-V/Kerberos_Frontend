@@ -40,6 +40,7 @@ import useCurrentPswDetail from "../../../states/CurrentPswDetail";
 import StrengthIndicator from "../../componets/StrengthIndicator";
 import PwdConfirmation from "./PwdConfirmation";
 import { PiGlobeBold } from "react-icons/pi";
+import PasswordModification from "./PasswordModification";
 
 type Props = {
   isOpen: boolean;
@@ -60,7 +61,9 @@ function PasswordDetail({
 
   const { copy } = useCopy();
   const { currentDetail, reset } = useCurrentPswDetail();
+
   const ConfirmationAlert = useDisclosure();
+  const ModificationModal = useDisclosure();
 
   //Ícono
   const domain = password?.web_page
@@ -73,6 +76,10 @@ function PasswordDetail({
   //Borrar sesión
   const hanldeDelete = () => {
     ConfirmationAlert.onOpen();
+  };
+  //Abrir modificación
+  const hanldeModification = () => {
+    ModificationModal.onOpen();
   };
 
   //Reiniciar valores
@@ -97,6 +104,14 @@ function PasswordDetail({
         password={password}
         masterPwd={masterPwd}
         onCloseDetail={onClose}
+      />
+      <PasswordModification
+        isOpen={ModificationModal.isOpen}
+        onClose={ModificationModal.onClose}
+        onCloseDetail={onClose}
+        password={password}
+        passwordDetail={passwordDetail}
+        masterPwd={masterPwd}
       />
       <Modal
         isOpen={isOpen}
@@ -268,7 +283,9 @@ function PasswordDetail({
                 </IconButton>
               </Tooltip>
               <Spacer />
-              <Button mr={3}>Editar</Button>
+              <Button mr={3} onClick={hanldeModification}>
+                Editar
+              </Button>
             </Flex>
           </ModalFooter>
         </ModalContent>
