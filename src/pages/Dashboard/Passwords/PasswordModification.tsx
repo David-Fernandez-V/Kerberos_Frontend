@@ -239,6 +239,7 @@ function PasswordModification({
                   <InputGroup>
                     <Input
                       type={showPassword ? "text" : "password"}
+                      pr="6rem"
                       value={generatedPasword !== null ? generatedPasword : ""}
                       {...register("password")}
                       onChange={(e) => {
@@ -249,7 +250,7 @@ function PasswordModification({
                     <InputRightElement width="4.5rem">
                       <IconButton
                         aria-label="Cambiar visibilidad"
-                        mr={2}
+                        mr={0.5}
                         variant="ghost"
                         h="1.75rem"
                         onClick={() => setShowPassword(!showPassword)}

@@ -147,6 +147,7 @@ function PasswordDetail({
                   <InputGroup>
                     <Input
                       variant="flushed"
+                      pr="3.7rem"
                       type="text"
                       value={passwordDetail?.username}
                       isReadOnly
@@ -174,6 +175,7 @@ function PasswordDetail({
                     <Stack width="100%">
                       <Input
                         variant="flushed"
+                        pr="6rem"
                         type={showPassword ? "text" : "password"}
                         value={passwordDetail ? passwordDetail.password : ""}
                         isReadOnly
@@ -218,6 +220,7 @@ function PasswordDetail({
                   <InputGroup>
                     <Input
                       variant="flushed"
+                      pr="3.7rem"
                       type="text"
                       value={password?.web_page ? password.web_page : ""}
                       isReadOnly

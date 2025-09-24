@@ -248,7 +248,7 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                           <InputRightElement width="4.5rem">
                             <IconButton
                               aria-label="Cambiar visibilidad"
-                              mr={2}
+                              mr={0.5}
                               variant="ghost"
                               color="gray.50"
                               _hover={{ color: "gray.700", bg: "gray.50" }}
