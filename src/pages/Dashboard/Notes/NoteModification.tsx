@@ -15,6 +15,7 @@ import {
   Select,
   Textarea,
   Checkbox,
+  Spacer,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -197,6 +198,7 @@ function NoteModification({
         <Divider />
         <ModalFooter>
           <Text color="red.600">{problem}</Text>
+          <Spacer />
           <Button form="noteForm" type="submit" ml={3} mr={3}>
             Guardar
           </Button>
