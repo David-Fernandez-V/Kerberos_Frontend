@@ -91,7 +91,7 @@ function NoteDetail({ isOpen, onClose, note, noteDetail, masterPwd }: Props) {
           <Divider />
 
           <ModalBody>
-            <div>{noteDetail?.content}</div>
+            <Text whiteSpace="pre-wrap">{noteDetail?.content}</Text>
 
             <Flex w="100%">
               <Spacer />
