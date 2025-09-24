@@ -30,7 +30,7 @@ export default function useCreatePassword() {
           status: "success",
           duration: 4000,
           isClosable: true,
-          position: "top",
+          position: "top-right",
         });
     },
     onError: (error: any) => {
