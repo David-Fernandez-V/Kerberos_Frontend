@@ -29,7 +29,7 @@ export default function useCreateFolder() {
           status: "success",
           duration: 4000,
           isClosable: true,
-          position: "top",
+          position: "top-right",
         });
     },
     onError: (error: any) => {
