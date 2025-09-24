@@ -41,6 +41,7 @@ import StrengthIndicator from "../../componets/StrengthIndicator";
 import PwdConfirmation from "./PwdConfirmation";
 import { PiGlobeBold } from "react-icons/pi";
 import PasswordModification from "./PasswordModification";
+import { IoNavigateOutline } from "react-icons/io5";
 
 type Props = {
   isOpen: boolean;
@@ -214,12 +215,30 @@ function PasswordDetail({
               <Feature title="Información extra">
                 <FormControl id="webpage">
                   <FormLabel>Página web (URL)</FormLabel>
-                  <Input
-                    variant="flushed"
-                    type="text"
-                    value={password?.web_page ? password.web_page : ""}
-                    isReadOnly
-                  />
+                  <InputGroup>
+                    <Input
+                      variant="flushed"
+                      type="text"
+                      value={password?.web_page ? password.web_page : ""}
+                      isReadOnly
+                    />
+                    {password?.web_page && (
+                      <InputRightElement width="4.5rem">
+                        <Tooltip label="Abrir página">
+                          <IconButton
+                            aria-label="Abrir página"
+                            ml={3}
+                            h="1.75rem"
+                            onClick={() =>
+                              window.open(password.web_page, "_blank")
+                            }
+                          >
+                            <IoNavigateOutline />
+                          </IconButton>
+                        </Tooltip>
+                      </InputRightElement>
+                    )}
+                  </InputGroup>
                 </FormControl>
 
                 <FormControl id="folder" mt={6}>
