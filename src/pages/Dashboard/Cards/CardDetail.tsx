@@ -45,6 +45,7 @@ import {
 import { FiCopy } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import CardConfirmation from "./CardConfirmation";
+import CardModification from "./CardModification";
 
 type Props = {
   isOpen: boolean;
@@ -62,10 +63,16 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
   const { currentDetail, reset } = useCurrentCardDetail();
 
   const ConfirmationAlert = useDisclosure();
+  const ModificationModal = useDisclosure();
 
   //Borrar tarjeta
   const hanldeDelete = () => {
     ConfirmationAlert.onOpen();
+  };
+
+  //Abrir modificación
+  const hanldeModification = () => {
+    ModificationModal.onOpen();
   };
 
   //Reiniciar valores
@@ -100,6 +107,14 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
       >
         <ModalOverlay />
         <ModalContent>
+          <CardModification
+            isOpen={ModificationModal.isOpen}
+            onClose={ModificationModal.onClose}
+            onCloseDetail={onClose}
+            card={card}
+            cardDetail={cardDetail}
+            masterPwd={masterPwd}
+          />
           <ModalHeader>
             <HStack>
               {
@@ -338,7 +353,9 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                 </IconButton>
               </Tooltip>
               <Spacer />
-              <Button mr={3}>Editar</Button>
+              <Button mr={3} onClick={hanldeModification}>
+                Editar
+              </Button>
             </Flex>
           </ModalFooter>
         </ModalContent>
