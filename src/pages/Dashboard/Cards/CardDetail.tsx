@@ -282,18 +282,27 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                 <HStack>
                   <FormControl id="type">
                     <FormLabel>Tipo de tarjeta</FormLabel>
-                    <Input value={card?.type ? card.type : ""} isReadOnly />
+                    <Input
+                      variant="flushed"
+                      value={card?.type ? card.type : ""}
+                      isReadOnly
+                    />
                   </FormControl>
 
                   <FormControl id="brand">
                     <FormLabel>Marca</FormLabel>
-                    <Input value={card?.brand ? card.brand : ""} isReadOnly />
+                    <Input
+                      variant="flushed"
+                      value={card?.brand ? card.brand : ""}
+                      isReadOnly
+                    />
                   </FormControl>
                 </HStack>
 
                 <FormControl id="folder" mt={6}>
                   <FormLabel>Carpeta</FormLabel>
                   <Input
+                    variant="flushed"
                     value={card?.folder ? card.folder.name : "Sin carpeta"}
                     isReadOnly
                   />
@@ -302,6 +311,7 @@ function CardDetail({ isOpen, onClose, card, cardDetail, masterPwd }: Props) {
                 <FormControl id="notes" mt={6}>
                   <FormLabel>Notas</FormLabel>
                   <Textarea
+                    variant="flushed"
                     value={cardDetail?.notes ? cardDetail.notes : ""}
                     isReadOnly
                   />

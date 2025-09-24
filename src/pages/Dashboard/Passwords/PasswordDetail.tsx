@@ -145,6 +145,7 @@ function PasswordDetail({
                   <FormLabel>Usuario</FormLabel>
                   <InputGroup>
                     <Input
+                      variant="flushed"
                       type="text"
                       value={passwordDetail?.username}
                       isReadOnly
@@ -171,6 +172,7 @@ function PasswordDetail({
                   <InputGroup>
                     <Stack width="100%">
                       <Input
+                        variant="flushed"
                         type={showPassword ? "text" : "password"}
                         value={passwordDetail ? passwordDetail.password : ""}
                         isReadOnly
@@ -213,6 +215,7 @@ function PasswordDetail({
                 <FormControl id="webpage">
                   <FormLabel>Página web (URL)</FormLabel>
                   <Input
+                    variant="flushed"
                     type="text"
                     value={password?.web_page ? password.web_page : ""}
                     isReadOnly
@@ -222,6 +225,7 @@ function PasswordDetail({
                 <FormControl id="folder" mt={6}>
                   <FormLabel>Carpeta</FormLabel>
                   <Input
+                    variant="flushed"
                     type="text"
                     value={
                       password?.folder ? password.folder.name : "Sin carpeta"
@@ -233,6 +237,7 @@ function PasswordDetail({
                 <FormControl id="notes" mt={6}>
                   <FormLabel>Notas</FormLabel>
                   <Textarea
+                    variant="flushed"
                     value={passwordDetail?.notes ? passwordDetail.notes : ""}
                     isReadOnly
                   />
