@@ -1,6 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuthStore } from "../states/AuthStore";
-import SideBar from "./componets/SideBar";
 import { useEffect, useState } from "react";
 import { Flex, useToast } from "@chakra-ui/react";
 import axios from "axios";
