@@ -59,13 +59,7 @@ const PrivateRoutes = () => {
     );
   }
 
-  return isAuthenticated ? (
-    <SideBar>
-      <Outlet />
-    </SideBar>
-  ) : (
-    <Navigate to="/login" />
-  );
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoutes;
