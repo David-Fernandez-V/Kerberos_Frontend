@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
 import Verification from "./Verification";
+import Settings from "./Settings";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
           {
             path: "dashboard",
             element: <Dashboard />,
+          },
+          {
+            path: "settings",
+            element: <Settings />,
           },
         ],
       },

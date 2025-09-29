@@ -303,7 +303,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Configuración</MenuItem>
+              <MenuItem>
+                <RouterLink to={"/settings"}>Configuración</RouterLink>
+              </MenuItem>
               <MenuDivider />
               <MenuItem onClick={() => logout()}>Cerrar Sesión</MenuItem>
             </MenuList>
