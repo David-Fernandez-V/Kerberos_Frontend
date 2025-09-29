@@ -14,6 +14,7 @@ import { Text } from "@chakra-ui/react";
 
 import { useEffect } from "react";
 import { useDashboardWs } from "./useDashboardWs";
+import SideBar from "../componets/SideBar";
 
 type Props = {};
 
@@ -41,62 +42,64 @@ function Dashboard({}: Props) {
 
   return (
     <>
-      <Text fontSize="4xl" fontWeight="bold">
-        {" "}
-        Mis Bóvedas
-      </Text>{" "}
-      <br />
-      {/*Tabla de contraseñas */}
-      {showPasswords &&
-        (passwordsLoading ? (
-          <>
-            <Feature title="">
-              <TableSkeletone />
-            </Feature>
-            <br />
-          </>
-        ) : (
-          <>
-            <Feature title="Sesiones">
-              <PasswordsTable UserPasswords={passwords} />
-            </Feature>
-            <br />
-          </>
-        ))}
-      {/*Tabal de tarjetas */}
-      {showCards &&
-        (cardsLoading ? (
-          <>
-            <Feature title="">
-              <TableSkeletone />
-            </Feature>
-            <br />
-          </>
-        ) : (
-          <>
-            <Feature title="Tarjetas">
-              <CardsTable UserCards={cards} />
-            </Feature>
-            <br />
-          </>
-        ))}
-      {/*Tabla de notas*/}
-      {showNotes &&
-        (notesLoading ? (
-          <>
-            <Feature title="">
-              <TableSkeletone />
-            </Feature>
-            <br />
-          </>
-        ) : (
-          <>
-            <Feature title="Notas">
-              <NotesTable UserNotes={notes} />
-            </Feature>
-            <br />
-          </>
-        ))}
+      <SideBar>
+        <Text fontSize="4xl" fontWeight="bold">
+          {" "}
+          Mis Bóvedas
+        </Text>{" "}
+        <br />
+        {/*Tabla de contraseñas */}
+        {showPasswords &&
+          (passwordsLoading ? (
+            <>
+              <Feature title="">
+                <TableSkeletone />
+              </Feature>
+              <br />
+            </>
+          ) : (
+            <>
+              <Feature title="Sesiones">
+                <PasswordsTable UserPasswords={passwords} />
+              </Feature>
+              <br />
+            </>
+          ))}
+        {/*Tabal de tarjetas */}
+        {showCards &&
+          (cardsLoading ? (
+            <>
+              <Feature title="">
+                <TableSkeletone />
+              </Feature>
+              <br />
+            </>
+          ) : (
+            <>
+              <Feature title="Tarjetas">
+                <CardsTable UserCards={cards} />
+              </Feature>
+              <br />
+            </>
+          ))}
+        {/*Tabla de notas*/}
+        {showNotes &&
+          (notesLoading ? (
+            <>
+              <Feature title="">
+                <TableSkeletone />
+              </Feature>
+              <br />
+            </>
+          ) : (
+            <>
+              <Feature title="Notas">
+                <NotesTable UserNotes={notes} />
+              </Feature>
+              <br />
+            </>
+          ))}
+      </SideBar>
     </>
   );
 }
