@@ -36,12 +36,14 @@ import { FiChevronDown } from "react-icons/fi";
 import { BsSafe2 } from "react-icons/bs";
 
 import { IconType } from "react-icons";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { useAuthStore } from "../../states/AuthStore";
 
 import Kerberos from "../../icons/Kerberos";
 import useProfile from "../componets/SideBar/useProfile";
+import { useSidebarWs } from "../componets/SideBar/useSidebarWs";
+import useSettings from "../../states/SettingsStore";
 
 interface LinkItemProps {
   name: string;
@@ -167,6 +169,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const NoteModal = useDisclosure();
 
   const { data: user } = useProfile();
+  const { username, setUsername } = useSettings();
+
+  useEffect(() => {
+    if (user !== undefined) {
+      setUsername(user.name);
+      console.log(user.name);
+    }
+  }, [user]);
+
+  useSidebarWs();
 
   return (
     <Flex
@@ -221,7 +233,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-                <Avatar name={user?.name} size={"md"} mr={2} />
+                <Avatar name={username} size={"md"} mr={2} />
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
