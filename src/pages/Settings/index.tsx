@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import SettingsSideBar from "./SettingsSiedeBar";
 import Feature from "../componets/Feature";
-import useProfile from "../componets/SideBar/useProfile";
 import { useForm } from "react-hook-form";
 import {
   ChangeNameForm,
@@ -16,11 +15,12 @@ import {
 } from "../../schemas/changeNameSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useChangeName from "./useChangeName";
+import useSettings from "../../states/SettingsStore";
 
 type Props = {};
 
 function Settings({}: Props) {
-  const { data: user } = useProfile();
+  const { username } = useSettings();
 
   const { mutate, isPending } = useChangeName();
 
@@ -34,7 +34,7 @@ function Settings({}: Props) {
   });
 
   const handleChangeName = (data: ChangeNameForm) => {
-    if (data.new_name === user?.name) {
+    if (data.new_name === username) {
       setError("new_name", {
         type: "manual",
         message: "Sin cambios",
@@ -55,7 +55,7 @@ function Settings({}: Props) {
               <Input
                 type="text"
                 variant="flushed"
-                defaultValue={user?.name}
+                defaultValue={username}
                 {...register("new_name")}
               />
               {errors?.new_name?.message && (

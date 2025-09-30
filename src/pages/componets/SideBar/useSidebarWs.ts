@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import useFoldersStore from "../../../states/FoldersStore";
+import useSettings from "../../../states/SettingsStore";
 
 export function useSidebarWs() {
   const BASE_WS_URL = import.meta.env.VITE_WS_URL;
@@ -7,11 +8,8 @@ export function useSidebarWs() {
 
   const ws = useRef<WebSocket | null>(null);
 
-  const {
-
-    refreshFolders,
-
-  } = useFoldersStore();
+  const {refreshFolders} = useFoldersStore();
+  const {refreshUsername} = useSettings()
 
   useEffect(() => {
     ws.current = new WebSocket(WS_URL);
@@ -27,6 +25,9 @@ export function useSidebarWs() {
         switch (message.type) {
           case "folder":
             refreshFolders();
+            break;
+          case "username":
+            refreshUsername();
             break;
           default:
             console.log("Evento desconocido:", message);

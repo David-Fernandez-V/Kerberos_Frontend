@@ -40,7 +40,7 @@ import { FaCreditCard } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa";
 
 import { IconType } from "react-icons";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 import { useAuthStore } from "../../../states/AuthStore";
 import useTablesStore from "../../../states/TablesStore";
@@ -53,6 +53,8 @@ import CardForm from "../CardForm";
 import FolderSelect from "../FolderSelect";
 import Kerberos from "../../../icons/Kerberos";
 import useProfile from "./useProfile";
+import useSettings from "../../../states/SettingsStore";
+import { useSidebarWs } from "./useSidebarWs";
 
 interface LinkItemProps {
   name: string;
@@ -216,6 +218,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const NoteModal = useDisclosure();
 
   const { data: user } = useProfile();
+  const { username, setUsername } = useSettings();
+
+  useEffect(() => {
+    if (user !== undefined) {
+      setUsername(user.name);
+      console.log(user.name);
+    }
+  }, [user]);
+
+  useSidebarWs();
 
   return (
     <Flex
@@ -285,7 +297,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-                <Avatar name={user?.name} size={"md"} mr={2} />
+                <Avatar name={username} size={"md"} mr={2} />
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
