@@ -7,13 +7,16 @@ const URL = `${API_URL}/users/me`;
 
 type SettingsStore = {
   username: string;
+  email: string;
   setUsername: (name: string) => void;
   refreshUsername: () => Promise<void>;
+  setEmail: (email: string) => void
 };
 
 const useSettings = create<SettingsStore>((set) => ({
 
   username: "",
+  email: "D@d.com",
 
   setUsername: (name: string) => {
     set({username: name})
@@ -26,6 +29,10 @@ const useSettings = create<SettingsStore>((set) => ({
     } catch (err) {
       console.error("Error refrescando username:", err);
     }
+  },
+
+  setEmail: (email: string) => {
+    set({email: email})
   },
 
 }));
