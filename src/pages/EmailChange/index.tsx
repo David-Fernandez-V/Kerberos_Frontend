@@ -10,10 +10,10 @@ import {
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 import Kerberos from "../../icons/Kerberos";
-import useVerify from "./useVerify";
+import useChangeEmail from "./useChangeEmail";
 import { useState } from "react";
 
-export default function Verify() {
+export default function EmailChange() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const token = searchParams.get("token");
@@ -21,16 +21,19 @@ export default function Verify() {
   const [isVerify, setIsVerify] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { mutate, isPending, isError } = useVerify();
+  const { mutate, isPending, isError } = useChangeEmail();
 
   //Función para verificar
-  const handleVerify = () => {
+  const handleChangeEmail = () => {
     if (token) {
-      mutate(token, {
-        onSuccess: () => {
-          setIsVerify(true);
-        },
-      });
+      mutate(
+        { token: token },
+        {
+          onSuccess: () => {
+            setIsVerify(true);
+          },
+        }
+      );
     } else {
       setError("Sin token de verificación.");
     }
@@ -46,7 +49,7 @@ export default function Verify() {
             fontSize={{ base: "3xl", sm: "6xl", md: "6xl" }}
             lineHeight="110%"
           >
-            Gracias por registrarte en <br />
+            Cambio de Correo Electrónico <br />
             <Text as="span" color="purple.700">
               Kerberos
             </Text>
@@ -77,11 +80,11 @@ export default function Verify() {
         {!isVerify ? (
           <>
             <Text fontSize="2xl" mb={6}>
-              ¡Ultimo Paso!
+              ¡Ya casi está!
             </Text>
             <Text fontSize="2xl" mb={6}>
-              Termina la verificación de correo electrónico para empezar a usar
-              Kerberos.
+              Verificación tu nueva dirección de correo electrónico para poder
+              realizar los cambios.
             </Text>
             <br />
 
@@ -90,7 +93,7 @@ export default function Verify() {
                 size="lg"
                 color="purple.700"
                 bg="gray.100"
-                onClick={handleVerify}
+                onClick={handleChangeEmail}
               >
                 Verificar
               </Button>
@@ -111,9 +114,9 @@ export default function Verify() {
                 color="purple.700"
                 bg="gray.100"
                 mt={4}
-                onClick={() => navigate("/signUp")}
+                onClick={() => navigate("/dashboard")}
               >
-                Registrarse
+                Volver
               </Button>
             )}
           </>
@@ -123,17 +126,12 @@ export default function Verify() {
               ¡Tu correo ha sido verificado!
             </Text>
             <Text fontSize="2xl" mb={6}>
-              Ahora puedes iniciar sesión.
+              Ahora puedes iniciar sesión con tu nuevo correo.
             </Text>
             <br />
-            <Button
-              size="lg"
-              color="purple.700"
-              bg="gray.100"
-              onClick={() => navigate("/LogIn")}
-            >
-              Iniciar sesión
-            </Button>
+            <Text fontSize="2xl" mb={6}>
+              La sesión actual se cerrará.
+            </Text>
           </>
         )}
       </Flex>

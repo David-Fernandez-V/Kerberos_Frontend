@@ -9,6 +9,7 @@ import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
 import Verification from "./Verification";
 import Settings from "./Settings";
+import EmailChange from "./EmailChange";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: <Settings />,
+          },
+          {
+            path: "emailChange",
+            element: <EmailChange />,
           },
         ],
       },
