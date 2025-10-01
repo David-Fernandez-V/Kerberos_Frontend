@@ -174,7 +174,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   useEffect(() => {
     if (user !== undefined) {
       setUsername(user.name);
-      console.log(user.name);
     }
   }, [user]);
 

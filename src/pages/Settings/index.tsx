@@ -1,7 +1,9 @@
 import {
   Button,
+  Divider,
   Flex,
   FormControl,
+  FormLabel,
   Input,
   Spinner,
   Text,
@@ -16,13 +18,16 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import useChangeName from "./useChangeName";
 import useSettings from "../../states/SettingsStore";
+import useProfile from "../componets/SideBar/useProfile";
+import { useEffect } from "react";
 
 type Props = {};
 
 function Settings({}: Props) {
-  const { username } = useSettings();
+  const { data: user } = useProfile();
+  const { username, email, setEmail } = useSettings();
 
-  const { mutate, isPending } = useChangeName();
+  const { mutate, isPending: isNamePending } = useChangeName();
 
   const {
     register,
@@ -45,16 +50,24 @@ function Settings({}: Props) {
     mutate({ new_name: data.new_name });
   };
 
+  useEffect(() => {
+    if (user !== undefined) {
+      setEmail(user.email);
+    }
+  }, [user]);
+
   return (
     <SettingsSideBar>
-      <Flex>
+      <Flex gap={4} direction="column" wrap="wrap" maxW={"30%"}>
         {/*Cambio de nombre */}
-        <form action="changeNameForm" onSubmit={handleSubmit(handleChangeName)}>
-          <Feature title="Cambiar nombre">
+        <Feature title="Cambiar nombre">
+          <form
+            action="changeNameForm"
+            onSubmit={handleSubmit(handleChangeName)}
+          >
             <FormControl>
               <Input
                 type="text"
-                variant="flushed"
                 defaultValue={username}
                 {...register("new_name")}
               />
@@ -63,9 +76,46 @@ function Settings({}: Props) {
               )}
             </FormControl>
             <br />
-            {isPending ? <Spinner /> : <Button type="submit">Cambiar</Button>}
-          </Feature>
-        </form>
+            {isNamePending ? (
+              <Spinner />
+            ) : (
+              <Button type="submit">Cambiar</Button>
+            )}
+          </form>
+        </Feature>
+
+        {/*Cambio de correo */}
+        <Feature title="Correo electrónico">
+          <Input
+            type="text"
+            variant="flushed"
+            isReadOnly
+            value={email}
+            //{...register("new_name")}
+            mb={2}
+          />
+          <Divider mb={2} mt={2} />
+          <form>
+            <FormControl>
+              <FormLabel>Contraseña maestra</FormLabel>
+              <Input type="password" />
+            </FormControl>
+            <FormControl mt={3}>
+              <FormLabel>Nuevo correo</FormLabel>
+              <Input
+                type="text"
+                placeholder={"correo@ejemplo.com"}
+                //{...register("new_name")}
+              />
+            </FormControl>
+            <br />
+            {isNamePending ? (
+              <Spinner />
+            ) : (
+              <Button type="submit">Cambiar</Button>
+            )}
+          </form>
+        </Feature>
       </Flex>
     </SettingsSideBar>
   );
