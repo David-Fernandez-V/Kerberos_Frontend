@@ -12,10 +12,12 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Kerberos from "../../icons/Kerberos";
 import useChangeEmail from "./useChangeEmail";
 import { useState } from "react";
+import { useAuthStore } from "../../states/AuthStore";
 
 export default function EmailChange() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { logout } = useAuthStore();
   const token = searchParams.get("token");
 
   const [isVerify, setIsVerify] = useState(false);
@@ -31,6 +33,10 @@ export default function EmailChange() {
         {
           onSuccess: () => {
             setIsVerify(true);
+            setTimeout(() => {
+              logout();
+              console.log("Cerrado");
+            }, 5000);
           },
         }
       );
@@ -49,7 +55,7 @@ export default function EmailChange() {
             fontSize={{ base: "3xl", sm: "6xl", md: "6xl" }}
             lineHeight="110%"
           >
-            Cambio de Correo Electrónico <br />
+            Cambio de correo electrónico <br />
             <Text as="span" color="purple.700">
               Kerberos
             </Text>
@@ -83,7 +89,7 @@ export default function EmailChange() {
               ¡Ya casi está!
             </Text>
             <Text fontSize="2xl" mb={6}>
-              Verificación tu nueva dirección de correo electrónico para poder
+              Verifica tu nueva dirección de correo electrónico para poder
               realizar los cambios.
             </Text>
             <br />
