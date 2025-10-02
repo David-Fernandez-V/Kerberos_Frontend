@@ -177,10 +177,25 @@ const PasswordsTable = ({ UserPasswords }: Props) => {
           </Thead>
           <Tbody fontSize={18}>
             {UserPasswords.map((p) => {
-              const domain = p.web_page ? new URL(p.web_page).hostname : null;
-              const faviconUrl = domain
-                ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
-                : null;
+              //Obtener ícono de la página
+              let domain: string | null = null;
+              let faviconUrl: string | null = null;
+
+              if (p.web_page) {
+                try {
+                  const url = new URL(p.web_page);
+                  domain = url.hostname;
+                  faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+                } catch (error) {
+                  console.warn(
+                    "URL inválida detectada en web_page:",
+                    p.web_page,
+                    error
+                  );
+                  domain = null;
+                  faviconUrl = null;
+                }
+              }
 
               return (
                 <Tr key={p.service_name} _hover={{ bg: "gray.200" }}>
