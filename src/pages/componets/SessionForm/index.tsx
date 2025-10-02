@@ -53,6 +53,7 @@ function SessionForm({ isOpen, onClose }: Props) {
     formState: { errors },
     setError,
     reset,
+    setValue,
   } = useForm<passwordForm>({
     resolver: zodResolver(passwordSchema),
   });
@@ -103,6 +104,7 @@ function SessionForm({ isOpen, onClose }: Props) {
     //Setear la contraseña generada
     if (generatedPasword !== null) {
       setPasswordInput(generatedPasword);
+      setValue("password", generatedPasword);
     }
   }, [generatedPasword]);
 

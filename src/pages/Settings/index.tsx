@@ -50,6 +50,7 @@ function Settings({}: Props) {
     handleSubmit: habldeSubmitName,
     formState: { errors: nameErrors },
     setError: setNameErrors,
+    setValue: setNameValue,
   } = useForm<ChangeNameForm>({
     resolver: zodResolver(ChangeNameSchema),
   });
@@ -93,6 +94,7 @@ function Settings({}: Props) {
   useEffect(() => {
     if (user !== undefined) {
       setEmail(user.email);
+      setNameValue("new_name", user.name);
     }
   }, [user]);
 
