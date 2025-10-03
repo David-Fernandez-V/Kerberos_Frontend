@@ -40,7 +40,7 @@ import { FaCreditCard } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa";
 
 import { IconType } from "react-icons";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 import { useAuthStore } from "../../../states/AuthStore";
 import useTablesStore from "../../../states/TablesStore";
@@ -52,9 +52,7 @@ import CardForm from "../CardForm";
 
 import FolderSelect from "../FolderSelect";
 import Kerberos from "../../../icons/Kerberos";
-import useProfile from "./useProfile";
 import useSettings from "../../../states/SettingsStore";
-import { useSidebarWs } from "./useSidebarWs";
 
 interface LinkItemProps {
   name: string;
@@ -217,16 +215,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const CardModal = useDisclosure();
   const NoteModal = useDisclosure();
 
-  const { data: user } = useProfile();
-  const { username, setUsername } = useSettings();
+  const { username } = useSettings();
 
-  useEffect(() => {
-    if (user !== undefined) {
-      setUsername(user.name);
-    }
-  }, [user]);
-
-  useSidebarWs();
+  //useSidebarWs();
 
   return (
     <Flex

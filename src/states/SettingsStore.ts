@@ -16,7 +16,7 @@ type SettingsStore = {
 const useSettings = create<SettingsStore>((set) => ({
 
   username: "",
-  email: "D@d.com",
+  email: "",
 
   setUsername: (name: string) => {
     set({username: name})
