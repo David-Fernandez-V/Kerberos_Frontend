@@ -21,7 +21,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import useChangeName from "./useChangeName";
 import useSettings from "../../states/SettingsStore";
-import useProfile from "../componets/SideBar/useProfile";
 import { useEffect, useState } from "react";
 import {
   ChangeEmailForm,
@@ -33,8 +32,7 @@ import useRequestChangeEmail from "./useRequestChangeEmail";
 type Props = {};
 
 function Settings({}: Props) {
-  const { data: user } = useProfile();
-  const { username, email, setEmail } = useSettings();
+  const { username, email } = useSettings();
 
   const {
     mutate: requestEmailChange,
@@ -92,11 +90,8 @@ function Settings({}: Props) {
   };
 
   useEffect(() => {
-    if (user !== undefined) {
-      setEmail(user.email);
-      setNameValue("new_name", user.name);
-    }
-  }, [user]);
+    setNameValue("new_name", username);
+  }, []);
 
   return (
     <SettingsSideBar>

@@ -36,13 +36,11 @@ import { FiChevronDown } from "react-icons/fi";
 import { BsSafe2 } from "react-icons/bs";
 
 import { IconType } from "react-icons";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { useAuthStore } from "../../states/AuthStore";
 
 import Kerberos from "../../icons/Kerberos";
-import useProfile from "../componets/SideBar/useProfile";
-import { useSidebarWs } from "../componets/SideBar/useSidebarWs";
 import useSettings from "../../states/SettingsStore";
 
 interface LinkItemProps {
@@ -168,16 +166,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const CardModal = useDisclosure();
   const NoteModal = useDisclosure();
 
-  const { data: user } = useProfile();
-  const { username, setUsername } = useSettings();
+  const { username } = useSettings();
 
-  useEffect(() => {
-    if (user !== undefined) {
-      setUsername(user.name);
-    }
-  }, [user]);
-
-  useSidebarWs();
+  //useSidebarWs();
 
   return (
     <Flex
