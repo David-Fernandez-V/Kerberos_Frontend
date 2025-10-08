@@ -6,6 +6,7 @@ import useTablesStore from './TablesStore';
 import usePasswordsStore from './PasswordsStore';
 import useNotesStore from './NotesStore';
 import useCardStore from './CardsStore';
+import useSettings from './SettingsStore';
 
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -25,7 +26,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
 
   logoutReason: null,
 
-  login: () => set({ isAuthenticated: true }),
+  login: () => {
+    localStorage.setItem("login_event", Date.now().toString());
+    set({ isAuthenticated: true })
+  },
 
   logout: async (reason = "manual") => {
     try {
@@ -35,13 +39,18 @@ export const useAuthStore = create<AuthStore>((set) => ({
     } catch (error) {
       console.error("Error cerrando sesión:", error);
     } finally {
-      set({ isAuthenticated: false, logoutReason: reason });
-
       useFoldersStore.getState().reset?.();
       useTablesStore.getState().reset?.();
       usePasswordsStore.getState().reset?.();
       useNotesStore.getState().reset?.();
       useCardStore.getState().reset?.();
+      useSettings.getState().reset?.();
+      
+
+      localStorage.removeItem("isAuthenticated");
+      localStorage.setItem("logout_event", Date.now().toString());
+
+      set({ isAuthenticated: false, logoutReason: reason });
     }
   },
 

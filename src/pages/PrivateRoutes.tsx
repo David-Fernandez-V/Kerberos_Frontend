@@ -6,11 +6,33 @@ import axios from "axios";
 
 import useRefreshSession from "../hooks/useRefreshSession";
 import PrivateSkeleton from "./componets/PrivateSkeleton";
+import useCrossTabLogout from "../hooks/useCrossTabLogout";
+import { useSidebarWs } from "./componets/SideBar/useSidebarWs";
+import useProfile from "./componets/SideBar/useProfile";
+import useSettings from "../states/SettingsStore";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const PrivateRoutes = () => {
   useRefreshSession();
+  useCrossTabLogout();
+  useSidebarWs();
+
+  const { data: user, refetch } = useProfile();
+  const { setUsername, setEmail } = useSettings();
+
+  useEffect(() => {
+    if (user !== undefined) {
+      setUsername(user.name);
+      setEmail(user.email);
+    } else {
+      console.log("Sin user");
+    }
+  }, [user]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   const toast = useToast();
   const { login, logout, isAuthenticated, logoutReason, clearLogoutReason } =

@@ -10,7 +10,8 @@ type SettingsStore = {
   email: string;
   setUsername: (name: string) => void;
   refreshUsername: () => Promise<void>;
-  setEmail: (email: string) => void
+  setEmail: (email: string) => void;
+  reset: () => void;
 };
 
 const useSettings = create<SettingsStore>((set) => ({
@@ -34,6 +35,10 @@ const useSettings = create<SettingsStore>((set) => ({
   setEmail: (email: string) => {
     set({email: email})
   },
+
+  reset: () => {
+    set({username: "", email: ""})
+  }
 
 }));
 
