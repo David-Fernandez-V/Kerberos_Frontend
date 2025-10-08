@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Flex } from "@chakra-ui/react";
 import PublicSkeleton from "./componets/PublicSkeleton";
+import useCrossTabLogin from "../hooks/useCrossTabLogin";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -27,6 +28,8 @@ const PublicRoutes = () => {
 
     checkSession();
   }, []);
+
+  useCrossTabLogin();
 
   if (loading) {
     return (
