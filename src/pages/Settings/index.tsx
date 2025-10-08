@@ -93,6 +93,10 @@ function Settings({}: Props) {
     setNameValue("new_name", username);
   }, []);
 
+  useEffect(() => {
+    setNameValue("new_name", username);
+  }, [username]);
+
   return (
     <SettingsSideBar>
       <Flex gap={4} direction="column" wrap="wrap" maxW={"30%"}>
