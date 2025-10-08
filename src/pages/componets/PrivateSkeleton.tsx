@@ -1,8 +1,20 @@
 import { Flex, Skeleton } from "@chakra-ui/react";
+import useProfile from "./SideBar/useProfile";
+import useSettings from "../../states/SettingsStore";
+import { useEffect } from "react";
 
 type Props = {};
 
 function PrivateSkeleton({}: Props) {
+  const { data: user } = useProfile();
+  const { setUsername, setEmail } = useSettings();
+
+  useEffect(() => {
+    if (user !== undefined) {
+      setUsername(user.name);
+      setEmail(user.email);
+    }
+  }, [user]);
   return (
     <Flex
       h="100vh"
