@@ -35,6 +35,7 @@ const PrivateRoutes = () => {
   }, []);
 
   const toast = useToast();
+  const toast_id = "timeout-toast";
   const { login, logout, isAuthenticated, logoutReason, clearLogoutReason } =
     useAuthStore();
   const [loading, setLoading] = useState(true);
@@ -57,8 +58,9 @@ const PrivateRoutes = () => {
   }, []);
 
   useEffect(() => {
-    if (logoutReason === "inactivity") {
+    if (logoutReason === "inactivity" && !toast.isActive(toast_id)) {
       toast({
+        id: toast_id,
         title: "Sesión cerrada por inactividad.",
         description:
           "Por tu seguridad, se ha cerrado tu sesión automáticamente.",

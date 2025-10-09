@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useAuthStore } from "../states/AuthStore";
 
@@ -6,12 +6,20 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function useRefreshSession() {
   const { isAuthenticated, logout } = useAuthStore();
+
   const lastActivityRef = useRef<number>(Date.now());
+  const lastRefreshRef = useRef<number>(Date.now());
+
+  // Estado local para guardar el tiempo configurado (minutos)
+  const [inactivityLimit, setInactivityLimit] = useState<number>(() => {
+    const saved = localStorage.getItem("inactivityLimit");
+    return saved ? parseInt(saved, 10) : 15; // valor por defecto: 15 minutos
+  });
 
   useEffect(() => {
     if (!isAuthenticated) return;
 
-    //Actualiza el tiempo de última actividad
+    // Registrar actividad del usuario
     const updateActivity = () => {
       lastActivityRef.current = Date.now();
     };
@@ -21,30 +29,39 @@ export default function useRefreshSession() {
       window.addEventListener(event, updateActivity)
     );
 
-    //Verifica cada minuto
     const interval = setInterval(async () => {
       const now = Date.now();
-      const minutesSinceLastActivity = (now - lastActivityRef.current) / 1000 / 60;
 
-      //Refrescar si hubo actividad en los últimos 5 min
-      if (minutesSinceLastActivity < 5) {
+      const minutesSinceLastActivity =
+        (now - lastActivityRef.current) / 1000 / 60;
+      const minutesSinceLastRefresh =
+        (now - lastRefreshRef.current) / 1000 / 60;
+
+      //Cerrar sesión según el tiempo configurado
+      if (minutesSinceLastActivity >= inactivityLimit) {
+        console.warn("Inactividad prolongada. Cerrando sesión...");
+        logout("inactivity");
+        clearInterval(interval);
+        return;
+      }
+
+      //Refrescar token cada 59 minutos
+      if (minutesSinceLastRefresh >= 59) {
         try {
           await axios.get(`${API_URL}/authentication/refresh`, {
             withCredentials: true,
           });
-          console.log("Token refrescado");
+          console.log("Token refrescado automáticamente");
+          lastRefreshRef.current = now;
         } catch (error) {
-          console.warn("Error al refrescar token. Cerrando sesión...");
+          console.error("Error al refrescar token:", error);
           logout();
+          clearInterval(interval);
         }
       }
 
-      //Cerrar sesión si pasó más de 15 min sin actividad
-      if (minutesSinceLastActivity >= 15) {
-        console.log("Inactividad prolongada. Cerrando sesión...");
-        logout("inactivity");
-      }
-    }, 60 * 1000); // Cada 1 minuto
+      console.log("1 minuto");
+    }, 60 * 1000); // Comprobar cada minuto
 
     return () => {
       clearInterval(interval);
@@ -52,5 +69,7 @@ export default function useRefreshSession() {
         window.removeEventListener(event, updateActivity)
       );
     };
-  }, [isAuthenticated, logout]);
+  }, [isAuthenticated, logout, inactivityLimit]); // Se reinicia al cambia el tiempo
+
+  return { inactivityLimit, setInactivityLimit };
 }
