@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Divider,
   Flex,
@@ -8,6 +9,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Select,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -28,11 +30,14 @@ import {
 } from "../../schemas/changeEmailSchema";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useRequestChangeEmail from "./useRequestChangeEmail";
+import useRefreshSession from "../../hooks/useRefreshSession";
 
 type Props = {};
 
 function Settings({}: Props) {
   const { username, email } = useSettings();
+
+  const { inactivityLimit, setInactivityLimit } = useRefreshSession();
 
   const {
     mutate: requestEmailChange,
@@ -87,6 +92,12 @@ function Settings({}: Props) {
       new_email: data.new_email,
       master_password: data.master_password,
     });
+  };
+
+  const handleChangeTimeout = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newLimit = parseInt(e.target.value, 10);
+    setInactivityLimit(newLimit);
+    localStorage.setItem("inactivityLimit", newLimit.toString());
   };
 
   useEffect(() => {
@@ -178,6 +189,25 @@ function Settings({}: Props) {
               <Button type="submit">Cambiar</Button>
             )}
           </form>
+        </Feature>
+
+        {/*Timeout */}
+        <Feature title="Cerrado de sesión automático">
+          <Box>
+            <FormLabel>Tiempo de inactividad para cerrar sesión: </FormLabel>
+            <Select
+              value={inactivityLimit}
+              onChange={handleChangeTimeout}
+              w="200px"
+            >
+              <option value={5}>5 minutos</option>
+              <option value={10}>10 minutos</option>
+              <option value={15}>15 minutos</option>
+              <option value={30}>30 minutos</option>
+              <option value={58}>1 hora</option>
+              <option value={70}>Desactivar</option>
+            </Select>
+          </Box>
         </Feature>
       </Flex>
     </SettingsSideBar>
