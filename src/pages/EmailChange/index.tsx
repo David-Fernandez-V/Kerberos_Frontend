@@ -12,18 +12,19 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Kerberos from "../../icons/Kerberos";
 import useChangeEmail from "./useChangeEmail";
 import { useState } from "react";
-import { useAuthStore } from "../../states/AuthStore";
+import { useSidebarWs } from "../componets/SideBar/useSidebarWs";
 
 export default function EmailChange() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { logout } = useAuthStore();
   const token = searchParams.get("token");
 
   const [isVerify, setIsVerify] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const { mutate, isPending, isError } = useChangeEmail();
+
+  useSidebarWs();
 
   //Función para verificar
   const handleChangeEmail = () => {
@@ -33,10 +34,6 @@ export default function EmailChange() {
         {
           onSuccess: () => {
             setIsVerify(true);
-            setTimeout(() => {
-              logout();
-              console.log("Cerrado");
-            }, 5000);
           },
         }
       );
@@ -92,6 +89,11 @@ export default function EmailChange() {
               Verifica tu nueva dirección de correo electrónico para poder
               realizar los cambios.
             </Text>
+            <Text fontSize="2xl" mb={6}>
+              Al verificar tu correo se cerrarán todas las sesiones activas para
+              poder realizar los cambios. Deberás iniciar sesión con tu nuevo
+              correo.
+            </Text>
             <br />
 
             {!isPending ? (
@@ -109,9 +111,7 @@ export default function EmailChange() {
 
             <br />
             {isError && (
-              <Text color="red.600">
-                Token de verificación no válido: Vuelva a realizar el registro.
-              </Text>
+              <Text color="red.600">Token de verificación no válido.</Text>
             )}
             {error && <Text color="red.600">{error}</Text>}
             {(isError || error) && (
