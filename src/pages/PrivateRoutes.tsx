@@ -25,8 +25,6 @@ const PrivateRoutes = () => {
     if (user !== undefined) {
       setUsername(user.name);
       setEmail(user.email);
-    } else {
-      console.log("Sin user");
     }
   }, [user]);
 

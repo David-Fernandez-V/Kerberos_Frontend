@@ -46,7 +46,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
       useCardStore.getState().reset?.();
       useSettings.getState().reset?.();
       
-
       localStorage.removeItem("isAuthenticated");
       localStorage.setItem("logout_event", Date.now().toString());
 
