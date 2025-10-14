@@ -37,7 +37,7 @@ type Props = {};
 function Settings({}: Props) {
   const { username, email } = useSettings();
 
-  const { inactivityLimit, setInactivityLimit } = useRefreshSession();
+  const { inactivityLimit, updateInactivityLimit } = useRefreshSession();
 
   const {
     mutate: requestEmailChange,
@@ -95,9 +95,10 @@ function Settings({}: Props) {
   };
 
   const handleChangeTimeout = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLimit = parseInt(e.target.value, 10);
-    setInactivityLimit(newLimit);
+    const newLimit = e.target.value;
+    updateInactivityLimit(newLimit);
     localStorage.setItem("inactivityLimit", newLimit.toString());
+    console.log("Tiempo: " + localStorage.getItem("inactivityLimit"));
   };
 
   useEffect(() => {
@@ -205,7 +206,7 @@ function Settings({}: Props) {
               <option value={15}>15 minutos</option>
               <option value={30}>30 minutos</option>
               <option value={58}>1 hora</option>
-              <option value={70}>Desactivar</option>
+              <option value="never">Desactivar</option>
             </Select>
           </Box>
         </Feature>
