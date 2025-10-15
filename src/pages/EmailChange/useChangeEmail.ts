@@ -37,7 +37,7 @@ export default function useChangeEmail() {
         status: "success",
         duration: 15000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
       setTimeout(() => {
         toast_info({
@@ -47,7 +47,7 @@ export default function useChangeEmail() {
           status: "info",
           duration: 15000,
           isClosable: true,
-          position: "top-right",
+          position: "bottom-right",
         });
       }, 100)
     },
@@ -58,7 +58,7 @@ export default function useChangeEmail() {
         status: "error",
         duration: 5000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
   });

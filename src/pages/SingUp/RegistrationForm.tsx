@@ -86,7 +86,7 @@ export default function RegistrationForm() {
         status: "warning",
         duration: 4000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     }
   };

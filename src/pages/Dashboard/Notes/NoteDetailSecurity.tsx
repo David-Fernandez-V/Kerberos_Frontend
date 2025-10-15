@@ -76,7 +76,7 @@ function NoteDetailSecurity({ isOpen, onClose, setMasterPwd, noteId }: Props) {
               status: "success",
               duration: 4000,
               isClosable: true,
-              position: "top-right",
+              position: "bottom-right",
             });
             onClose();
           },

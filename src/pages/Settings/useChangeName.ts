@@ -35,7 +35,7 @@ export default function useChangeName() {
         status: "success",
         duration: 3000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
     onError: (error: any) => {
@@ -46,7 +46,7 @@ export default function useChangeName() {
         status: "error",
         duration: 3000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
   });

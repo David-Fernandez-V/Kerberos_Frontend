@@ -36,7 +36,7 @@ export default function useRequestChangeEmail() {
         status: "success",
         duration: 6000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
     onError: (error: any) => {
@@ -47,7 +47,7 @@ export default function useRequestChangeEmail() {
         status: "error",
         duration: 3000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
   });
