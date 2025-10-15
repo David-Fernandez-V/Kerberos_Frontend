@@ -13,7 +13,7 @@ export function useCopy(){
             status: "success",
             duration: 2000,
             isClosable: true,
-            position: "top-right",
+            position: "bottom-right",
             });
         })
         .catch((err) => {
@@ -23,7 +23,7 @@ export function useCopy(){
             status: "error",
             duration: 2000,
             isClosable: true,
-            position: "top-right",
+            position: "bottom-right",
             });
             console.error("Error al copiar:", err);
         });

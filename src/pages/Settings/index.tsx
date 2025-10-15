@@ -248,7 +248,7 @@ function Settings({}: Props) {
               <option value={15}>15 minutos</option>
               <option value={30}>30 minutos</option>
               <option value={58}>1 hora</option>
-              <option value="never">Desactivar</option>
+              <option value="never">Desactivado</option>
             </Select>
           </Box>
         </Feature>

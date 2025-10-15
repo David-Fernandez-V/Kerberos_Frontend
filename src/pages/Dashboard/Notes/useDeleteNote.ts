@@ -35,7 +35,7 @@ export default function useNoteDelete() {
           status: "success",
           duration: 3000,
           isClosable: true,
-          position: "top-right",
+          position: "bottom-right",
         });
     },
     onError: (error: any) => {
@@ -45,7 +45,7 @@ export default function useNoteDelete() {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
   });

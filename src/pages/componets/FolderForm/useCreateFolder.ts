@@ -29,7 +29,7 @@ export default function useCreateFolder() {
           status: "success",
           duration: 4000,
           isClosable: true,
-          position: "top-right",
+          position: "bottom-right",
         });
     },
     onError: (error: any) => {
@@ -39,7 +39,7 @@ export default function useCreateFolder() {
         status: "error",
         duration: 2000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
   });

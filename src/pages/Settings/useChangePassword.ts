@@ -37,7 +37,7 @@ export default function useChangePassword() {
         status: "success",
         duration: 15000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
       toast({
         id: "sesiones-cerradas",
@@ -46,7 +46,7 @@ export default function useChangePassword() {
         status: "info",
         duration: 15000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
     onError: (error: any) => {
@@ -57,7 +57,7 @@ export default function useChangePassword() {
         status: "error",
         duration: 3000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom-right",
       });
     },
   });
