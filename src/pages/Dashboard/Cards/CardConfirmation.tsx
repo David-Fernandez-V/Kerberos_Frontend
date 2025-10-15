@@ -6,12 +6,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useToast,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { CardItem } from "../../../types";
 import useDeleteCard from "./useDeleteCard";
-import useCardsStore from "../../../states/CardsStore";
 
 type Props = {
   isOpen: boolean;
@@ -31,11 +29,8 @@ function CardConfirmation({
   onCloseMpwd,
 }: Props) {
   const { mutate } = useDeleteCard();
-  const { refreshCards } = useCardsStore();
 
   const cancelRef = useRef<HTMLButtonElement>(null);
-
-  const toast = useToast();
 
   const deleteCard = () => {
     if (card) {

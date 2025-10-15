@@ -39,7 +39,6 @@ const useFoldersStore = create<FoldersStore>((set) => ({
   },
 
   setCurrentFolder: (id) => {
-    console.log("Cambiando: "+id)
     set({ currentFolder: id });
   },
 

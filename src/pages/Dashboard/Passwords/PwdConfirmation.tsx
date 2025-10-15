@@ -6,12 +6,10 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useToast,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { PasswordItem } from "../../../types";
 import useDeletePassword from "./usePasswordDelete";
-import usePasswordsStore from "../../../states/PasswordsStore";
 
 type Props = {
   isOpen: boolean;
@@ -31,11 +29,8 @@ function PwdConfirmation({
   onCloseMpwd,
 }: Props) {
   const { mutate } = useDeletePassword();
-  const { refreshPasswords } = usePasswordsStore();
 
   const cancelRef = useRef<HTMLButtonElement>(null);
-
-  const toast = useToast();
 
   const deleteCard = () => {
     if (password) {
