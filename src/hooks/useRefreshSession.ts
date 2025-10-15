@@ -61,7 +61,6 @@ export default function useRefreshSession() {
         }
       }
 
-      console.log("1 minuto");
     }, 60 * 1000);
 
     return () => {
