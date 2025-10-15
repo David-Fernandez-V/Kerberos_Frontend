@@ -33,6 +33,7 @@ export function useSidebarWs() {
             refreshUsername();
             break;
           case "logout":
+            console.log("cerrando sesión")
             logout();
             break;
           default:
