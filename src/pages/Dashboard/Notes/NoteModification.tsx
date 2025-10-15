@@ -25,7 +25,7 @@ import axios from "axios";
 
 import Feature from "../../componets/Feature";
 import { noteSchema, noteForm } from "../../../schemas/noteSchema";
-import useModifyNote from "../Cards/useModifyNote";
+import useModifyNote from "./useModifyNote";
 import useFoldersStore from "../../../states/FoldersStore";
 import { NoteItem, NoteDetailItem } from "../../../types";
 

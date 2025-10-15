@@ -64,9 +64,8 @@ function PwdDeleteSecurity({ isOpen, onClose, password }: Props) {
       mutate(
         { master_password: formData.mpwd },
         {
-          onSuccess: (data) => {
+          onSuccess: () => {
             setMpwd(formData.mpwd);
-            console.log(data);
             ConfirmationAlert.onOpen();
             onClose();
           },
