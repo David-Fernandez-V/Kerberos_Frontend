@@ -6,6 +6,8 @@ import {
   Box,
   Flex,
   Spinner,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
@@ -89,11 +91,16 @@ export default function EmailChange() {
               Verifica tu nueva dirección de correo electrónico para poder
               realizar los cambios.
             </Text>
-            <Text fontSize="2xl" mb={6}>
+            <Alert
+              status="warning"
+              color="gray.700"
+              w={{ base: "100%", md: "50%", lg: "30%" }}
+            >
+              <AlertIcon />
               Al verificar tu correo se cerrarán todas las sesiones activas para
-              poder realizar los cambios. Deberás iniciar sesión con tu nuevo
+              poder realizar los cambios, deberás iniciar sesión con tu nuevo
               correo.
-            </Text>
+            </Alert>
             <br />
 
             {!isPending ? (

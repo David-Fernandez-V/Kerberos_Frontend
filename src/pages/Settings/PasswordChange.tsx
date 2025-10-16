@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Button,
   Divider,
   FormControl,
@@ -172,6 +174,13 @@ function PasswordChange({}: Props) {
               </Text>
             )}
           </FormControl>
+          <br />
+          <Alert status="warning" color="gray.700">
+            <AlertIcon />
+            Al cambiar tu contraseña se cerrarán todas las sesiones activas para
+            poder realizar los cambios, deberás iniciar sesión con tu nueva
+            contraseña.
+          </Alert>
           <br />
           {isPasswordPending ? (
             <Spinner />
