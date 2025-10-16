@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import Feature from "../componets/Feature";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useChangePassword from "./useChangePassword";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +20,8 @@ import {
   ChangePasswordForm,
   ChangePasswordSchema,
 } from "../../schemas/changePasswordSchema";
+import StrengthIndicator from "../componets/StrengthIndicator";
+import usePasswordStrength from "../componets/SessionForm/usePasswordStrength";
 
 type Props = {};
 
@@ -27,6 +29,12 @@ function PasswordChange({}: Props) {
   const [showMp, setShowMp] = useState(false);
   const [showNewMp, setShowNewMp] = useState(false);
   const [showConfirmMp, setShowConfirmMp] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordStrength, setPasswordStrength] = useState<number | undefined>(
+    undefined
+  );
+
+  const strengthMutation = usePasswordStrength();
 
   const {
     mutate: changePassword,
@@ -57,6 +65,23 @@ function PasswordChange({}: Props) {
       master_password: data.master_password,
     });
   };
+
+  useEffect(() => {
+    if (passwordInput.trim().length === 0) {
+      setPasswordStrength(undefined);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      strengthMutation.mutate(passwordInput, {
+        onSuccess: (data) => {
+          setPasswordStrength(data.strength_level);
+        },
+      });
+    }, 500);
+
+    return () => clearTimeout(timeout); // limpiar el timeout si se vuelve a escribir antes de los 500ms
+  }, [passwordInput]);
 
   return (
     <>
@@ -95,6 +120,9 @@ function PasswordChange({}: Props) {
                 type={showNewMp ? "text" : "password"}
                 pr="3rem"
                 {...registerPassword("new_password")}
+                onChange={(e) => {
+                  setPasswordInput(e.target.value);
+                }}
               />
               <InputRightElement width="4.5rem">
                 <IconButton
@@ -112,6 +140,11 @@ function PasswordChange({}: Props) {
                 {passwordErrors.new_password?.message}
               </Text>
             )}
+            {/*Analizador */}
+            <StrengthIndicator
+              isLoading={strengthMutation.isPending}
+              strength={passwordStrength}
+            />
           </FormControl>
           <FormControl>
             <br />
