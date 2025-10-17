@@ -10,6 +10,7 @@ import {
   Tbody,
   Td,
   Tr,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Feature from "../componets/Feature";
 import useFoldersStore from "../../states/FoldersStore";
@@ -17,19 +18,20 @@ import { SlOptionsVertical } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FolderItem } from "../../types";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
-import useDeleteFolder from "./useDeleteFolder";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import DeleteFolderConfirmation from "./DeleteFolderConfirmation";
 
 type Props = {};
 
 function FoldersTable({}: Props) {
   const { folders, refreshFolders } = useFoldersStore();
-  const { mutate } = useDeleteFolder();
+  const [folder_id, setFolder_id] = useState<number>(0);
+
+  const confirmationAlert = useDisclosure();
 
   function handleDelete(f: FolderItem) {
-    mutate({
-      folder_id: f.id,
-    });
+    setFolder_id(f.id);
+    confirmationAlert.onOpen();
   }
 
   function handleChange(f: FolderItem) {
@@ -42,6 +44,11 @@ function FoldersTable({}: Props) {
 
   return (
     <Box>
+      <DeleteFolderConfirmation
+        folder_id={folder_id}
+        onClose={confirmationAlert.onClose}
+        isOpen={confirmationAlert.isOpen}
+      />
       <Feature title="Carpetas">
         <TableContainer>
           <Table variant="unstyled" w="100%">
