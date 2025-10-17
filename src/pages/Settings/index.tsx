@@ -5,6 +5,7 @@ import NameChange from "./NameChange";
 import RequestEmailChange from "./RequestEmailChange";
 import TimeoutChange from "./TimeoutChange";
 import PasswordChange from "./PasswordChange";
+import FoldersTable from "./FoldersTable";
 
 type Props = {};
 
@@ -26,7 +27,8 @@ function Settings({}: Props) {
         {/*Cambio de contraseña */}
         <PasswordChange />
 
-        {/* */}
+        {/*Cambio de carpetas*/}
+        <FoldersTable />
       </Flex>
     </SettingsSideBar>
   );

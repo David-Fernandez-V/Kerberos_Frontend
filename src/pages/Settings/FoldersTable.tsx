@@ -1,0 +1,96 @@
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Tr,
+} from "@chakra-ui/react";
+import Feature from "../componets/Feature";
+import useFoldersStore from "../../states/FoldersStore";
+import { SlOptionsVertical } from "react-icons/sl";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FolderItem } from "../../types";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import useDeleteFolder from "./useDeleteFolder";
+import { useEffect } from "react";
+
+type Props = {};
+
+function FoldersTable({}: Props) {
+  const { folders, refreshFolders } = useFoldersStore();
+  const { mutate } = useDeleteFolder();
+
+  function handleDelete(f: FolderItem) {
+    mutate({
+      folder_id: f.id,
+    });
+  }
+
+  function handleChange(f: FolderItem) {
+    console.log(f);
+  }
+
+  useEffect(() => {
+    refreshFolders();
+  }, []);
+
+  return (
+    <Box>
+      <Feature title="Carpetas">
+        <TableContainer>
+          <Table variant="unstyled" w="100%">
+            <Tbody>
+              {folders?.map((f) => {
+                return (
+                  <Tr key={f.id} _hover={{ bg: "gray.200" }}>
+                    <Td>{f.name}</Td>
+                    <Td>
+                      {/*Menu de botón*/}
+                      <Menu>
+                        <MenuButton
+                          as={IconButton}
+                          aria-label="Options"
+                          icon={<SlOptionsVertical />}
+                          variant="outline"
+                          bg="purple.700"
+                          color="gray.50"
+                          _hover={{ bg: "purple.600" }}
+                          _active={{ bg: "purple.800" }}
+                        />
+                        <MenuList>
+                          <MenuItem
+                            _hover={{ bg: "gray.200" }}
+                            icon={<MdOutlineDriveFileRenameOutline />}
+                            onClick={() => handleChange(f)}
+                          >
+                            Cambiar nombre
+                          </MenuItem>
+                          <MenuItem
+                            color="red.600"
+                            _hover={{ bg: "gray.200" }}
+                            icon={<RiDeleteBin6Line />}
+                            onClick={() => handleDelete(f)}
+                          >
+                            Eliminar
+                          </MenuItem>
+                        </MenuList>
+                      </Menu>
+                    </Td>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Feature>
+    </Box>
+  );
+}
+
+export default FoldersTable;
