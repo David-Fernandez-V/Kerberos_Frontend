@@ -10,15 +10,15 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import Feature from "../componets/Feature";
+import Feature from "../../componets/Feature";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import {
   ChangeEmailForm,
   ChangeEmailSchema,
-} from "../../schemas/changeEmailSchema";
+} from "../../../schemas/changeEmailSchema";
 import useRequestChangeEmail from "./useRequestChangeEmail";
-import useSettings from "../../states/SettingsStore";
+import useSettings from "../../../states/SettingsStore";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
