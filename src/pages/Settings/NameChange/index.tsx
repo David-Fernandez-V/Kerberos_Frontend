@@ -1,14 +1,14 @@
 import { Button, FormControl, Input, Spinner, Text } from "@chakra-ui/react";
-import Feature from "../componets/Feature";
+import Feature from "../../componets/Feature";
 import useChangeName from "./useChangeName";
 import {
   ChangeNameForm,
   ChangeNameSchema,
-} from "../../schemas/changeNameSchema";
+} from "../../../schemas/changeNameSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import useSettings from "../../states/SettingsStore";
+import useSettings from "../../../states/SettingsStore";
 
 type Props = {};
 

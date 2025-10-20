@@ -12,11 +12,11 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import Feature from "../componets/Feature";
-import useFoldersStore from "../../states/FoldersStore";
+import Feature from "../../componets/Feature";
+import useFoldersStore from "../../../states/FoldersStore";
 import { SlOptionsVertical } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FolderItem } from "../../types";
+import { FolderItem } from "../../../types";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
 import DeleteFolderConfirmation from "./DeleteFolderConfirmation";

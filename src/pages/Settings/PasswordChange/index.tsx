@@ -12,7 +12,7 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import Feature from "../componets/Feature";
+import Feature from "../../componets/Feature";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import useChangePassword from "./useChangePassword";
@@ -21,9 +21,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ChangePasswordForm,
   ChangePasswordSchema,
-} from "../../schemas/changePasswordSchema";
-import StrengthIndicator from "../componets/StrengthIndicator";
-import usePasswordStrength from "../componets/SessionForm/usePasswordStrength";
+} from "../../../schemas/changePasswordSchema";
+import StrengthIndicator from "../../componets/StrengthIndicator";
+import usePasswordStrength from "../../componets/SessionForm/usePasswordStrength";
 
 type Props = {};
 
