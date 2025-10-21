@@ -20,22 +20,25 @@ import { FolderItem } from "../../../types";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
 import DeleteFolderConfirmation from "./DeleteFolderConfirmation";
+import FolderModification from "./FolderModification";
 
 type Props = {};
 
 function FoldersTable({}: Props) {
   const { folders, refreshFolders } = useFoldersStore();
-  const [folder_id, setFolder_id] = useState<number>(0);
+  const [folder, setFolder] = useState<FolderItem>({ id: 0, name: "" });
 
   const confirmationAlert = useDisclosure();
+  const modificationModal = useDisclosure();
 
   function handleDelete(f: FolderItem) {
-    setFolder_id(f.id);
+    setFolder(f);
     confirmationAlert.onOpen();
   }
 
   function handleChange(f: FolderItem) {
-    console.log(f);
+    setFolder(f);
+    modificationModal.onOpen();
   }
 
   useEffect(() => {
@@ -45,9 +48,14 @@ function FoldersTable({}: Props) {
   return (
     <Box>
       <DeleteFolderConfirmation
-        folder_id={folder_id}
+        folder_id={folder?.id}
         onClose={confirmationAlert.onClose}
         isOpen={confirmationAlert.isOpen}
+      />
+      <FolderModification
+        onClose={modificationModal.onClose}
+        isOpen={modificationModal.isOpen}
+        folder={folder}
       />
       <Feature title="Carpetas">
         <TableContainer>
