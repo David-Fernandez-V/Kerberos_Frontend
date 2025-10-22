@@ -21,7 +21,7 @@ function Settings({}: Props) {
         gap={4}
         direction="column"
         wrap="wrap"
-        maxW={{ base: "100%", md: "100%", lg: "50%" }}
+        maxW={{ base: "100%", md: "100%", lg: "65%" }}
       >
         {activeTab === "Mi cuenta" ? (
           <>
