@@ -36,12 +36,15 @@ import { FiChevronDown } from "react-icons/fi";
 import { BsSafe2 } from "react-icons/bs";
 
 import { IconType } from "react-icons";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 import { useAuthStore } from "../../states/AuthStore";
 
 import Kerberos from "../../icons/Kerberos";
 import useSettings from "../../states/SettingsStore";
+import { FaRegFolderOpen } from "react-icons/fa";
+import { MdAccountBox } from "react-icons/md";
+import useSettingsMenuStore from "../../states/SettingsMenu";
 
 interface LinkItemProps {
   name: string;
@@ -63,15 +66,31 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, isDrawer, ...rest }: SidebarProps) => {
-  const [activeTab, setActiveTab] = useState("");
   const navigate = useNavigate();
+  const { activeTab, setActiveTab } = useSettingsMenuStore();
 
   const LinkItems: Array<LinkItemProps & { onClick: () => void }> = [
+    {
+      name: "Mi cuenta",
+      icon: MdAccountBox,
+      onClick: () => {
+        setActiveTab("Mi cuenta");
+        onClose();
+      },
+    },
+    {
+      name: "Carpetas",
+      icon: FaRegFolderOpen,
+      onClick: () => {
+        setActiveTab("Carpetas");
+        onClose();
+      },
+    },
     {
       name: "Mis Bóvedas",
       icon: BsSafe2,
       onClick: () => {
-        setActiveTab("Mis Bóvedas");
+        //setActiveTab("Mis Bóvedas");
         onClose();
         navigate("/dashboard");
       },

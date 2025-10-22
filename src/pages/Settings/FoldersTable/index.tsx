@@ -57,7 +57,7 @@ function FoldersTable({}: Props) {
         isOpen={modificationModal.isOpen}
         folder={folder}
       />
-      <Feature title="Carpetas">
+      <Feature title="Configuración de Carpetas">
         <TableContainer>
           <Table variant="unstyled" w="100%">
             <Tbody>
