@@ -11,6 +11,7 @@ import {
   Td,
   Tr,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
 import Feature from "../../componets/Feature";
 import useFoldersStore from "../../../states/FoldersStore";
@@ -46,7 +47,7 @@ function FoldersTable({}: Props) {
   }, []);
 
   return (
-    <Box>
+    <Box w={{ base: "100%", md: "50%", lg: "60%" }}>
       <DeleteFolderConfirmation
         folder_id={folder?.id}
         onClose={confirmationAlert.onClose}
@@ -60,12 +61,14 @@ function FoldersTable({}: Props) {
       <Feature title="Configuración de Carpetas">
         <TableContainer>
           <Table variant="unstyled" w="100%">
-            <Tbody>
+            <Tbody fontSize={18}>
               {folders?.map((f) => {
                 return (
                   <Tr key={f.id} _hover={{ bg: "gray.200" }}>
-                    <Td>{f.name}</Td>
-                    <Td>
+                    <Td w="80%">
+                      <Text>{f.name}</Text>
+                    </Td>
+                    <Td w="20%">
                       {/*Menu de botón*/}
                       <Menu>
                         <MenuButton
