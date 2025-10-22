@@ -29,7 +29,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import { NavLink as RouterLink } from "react-router-dom";
+import { NavLink as RouterLink, useNavigate } from "react-router-dom";
 
 import { FiChevronDown } from "react-icons/fi";
 
@@ -38,6 +38,7 @@ import { MdPassword } from "react-icons/md";
 import { FaFileAlt } from "react-icons/fa";
 import { FaCreditCard } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa";
+import { IoSettingsSharp } from "react-icons/io5";
 
 import { IconType } from "react-icons";
 import { ReactNode } from "react";
@@ -74,6 +75,8 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, isDrawer, ...rest }: SidebarProps) => {
+  const navigate = useNavigate();
+
   const {
     setShowPasswords,
     setShowNotes,
@@ -118,6 +121,14 @@ const SidebarContent = ({ onClose, isDrawer, ...rest }: SidebarProps) => {
         setShowNotes();
         setActiveTab("Notas");
         onClose();
+      },
+    },
+    {
+      name: "Configuración",
+      icon: IoSettingsSharp,
+      onClick: () => {
+        onClose();
+        navigate("/settings");
       },
     },
   ];
