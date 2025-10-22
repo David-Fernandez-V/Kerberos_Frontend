@@ -27,6 +27,7 @@ import {
   MenuItem,
   MenuList,
   useBreakpointValue,
+  Divider,
 } from "@chakra-ui/react";
 
 import { NavLink as RouterLink, useNavigate } from "react-router-dom";
@@ -54,6 +55,7 @@ import CardForm from "../CardForm";
 import FolderSelect from "../FolderSelect";
 import Kerberos from "../../../icons/Kerberos";
 import useSettings from "../../../states/SettingsStore";
+import React from "react";
 
 interface LinkItemProps {
   name: string;
@@ -160,19 +162,24 @@ const SidebarContent = ({ onClose, isDrawer, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((button) => (
-        <NavItem
-          key={button.name}
-          icon={button.icon}
-          onClick={button.onClick}
-          bg={button.name === activeTab ? "teal.500" : "purple.700"}
-          _hover={
-            button.name === activeTab
-              ? { bg: "teal.500" }
-              : { bg: "purple.600" }
-          }
-        >
-          {button.name}
-        </NavItem>
+        <React.Fragment key={button.name}>
+          {button.name === "Configuración" && (
+            <Divider borderColor="white" my={2} borderWidth="1.5px" />
+          )}
+          <NavItem
+            key={button.name}
+            icon={button.icon}
+            onClick={button.onClick}
+            bg={button.name === activeTab ? "teal.500" : "purple.700"}
+            _hover={
+              button.name === activeTab
+                ? { bg: "teal.500" }
+                : { bg: "purple.600" }
+            }
+          >
+            {button.name}
+          </NavItem>
+        </React.Fragment>
       ))}
     </Box>
   );
