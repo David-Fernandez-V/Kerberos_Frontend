@@ -170,7 +170,7 @@ export default function RegistrationForm() {
                 <Stack spacing={4}>
                   {/*Correo electrónico*/}
                   <FormControl id="email">
-                    <FormLabel>Correo elctrónico</FormLabel>
+                    <FormLabel>Correo electrónico</FormLabel>
                     <Input type="text" {...register("email")} />
                     {errors?.email?.message && (
                       <Text color={"red.600"}>{errors?.email?.message}</Text>
