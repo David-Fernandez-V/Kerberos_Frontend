@@ -7,7 +7,7 @@ interface GeneratedResponse {
   passphrase: string;
 }
 
-const API_URL = import.meta.env.VITE_AI_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 const url = `${API_URL}/passwords/generate_passphrase`;
 
 export default function useGeneratePassphrase() {
