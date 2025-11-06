@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_AI_URL;
 const url = `${API_URL}/passwords/analyze`;
 
 interface StrengthResponse {
