@@ -66,6 +66,7 @@ function PasswordModification({
     formState: { errors },
     setError,
     reset,
+    setValue,
   } = useForm<passwordForm>({
     resolver: zodResolver(passwordSchema),
   });
@@ -157,6 +158,12 @@ function PasswordModification({
       password_id: password ? password.id : -1,
       master_password: masterPwd ? masterPwd : "",
     };
+
+    var strength = 0;
+    passwordStrength === undefined
+      ? (strength = 0)
+      : (strength = passwordStrength);
+    setValue("strength", strength);
 
     mutation.mutate(
       { new_data: data, password_request: request },
