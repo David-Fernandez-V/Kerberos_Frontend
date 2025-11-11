@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import usePasswordsStore from "../../states/PasswordsStore";
 import useNotesStore from "../../states/NotesStore";
 import useCardsStore from "../../states/CardsStore";
+import { useToast } from "@chakra-ui/react";
 
 export function useDashboardWs(currentFolder: number) {
   const BASE_WS_URL = import.meta.env.VITE_WS_URL;
@@ -13,6 +14,8 @@ export function useDashboardWs(currentFolder: number) {
   const {refreshPasswords} = usePasswordsStore();
   const { refreshNotes } = useNotesStore();
   const { refreshCards } = useCardsStore();
+
+  const toast = useToast()
 
    // actualizar folderRef cada vez que cambie
   useEffect(() => {
@@ -31,13 +34,55 @@ export function useDashboardWs(currentFolder: number) {
       try {
         const message = JSON.parse(event.data);
         switch (message.type) {
-          case "note":
+          case "create note":
             refreshNotes(folderRef.current);
             break;
-          case "password":
-            refreshPasswords(folderRef.current);
+          case "modify note":
+            refreshNotes(folderRef.current);
             break;
-          case "card":
+          case "delete_note":
+            refreshNotes(folderRef.current);
+            break;
+          case "create_password":
+            refreshPasswords(folderRef.current);
+            toast({
+              title: "Nueva sesión creada",
+              description: "Los datos se guardaron correctamente.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+              position: "bottom-right",
+            });
+            break;
+          case "modify_password":
+            refreshNotes(folderRef.current);
+            toast({
+              title: "Sesión modificada",
+              description:"Los datos se modificaron correctamente.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+              position: "bottom-right",
+            });
+            break;
+          case "delete_password":
+            refreshNotes(folderRef.current);
+            toast({
+              title: "Eliminado",
+              description: "La sesión ha sido eliminada con éxito",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+              position: "bottom-right",
+            });
+            break;
+          case "create_card":
+            refreshCards(folderRef.current);
+            break;
+          case "modify_card":
+            refreshCards(folderRef.current);
+            break;
+          case "delete_card":
             refreshCards(folderRef.current);
             break;
           default:

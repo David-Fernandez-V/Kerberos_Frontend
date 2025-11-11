@@ -22,17 +22,6 @@ export default function useCreatePassword() {
 
       return response.data;
     },
-    onSuccess: (response) => {
-      toast({
-          title: "Nueva sesión creada",
-          description:
-            response.confirmation || "Los datos se guardaron correctamente.",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-          position: "bottom-right",
-        });
-    },
     onError: (error: any) => {
       toast({
         title: "Error",

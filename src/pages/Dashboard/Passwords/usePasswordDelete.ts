@@ -28,16 +28,6 @@ export default function useDeletePassword() {
       );
       return response.data;
     },
-    onSuccess: () => {
-      toast({
-          title: "Completado",
-          description: "La sesión ha sido eliminada con éxito",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "bottom-right",
-        });
-    },
     onError: (error: any) => {
       toast({
         title: "Error",

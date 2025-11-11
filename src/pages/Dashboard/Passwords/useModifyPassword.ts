@@ -36,17 +36,6 @@ export default function useModifyPassword() {
 
       return response.data;
     },
-    onSuccess: (response) => {
-      toast({
-        title: "Sesión modificada",
-        description:
-          response.confirmation || "Los datos se modificaron correctamente.",
-        status: "success",
-        duration: 4000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-    },
     onError: (error: any) => {
       toast({
         title: "Error",
