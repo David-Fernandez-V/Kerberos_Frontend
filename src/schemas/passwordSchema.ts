@@ -34,6 +34,8 @@ export const passwordSchema = z.object({
         .boolean()
         .optional()
     ,
+    strength: z
+        .number()
 })
 
 export type passwordForm = z.infer<typeof passwordSchema>

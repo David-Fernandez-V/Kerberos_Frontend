@@ -109,6 +109,12 @@ function SessionForm({ isOpen, onClose }: Props) {
   }, [generatedPasword]);
 
   const onSubmit = (data: passwordForm) => {
+    var strength = 0;
+    passwordStrength === undefined
+      ? (strength = 0)
+      : (strength = passwordStrength);
+    setValue("strength", strength);
+
     mutation.mutate(data, {
       onSuccess: async () => {
         onClose();
