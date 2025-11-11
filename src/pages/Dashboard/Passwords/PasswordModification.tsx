@@ -190,8 +190,6 @@ function PasswordModification({
 
   return (
     <>
-      <PasswordGenerator isOpen={MyModal.isOpen} onClose={MyModal.onClose} />
-
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -204,6 +202,10 @@ function PasswordModification({
           <ModalCloseButton />
           <Divider />
           <ModalBody>
+            <PasswordGenerator
+              isOpen={MyModal.isOpen}
+              onClose={MyModal.onClose}
+            />
             <form
               id="PasswordModification"
               onSubmit={handleSubmit(onSubmit)}

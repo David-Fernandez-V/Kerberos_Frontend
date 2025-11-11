@@ -136,8 +136,6 @@ function SessionForm({ isOpen, onClose }: Props) {
 
   return (
     <>
-      <PasswordGenerator isOpen={MyModal.isOpen} onClose={MyModal.onClose} />
-
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -150,6 +148,10 @@ function SessionForm({ isOpen, onClose }: Props) {
           <ModalCloseButton />
           <Divider />
           <ModalBody>
+            <PasswordGenerator
+              isOpen={MyModal.isOpen}
+              onClose={MyModal.onClose}
+            />
             <form
               id="passwordForm"
               onSubmit={handleSubmit(onSubmit)}
