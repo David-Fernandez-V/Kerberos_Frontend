@@ -34,10 +34,10 @@ export function useDashboardWs(currentFolder: number) {
       try {
         const message = JSON.parse(event.data);
         switch (message.type) {
-          case "create note":
+          case "create_note":
             refreshNotes(folderRef.current);
             break;
-          case "modify note":
+          case "modify_note":
             refreshNotes(folderRef.current);
             break;
           case "delete_note":
@@ -55,7 +55,7 @@ export function useDashboardWs(currentFolder: number) {
             });
             break;
           case "modify_password":
-            refreshNotes(folderRef.current);
+            refreshPasswords(folderRef.current);
             toast({
               title: "Sesión modificada",
               description:"Los datos se modificaron correctamente.",
@@ -66,7 +66,7 @@ export function useDashboardWs(currentFolder: number) {
             });
             break;
           case "delete_password":
-            refreshNotes(folderRef.current);
+            refreshPasswords(folderRef.current);
             toast({
               title: "Eliminado",
               description: "La sesión ha sido eliminada con éxito",
