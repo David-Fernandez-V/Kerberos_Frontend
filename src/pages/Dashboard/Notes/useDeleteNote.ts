@@ -28,16 +28,6 @@ export default function useNoteDelete() {
       );
       return response.data;
     },
-    onSuccess: () => {
-      toast({
-          title: "Completado",
-          description: "La nota ha sido eliminada con éxito",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "bottom-right",
-        });
-    },
     onError: (error: any) => {
       toast({
         title: "Error",

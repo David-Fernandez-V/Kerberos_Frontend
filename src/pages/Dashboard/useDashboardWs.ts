@@ -36,12 +36,36 @@ export function useDashboardWs(currentFolder: number) {
         switch (message.type) {
           case "create_note":
             refreshNotes(folderRef.current);
+            toast({
+              title: "Nueva nota creada",
+              description:"Los datos se guardaron correctamente.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+              position: "bottom-right",
+            });
             break;
           case "modify_note":
             refreshNotes(folderRef.current);
+            toast({
+              title: "Nota modificada",
+              description: "Los datos se modificaron correctamente.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+              position: "bottom-right",
+            });
             break;
           case "delete_note":
             refreshNotes(folderRef.current);
+            toast({
+              title: "Eliminado",
+              description: "La nota ha sido eliminada con éxito",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+              position: "bottom-right",
+            });
             break;
           case "create_password":
             refreshPasswords(folderRef.current);

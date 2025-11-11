@@ -36,17 +36,6 @@ export default function useModifyNote() {
 
       return response.data;
     },
-    onSuccess: (response) => {
-      toast({
-        title: "Nota modificada",
-        description:
-          response.confirmation || "Los datos se modificaron correctamente.",
-        status: "success",
-        duration: 4000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-    },
     onError: (error: any) => {
       toast({
         title: "Error",
