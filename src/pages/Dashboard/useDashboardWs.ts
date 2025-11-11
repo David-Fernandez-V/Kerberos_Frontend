@@ -102,12 +102,36 @@ export function useDashboardWs(currentFolder: number) {
             break;
           case "create_card":
             refreshCards(folderRef.current);
+            toast({
+              title: "Nueva tarjeta creada",
+              description: "Los datos se guardaron correctamente.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+              position: "bottom-right",
+            });
             break;
           case "modify_card":
             refreshCards(folderRef.current);
+            toast({
+              title: "Tarjeta modificada",
+              description: "Los datos se modificaron correctamente.",
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+              position: "bottom-right",
+            });
             break;
           case "delete_card":
             refreshCards(folderRef.current);
+            toast({
+              title: "Eliminado",
+              description: "La tarjeta ha sido eliminada con éxito",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+              position: "bottom-right",
+            });
             break;
           default:
             console.log("Evento desconocido:", message);
